@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Authorization","Configuration for authorization of requests"]]});

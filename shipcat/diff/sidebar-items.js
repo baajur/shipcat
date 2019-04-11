@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["template_vs_git","Fast local git compare of shipcat template"],["template_vs_kubectl","Diff using template kubectl diff"],["values_vs_git","Fast local git compare of the crd"],["values_vs_kubectl","Diff values using kubectl diff"]]});

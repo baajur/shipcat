@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BaseManifest","Subset of a service manifest without any region-level defaults/overrides."]]});

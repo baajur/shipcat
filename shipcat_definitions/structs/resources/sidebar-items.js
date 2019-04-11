@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_memory",""]],"struct":[["ResourceLimit","Kubernetes resource limits"],["ResourceRequest","Kubernetes resource requests"],["Resources","Kubernetes resources"]]});

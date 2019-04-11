@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["all",""],["available",""],["load_manifest",""],["load_metadata",""]],"struct":[["SimpleManifest","Simplified Manifest for a specific region (no templating/config files loaded)."]]});

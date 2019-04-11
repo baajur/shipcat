@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `loggerv` crate."><meta name="keywords" content="rust, rustlang, rust-lang, loggerv"><title>loggerv - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Crate loggerv</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all loggerv's items</p></a><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'loggerv', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/loggerv/lib.rs.html#1-921' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>loggerv</a></span></h1><div class='docblock'><p>A simple <code>io::stdout</code> and <code>io::stderr</code> writing <code>Logger</code> implementation from the
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `loggerv` crate."><meta name="keywords" content="rust, rustlang, rust-lang, loggerv"><title>loggerv - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Crate loggerv</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all loggerv's items</p></a><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'loggerv', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/loggerv/lib.rs.html#1-921' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>loggerv</a></span></h1><div class='docblock'><p>A simple <code>io::stdout</code> and <code>io::stderr</code> writing <code>Logger</code> implementation from the
 <code>log</code> crate, using the <code>ansi_term</code> crate for colors and configured at runtime via a verbosity
 or at compile time with simple function calls. Designed for simple Command Line Interfaces
 (CLIs).</p>
@@ -14,7 +14,7 @@ module path and the separator by default.</p>
 <p>The standard example with <a href="https://crates.io/crates/clap">clap</a> as the arg parser using the
 default configuration.</p>
 
-<pre class="rust rust-example-rendered">
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">log</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">clap</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">loggerv</span>;
@@ -36,13 +36,13 @@ default configuration.</p>
     <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;This is optionally printed to stdout&quot;</span>);  <span class="comment">// for ./app -v or higher</span>
     <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;This is optionally printed to stdout&quot;</span>); <span class="comment">// for ./app -vv or higher</span>
     <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;This is optionally printed to stdout&quot;</span>); <span class="comment">// for ./app -vvv</span>
-}</pre>
+}</pre></div>
 <p>But obviously use whatever argument parsing methods you prefer.</p>
 <h2 id="example-1" class="section-header"><a href="#example-1">Example</a></h2>
 <p>For a compile time switch, all you really need is <code>log</code> (for the macros) and <code>loggerv</code> for how
 to print what's being sent to the macros with the default configuration.</p>
 
-<pre class="rust rust-example-rendered">
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">log</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">loggerv</span>;
 
@@ -52,12 +52,12 @@ to print what's being sent to the macros with the default configuration.</p>
     <span class="ident">loggerv</span>::<span class="ident">init_with_level</span>(<span class="ident">Level</span>::<span class="ident">Info</span>).<span class="ident">unwrap</span>();
     <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;This is a debug {}&quot;</span>, <span class="string">&quot;message&quot;</span>); <span class="comment">// Not printed to stdout</span>
     <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;This is printed by default&quot;</span>);    <span class="comment">// Printed to stderr</span>
-}</pre>
+}</pre></div>
 <h2 id="example-2" class="section-header"><a href="#example-2">Example</a></h2>
 <p>If you don't really care at all you could just use the plain <code>init_quiet</code> function to only show
 warnings and errors with the default configuration:</p>
 
-<pre class="rust rust-example-rendered">
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">log</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">loggerv</span>;
 
@@ -65,11 +65,11 @@ warnings and errors with the default configuration:</p>
     <span class="ident">loggerv</span>::<span class="ident">init_quiet</span>().<span class="ident">unwrap</span>();
     <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;Hidden&quot;</span>);
     <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;This is printed by default&quot;</span>);
-}</pre>
+}</pre></div>
 <h2 id="example-3" class="section-header"><a href="#example-3">Example</a></h2>
 <p>If you want to configure the output, the Builder pattern API can be used.</p>
 
-<pre class="rust rust-example-rendered">
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">log</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">clap</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">loggerv</span>;
@@ -99,133 +99,14 @@ warnings and errors with the default configuration:</p>
     <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;This is optionally printed to stdout&quot;</span>);  <span class="comment">// for ./app -v or higher</span>
     <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;This is optionally printed to stdout&quot;</span>); <span class="comment">// for ./app -vv or higher</span>
     <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;This is optionally printed to stdout&quot;</span>); <span class="comment">// for ./app -vvv</span>
-}</pre>
+}</pre></div>
 <p>See the <a href="https://docs.rs/log/0.4.1/log/">documentation</a> for the
 <a href="https://crates.io/crates/log">log</a> crate for more information about its API.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Logger.html"
-                                  title='struct loggerv::Logger'>Logger</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class="enum" href="enum.Output.html"
-                                  title='enum loggerv::Output'>Output</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_COLORS.html"
-                                  title='constant loggerv::DEFAULT_COLORS'>DEFAULT_COLORS</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_DEBUG_COLOR.html"
-                                  title='constant loggerv::DEFAULT_DEBUG_COLOR'>DEFAULT_DEBUG_COLOR</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_ERROR_COLOR.html"
-                                  title='constant loggerv::DEFAULT_ERROR_COLOR'>DEFAULT_ERROR_COLOR</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_INCLUDE_LEVEL.html"
-                                  title='constant loggerv::DEFAULT_INCLUDE_LEVEL'>DEFAULT_INCLUDE_LEVEL</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_INCLUDE_LINE_NUMBERS.html"
-                                  title='constant loggerv::DEFAULT_INCLUDE_LINE_NUMBERS'>DEFAULT_INCLUDE_LINE_NUMBERS</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_INCLUDE_MODULE_PATH.html"
-                                  title='constant loggerv::DEFAULT_INCLUDE_MODULE_PATH'>DEFAULT_INCLUDE_MODULE_PATH</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_INFO_COLOR.html"
-                                  title='constant loggerv::DEFAULT_INFO_COLOR'>DEFAULT_INFO_COLOR</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_LEVEL.html"
-                                  title='constant loggerv::DEFAULT_LEVEL'>DEFAULT_LEVEL</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_OFFSET.html"
-                                  title='constant loggerv::DEFAULT_OFFSET'>DEFAULT_OFFSET</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_SEPARATOR.html"
-                                  title='constant loggerv::DEFAULT_SEPARATOR'>DEFAULT_SEPARATOR</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_TRACE_COLOR.html"
-                                  title='constant loggerv::DEFAULT_TRACE_COLOR'>DEFAULT_TRACE_COLOR</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="constant" href="constant.DEFAULT_WARN_COLOR.html"
-                                  title='constant loggerv::DEFAULT_WARN_COLOR'>DEFAULT_WARN_COLOR</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class="fn" href="fn.init_quiet.html"
-                                  title='fn loggerv::init_quiet'>init_quiet</a></td>
-                           <td class='docblock-short'>
-                                <p>Initializes loggerv with only warnings and errors.</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="fn" href="fn.init_with_level.html"
-                                  title='fn loggerv::init_with_level'>init_with_level</a></td>
-                           <td class='docblock-short'>
-                                <p>Initialize loggerv with a maximal log level.</p>
-
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="fn" href="fn.init_with_verbosity.html"
-                                  title='fn loggerv::init_with_verbosity'>init_with_verbosity</a></td>
-                           <td class='docblock-short'>
-                                <p>Initialize loggerv with a verbosity level.</p>
-
-                           </td>
-                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "loggerv";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
+<table><tr class='module-item'><td><a class="struct" href="struct.Logger.html" title='loggerv::Logger struct'>Logger</a></td><td class='docblock-short'></td></tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table><tr class='module-item'><td><a class="enum" href="enum.Output.html" title='loggerv::Output enum'>Output</a></td><td class='docblock-short'></td></tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_COLORS.html" title='loggerv::DEFAULT_COLORS constant'>DEFAULT_COLORS</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_DEBUG_COLOR.html" title='loggerv::DEFAULT_DEBUG_COLOR constant'>DEFAULT_DEBUG_COLOR</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_ERROR_COLOR.html" title='loggerv::DEFAULT_ERROR_COLOR constant'>DEFAULT_ERROR_COLOR</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_INCLUDE_LEVEL.html" title='loggerv::DEFAULT_INCLUDE_LEVEL constant'>DEFAULT_INCLUDE_LEVEL</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_INCLUDE_LINE_NUMBERS.html" title='loggerv::DEFAULT_INCLUDE_LINE_NUMBERS constant'>DEFAULT_INCLUDE_LINE_NUMBERS</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_INCLUDE_MODULE_PATH.html" title='loggerv::DEFAULT_INCLUDE_MODULE_PATH constant'>DEFAULT_INCLUDE_MODULE_PATH</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_INFO_COLOR.html" title='loggerv::DEFAULT_INFO_COLOR constant'>DEFAULT_INFO_COLOR</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_LEVEL.html" title='loggerv::DEFAULT_LEVEL constant'>DEFAULT_LEVEL</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_OFFSET.html" title='loggerv::DEFAULT_OFFSET constant'>DEFAULT_OFFSET</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_SEPARATOR.html" title='loggerv::DEFAULT_SEPARATOR constant'>DEFAULT_SEPARATOR</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_TRACE_COLOR.html" title='loggerv::DEFAULT_TRACE_COLOR constant'>DEFAULT_TRACE_COLOR</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.DEFAULT_WARN_COLOR.html" title='loggerv::DEFAULT_WARN_COLOR constant'>DEFAULT_WARN_COLOR</a></td><td class='docblock-short'></td></tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table><tr class='module-item'><td><a class="fn" href="fn.init_quiet.html" title='loggerv::init_quiet fn'>init_quiet</a></td><td class='docblock-short'><p>Initializes loggerv with only warnings and errors.</p>
+</td></tr><tr class='module-item'><td><a class="fn" href="fn.init_with_level.html" title='loggerv::init_with_level fn'>init_with_level</a></td><td class='docblock-short'><p>Initialize loggerv with a maximal log level.</p>
+</td></tr><tr class='module-item'><td><a class="fn" href="fn.init_with_verbosity.html" title='loggerv::init_with_verbosity fn'>init_with_verbosity</a></td><td class='docblock-short'><p>Initialize loggerv with a verbosity level.</p>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "loggerv";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>
