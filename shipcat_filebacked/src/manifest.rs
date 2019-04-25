@@ -11,7 +11,8 @@ use shipcat_definitions::{Config, Manifest, BaseManifest, Region, Result};
 use shipcat_definitions::deserializers::{RelaxedString};
 
 use super::{SimpleManifest};
-use super::kong::{KongSource};
+use super::kong::{KongSource, KongBuildParams};
+use super::util::{Build};
 
 /// Main manifest, deserialized from `shipcat.yml`.
 #[derive(Deserialize, Default)]
@@ -85,9 +86,9 @@ pub struct ManifestDefaults {
     pub kong: KongSource,
 }
 
-impl ManifestSource {
+impl Build<Manifest, (Config, Region)> for ManifestSource {
     /// Build a Manifest from a ManifestSource, validating and mutating properties.
-    pub fn build(self, conf: &Config, region: &Region) -> Result<Manifest> {
+    fn build(self, (conf, region): &(Config, Region)) -> Result<Manifest> {
         let simple = self.build_simple(conf, region)?;
         let name = simple.base.name;
         let data_handling = self.build_data_handling();
@@ -160,7 +161,9 @@ impl ManifestSource {
             kind: Default::default(),
         })
     }
+}
 
+impl ManifestSource {
     pub fn build_simple(&self, conf: &Config, region: &Region) -> Result<SimpleManifest> {
         let base = self.build_base(conf)?;
 
@@ -178,8 +181,11 @@ impl ManifestSource {
 
             version: overrides.version,
             kong: {
-                let hosts = overrides.hosts;
-                defaults.kong.build(&base.name, region, hosts)?
+                defaults.kong.build(&KongBuildParams {
+                    service: base.name.to_string(),
+                    region: region.clone(),
+                    hosts: overrides.hosts,
+                })?
             },
 
             base,

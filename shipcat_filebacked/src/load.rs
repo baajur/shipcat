@@ -10,11 +10,12 @@ use walkdir::WalkDir;
 use crate::manifest::{ManifestDefaults, ManifestOverrides, ManifestSource};
 use super::{SimpleManifest, BaseManifest};
 use super::authorization::{AuthorizationSource};
+use super::util::{Build};
 
 impl ManifestSource {
     pub fn load_manifest(service: &str, conf: &Config, reg: &Region) -> Result<Manifest> {
         let manifest = ManifestSource::load_merged(service, conf, reg)?;
-        manifest.build(&conf, &reg)
+        manifest.build(&(conf.clone(), reg.clone()))
     }
 
     pub fn load_metadata(service: &str, conf: &Config, reg: &Region) -> Result<SimpleManifest> {

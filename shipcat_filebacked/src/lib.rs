@@ -14,8 +14,8 @@ mod simple;
 pub use crate::simple::{SimpleManifest};
 mod kong;
 
-// Utilities
 mod load;
+mod util;
 
 use manifest::ManifestSource;
 use shipcat_definitions::{Config, Manifest, Region, Result, BaseManifest};
