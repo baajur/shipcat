@@ -118,12 +118,7 @@ impl ManifestSource {
             language: overrides.language,
             resources: overrides.resources,
             replicaCount: defaults.replica_count,
-            env: EnvVars {
-                plain: defaults.env.iter()
-                    .map(|(k, v)| (k.to_string(), v.to_string()))
-                    .collect(),
-                secrets: Default::default(),
-            },
+            env: EnvVars::new(defaults.env),
             secretFiles: overrides.secret_files,
             configs: configs,
             vault: overrides.vault,

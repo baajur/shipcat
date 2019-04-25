@@ -48,8 +48,16 @@ pub struct EnvVars {
     pub secrets: BTreeSet<String>,
 }
 
-
 impl EnvVars {
+    pub fn new<T: ToString>(env: BTreeMap<String, T>) -> Self {
+        EnvVars {
+            plain: env.iter()
+                .map(|(k, v)| (k.to_string(), v.to_string()))
+                .collect(),
+            secrets: Default::default(),
+        }
+    }
+
     fn is_vault_secret(value: &String) -> bool {
         value == "IN_VAULT"
     }
