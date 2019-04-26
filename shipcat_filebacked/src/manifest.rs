@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 
 use shipcat_definitions::structs::{
     autoscaling::AutoScaling, security::DataHandling, tolerations::Tolerations, volume::Volume,
-    ConfigMap, CronJob, Dependency, EnvVars, Gate, HealthCheck, HostAlias, InitContainer, Job,
+    ConfigMap, CronJob, Dependency, Gate, HealthCheck, HostAlias, InitContainer, Job,
     Kafka, LifeCycle, Metadata, PersistentVolume, Port, Probe, Rbac, Resources,
     RollingUpdate, Sidecar, VaultOpts, VolumeMount, Worker,
 };
@@ -11,6 +11,7 @@ use shipcat_definitions::{Config, Manifest, BaseManifest, Region, Result};
 use shipcat_definitions::deserializers::{RelaxedString};
 
 use super::{SimpleManifest};
+use super::container::EnvVarsSource;
 use super::kong::{KongSource, KongBuildParams};
 use super::util::{Build};
 
@@ -82,7 +83,7 @@ pub struct ManifestDefaults {
     pub image_prefix: Option<String>,
     pub chart: Option<String>,
     pub replica_count: Option<u32>,
-    pub env: BTreeMap<String, RelaxedString>,
+    pub env: EnvVarsSource,
     pub kong: KongSource,
 }
 
@@ -119,7 +120,7 @@ impl Build<Manifest, (Config, Region)> for ManifestSource {
             language: overrides.language,
             resources: overrides.resources,
             replicaCount: defaults.replica_count,
-            env: EnvVars::new(defaults.env),
+            env: defaults.env.build(&())?,
             secretFiles: overrides.secret_files,
             configs: configs,
             vault: overrides.vault,
@@ -332,9 +333,9 @@ mod tests {
             replica_count: Option::Some(1),
             env: {
                 let mut env = BTreeMap::new();
-                env.insert("a".into(), "default-a".into());
-                env.insert("b".into(), "default-b".into());
-                env
+                env.insert("a", "default-a");
+                env.insert("b", "default-b");
+                env.into()
             },
             kong: Default::default(),
         };
@@ -344,9 +345,9 @@ mod tests {
             replica_count: None,
             env: {
                 let mut env = BTreeMap::new();
-                env.insert("b".into(), "override-b".into());
-                env.insert("c".into(), "override-c".into());
-                env
+                env.insert("b", "override-b");
+                env.insert("c", "override-c");
+                env.into()
             },
             kong: Default::default(),
         };
@@ -356,9 +357,9 @@ mod tests {
         assert_eq!(merged.replica_count, Option::Some(1));
 
         let mut expected_env = BTreeMap::new();
-        expected_env.insert("a".into(), "default-a".into());
-        expected_env.insert("b".into(), "override-b".into());
-        expected_env.insert("c".into(), "override-c".into());
-        assert_eq!(merged.env, expected_env);
+        expected_env.insert("a", "default-a");
+        expected_env.insert("b", "override-b");
+        expected_env.insert("c", "override-c");
+        assert_eq!(merged.env, expected_env.into());
     }
 }

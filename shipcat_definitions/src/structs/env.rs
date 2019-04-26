@@ -49,11 +49,9 @@ pub struct EnvVars {
 }
 
 impl EnvVars {
-    pub fn new<T: ToString>(env: BTreeMap<String, T>) -> Self {
+    pub fn new(env: BTreeMap<String, String>) -> Self {
         EnvVars {
-            plain: env.iter()
-                .map(|(k, v)| (k.to_string(), v.to_string()))
-                .collect(),
+            plain: env,
             secrets: Default::default(),
         }
     }

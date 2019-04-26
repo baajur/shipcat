@@ -117,9 +117,7 @@ impl ManifestDefaults {
 
     fn from_region(reg: &Region) -> Result<Self> {
         let mut defs = Self::default();
-        defs.env = reg.env.iter()
-                .map(|(k, v)| (k.to_string(), v.into()))
-                .collect();
+        defs.env = reg.env.clone().into();
         if let Some(authz) = reg.defaults.kong.authorization.clone() {
             defs.kong.authorization = AuthorizationSource {
                 enabled: None,
