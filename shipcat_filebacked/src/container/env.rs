@@ -3,9 +3,8 @@ use std::collections::BTreeMap;
 
 use shipcat_definitions::Result;
 use shipcat_definitions::structs::EnvVars;
-use shipcat_definitions::deserializers::{RelaxedString};
 
-use crate::util::{Build};
+use crate::util::{Build, RelaxedString};
 
 #[derive(Deserialize, Clone, Default, Debug, PartialEq)]
 pub struct EnvVarsSource(BTreeMap<String, Option<RelaxedString>>);

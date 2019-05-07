@@ -8,12 +8,11 @@ use shipcat_definitions::structs::{
     RollingUpdate, VaultOpts, VolumeMount,
 };
 use shipcat_definitions::{Config, Manifest, BaseManifest, Region, Result};
-use shipcat_definitions::deserializers::{RelaxedString};
 
 use super::{SimpleManifest};
 use super::container::{ContainerBuildParams, CronJobSource, JobSource, SidecarSource, InitContainerSource, EnvVarsSource, WorkerSource, ResourceRequirementsSource, ImageNameSource, ImageTagSource};
 use super::kong::{KongSource, KongBuildParams};
-use super::util::{Build, Require};
+use super::util::{Build, Require, RelaxedString};
 
 /// Main manifest, deserialized from `shipcat.yml`.
 #[derive(Deserialize, Default)]

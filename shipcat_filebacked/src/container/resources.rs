@@ -1,8 +1,7 @@
 use shipcat_definitions::{Result};
 use shipcat_definitions::structs::resources::{Resources, ResourceRequest};
-use shipcat_definitions::deserializers::{RelaxedString};
 
-use crate::util::{Build, Require};
+use crate::util::{Build, Require, RelaxedString};
 
 #[derive(Deserialize, Clone, Default)]
 #[serde(default, rename_all = "camelCase", deny_unknown_fields)]

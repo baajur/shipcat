@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 use shipcat_definitions::{Result};
-use shipcat_definitions::deserializers::RelaxedString;
+use super::RelaxedString;
 
 pub trait Build<T, P> {
     fn build(self, params: &P) -> Result<T>;
