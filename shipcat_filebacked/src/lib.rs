@@ -6,6 +6,8 @@ extern crate merge_derive;
 extern crate log;
 #[macro_use]
 extern crate error_chain;
+#[cfg_attr(test, macro_use)]
+extern crate maplit;
 
 // Structs
 mod authorization;
