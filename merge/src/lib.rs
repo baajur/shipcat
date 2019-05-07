@@ -14,15 +14,16 @@ impl<T> Merge for Option<T> {
     }
 }
 
-// TODO: Merge values if defined in both?
-impl<K: std::hash::Hash + Ord, V> Merge for BTreeMap<K, V> {
+impl<K: std::hash::Hash + Ord, V: Merge> Merge for BTreeMap<K, V> {
     fn merge(self, other: Self) -> Self {
-        let mut merged = BTreeMap::new();
-        for (k, v) in self.into_iter() {
-            merged.insert(k, v);
-        }
+        let mut merged = self;
         for (k, v) in other.into_iter() {
-            merged.insert(k, v);
+            let vmerged = if let Some(vself) = merged.remove(&k) {
+                vself.merge(v)
+            } else {
+                v
+            };
+            merged.insert(k, vmerged);
         }
         merged
     }
@@ -48,18 +49,22 @@ mod tests {
     #[test]
     fn btree_map() {
         let mut a = BTreeMap::new();
-        a.insert("a", "a-value");
-        a.insert("b", "a-value");
+        a.insert("a", Some("a-value"));
+        a.insert("b", Some("a-value"));
+        a.insert("c", None);
 
         let mut b = BTreeMap::new();
-        b.insert("a", "b-value");
-        b.insert("c", "b-value");
+        b.insert("a", Some("b-value"));
+        b.insert("b", None);
+        b.insert("c", Some("b-value"));
+        b.insert("d", Some("b-value"));
 
         let merged = a.merge(b);
         let mut expected = BTreeMap::new();
-        expected.insert("a", "b-value");
-        expected.insert("b", "a-value");
-        expected.insert("c", "b-value");
+        expected.insert("a", Some("b-value"));
+        expected.insert("b", Some("a-value"));
+        expected.insert("c", Some("b-value"));
+        expected.insert("d", Some("b-value"));
         assert_eq!(merged, expected);
     }
 }
