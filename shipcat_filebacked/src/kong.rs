@@ -37,7 +37,7 @@ pub struct KongSource {
     pub upstream_connect_timeout: Option<u32>,
     pub upstream_send_timeout: Option<u32>,
     pub upstream_read_timeout: Option<u32>,
-    pub add_headers: BTreeMap<String, String>,
+    pub add_headers: BTreeMap<String, Option<String>>,
 
     pub name: Option<String>,
 }
@@ -92,7 +92,7 @@ impl Build<Option<Kong>, KongBuildParams> for KongSource {
             upstream_connect_timeout: self.upstream_connect_timeout,
             upstream_send_timeout: self.upstream_send_timeout,
             upstream_read_timeout: self.upstream_read_timeout,
-            add_headers: self.add_headers,
+            add_headers: self.add_headers.build(&())?,
             // Legacy authorization
             auth,
             cookie_auth: self.cookie_auth.unwrap_or_default(),

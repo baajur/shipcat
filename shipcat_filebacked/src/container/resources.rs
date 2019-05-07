@@ -30,11 +30,11 @@ pub struct ResourcesSource {
 }
 
 impl Build<ResourceRequest<String>, ()> for ResourcesSource {
-    fn build(self, _: &()) -> Result<ResourceRequest<String>> {
+    fn build(self, params: &()) -> Result<ResourceRequest<String>> {
 
         Ok(ResourceRequest {
-            cpu: self.cpu.require("cpu")?.to_string(),
-            memory: self.memory.require("cpu")?.to_string(),
+            cpu: self.cpu.require("cpu")?.build(params)?,
+            memory: self.memory.require("memory")?.build(params)?,
         })
     }
 }
