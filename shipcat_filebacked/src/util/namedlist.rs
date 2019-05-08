@@ -1,7 +1,8 @@
+use std::fmt;
 use std::collections::BTreeMap;
+use std::marker::PhantomData;
 use merge::Merge;
-
-use shipcat_definitions::Result;
+use serde::de::{Visitor, Deserialize, Deserializer, MapAccess, SeqAccess};
 
 use super::Build;
 
@@ -23,7 +24,7 @@ impl<B, S, P> Build<Vec<B>, P> for NamedList<S> where
     P: Clone,
     S: Build<B, NameParams<P>>,
 {
-    fn build(self, params: &P) -> Result<Vec<B>> {
+    fn build(self, params: &P) -> shipcat_definitions::Result<Vec<B>> {
         let entries: BTreeMap<String, S> = self.into();
         let mut items = Vec::new();
         for (k, v) in entries {
@@ -86,6 +87,57 @@ impl<T: Merge> Merge for NamedList<T> {
     }
 }
 
+impl<'de, T: Deserialize<'de>> Deserialize<'de> for NamedList<T> {
+    fn deserialize<D>(deserializer: D) -> Result<NamedList<T>, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        deserializer.deserialize_any(NamedListVisitor::new())
+    }
+}
+
+struct NamedListVisitor<T> {
+    marker: PhantomData<fn() -> NamedList<T>>,
+}
+
+impl<T> NamedListVisitor<T> {
+    fn new() -> Self {
+        NamedListVisitor {
+            marker: PhantomData
+        }
+    }
+}
+
+/// NamedListVisitor will visit numbers, bools and string
+impl<'de, T: Deserialize<'de>> Visitor<'de> for NamedListVisitor<T> {
+    type Value = NamedList<T>;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str("a map or a list")
+    }
+
+    fn visit_map<M: MapAccess<'de>>(self, mut access: M) -> Result<Self::Value, M::Error> {
+        let mut map = BTreeMap::new();
+
+        while let Some((key, value)) = access.next_entry()? {
+            map.insert(key, value);
+        }
+
+        Ok(MapBacked(map))
+    }
+
+    fn visit_seq<S: SeqAccess<'de>>(self, mut access: S) -> Result<Self::Value, S::Error> {
+        let mut entries = Vec::with_capacity(access.size_hint().unwrap_or(0));
+
+        while let Some(value) = access.next_element()? {
+            entries.push(value);
+        }
+
+        Ok(ListBacked(entries))
+    }
+}
+
+
 #[derive(Clone, Deserialize)]
 #[cfg_attr(test, derive(Debug, PartialEq))]
 pub struct EnabledWrapper<T> {
@@ -120,10 +172,10 @@ mod tests {
     use shipcat_definitions::Result;
 
     use crate::util::Build;
-    use super::{NameWrapper, EnabledWrapper, NameParams};
+    use super::{NameWrapper, EnabledWrapper, NameParams, NamedList};
     use super::NamedList::{ListBacked,MapBacked};
 
-    #[derive(Clone, Debug, PartialEq, Merge)]
+    #[derive(Clone, Debug, PartialEq, Merge, Deserialize)]
     pub struct ExampleSource {
         value: Option<u32>,
     }
@@ -217,5 +269,29 @@ mod tests {
         let mut actual = x_map.build(&params).unwrap();
         actual.sort();
         assert_eq!(actual, vec!("bar", "foo:0"));
+    }
+
+    #[test]
+    fn deserialize() {
+        // Deserialize from map
+        let actual: NamedList<ExampleSource> = serde_yaml::from_str("{}").unwrap();
+        assert_eq!(actual, MapBacked(BTreeMap::new()));
+
+        let actual: NamedList<ExampleSource> = serde_yaml::from_str("{foo: {value: 1}, bar: {enabled: true}, blort: {enabled: false, value: 2} }").unwrap();
+        assert_eq!(actual, MapBacked(btreemap!{
+            "foo".into() => EnabledWrapper { enabled: None, item: ExampleSource::new(1) },
+            "bar".into() => EnabledWrapper { enabled: Some(true), item: ExampleSource { value: None } },
+            "blort".into() => EnabledWrapper { enabled: Some(false), item: ExampleSource::new(2) },
+        }));
+
+        // Deserialize from list
+        let actual: NamedList<ExampleSource> = serde_yaml::from_str("[]").unwrap();
+        assert_eq!(actual, ListBacked(Vec::new()));
+
+        let actual: NamedList<ExampleSource> = serde_yaml::from_str("[{ name: foo, value: 1 }, { name: bar }]").unwrap();
+        assert_eq!(actual, ListBacked(vec!(
+            NameWrapper { name: "foo".into(), item: ExampleSource::new(1) },
+            NameWrapper { name: "bar".into(), item: ExampleSource { value: None } },
+        )));
     }
 }
