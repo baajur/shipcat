@@ -14,12 +14,9 @@ impl<T, P, S: Build<T, P>> Build<Option<T>, P> for Option<S> {
 
 impl<T, P, S: Build<T, P>> Build<Vec<T>, P> for Vec<S> {
     fn build(self, params: &P) -> Result<Vec<T>> {
-        let mut ts = Vec::new();
-        for s in self {
-            let t = s.build(params)?;
-            ts.push(t);
-        }
-        Ok(ts)
+        self.into_iter()
+            .map(|s| s.build(params))
+            .collect()
     }
 }
 
@@ -28,14 +25,10 @@ impl<K, V, P, S> Build<BTreeMap<K, V>, P> for BTreeMap<K, Option<S>> where
     S: Build<V, P>,
 {
     fn build(self, params: &P) -> Result<BTreeMap<K, V>> {
-        let mut map = BTreeMap::new();
-        for (k, s) in self {
-            if let Some(s) = s {
-                let v = s.build(params)?;
-                map.insert(k, v);
-            }
-        }
-        Ok(map)
+        self.into_iter()
+            .filter_map(|(k, maybe)| maybe.map(|s| (k, s)))
+            .map(|(k, s)| s.build(params).map(|v| (k, v)))
+            .collect()
     }
 }
 
