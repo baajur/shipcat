@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/h2-0.1.13/src/codec/framed_write.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>framed_write.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/h2-0.1.26/src/codec/framed_write.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>framed_write.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../h2/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -282,6 +282,25 @@
 <span id="282">282</span>
 <span id="283">283</span>
 <span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">codec</span>::<span class="ident">UserError</span>;
 <span class="kw">use</span> <span class="ident">codec</span>::<span class="ident">UserError</span>::<span class="kw-2">*</span>;
@@ -324,7 +343,10 @@
 }
 
 <span class="doccomment">/// Initialze the connection with this amount of write buffer.</span>
-<span class="kw">const</span> <span class="ident">DEFAULT_BUFFER_CAPACITY</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">4</span> <span class="op">*</span> <span class="number">1_024</span>;
+<span class="doccomment">///</span>
+<span class="doccomment">/// The minimum MAX_FRAME_SIZE is 16kb, so always be able to send a HEADERS</span>
+<span class="doccomment">/// frame that big.</span>
+<span class="kw">const</span> <span class="ident">DEFAULT_BUFFER_CAPACITY</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">16</span> <span class="op">*</span> <span class="number">1_024</span>;
 
 <span class="doccomment">/// Min buffer required to attempt to write a frame</span>
 <span class="kw">const</span> <span class="ident">MIN_BUFFER_CAPACITY</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="ident">frame</span>::<span class="ident">HEADER_LEN</span> <span class="op">+</span> <span class="ident">CHAIN_THRESHOLD</span>;
@@ -482,6 +504,17 @@
                 <span class="prelude-val">Some</span>(<span class="ident">Next</span>::<span class="ident">Continuation</span>(<span class="ident">frame</span>)) <span class="op">=&gt;</span> {
                     <span class="comment">// Buffer the continuation frame, then try to write again</span>
                     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">continuation</span>) <span class="op">=</span> <span class="ident">frame</span>.<span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">hpack</span>, <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">get_mut</span>()) {
+
+                        <span class="comment">// We previously had a CONTINUATION, and after encoding</span>
+                        <span class="comment">// it, we got *another* one? Let&#39;s just double check</span>
+                        <span class="comment">// that at least some progress is being made...</span>
+                        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">get_ref</span>().<span class="ident">len</span>() <span class="op">==</span> <span class="ident">frame</span>::<span class="ident">HEADER_LEN</span> {
+                            <span class="comment">// If *only* the CONTINUATION frame header was</span>
+                            <span class="comment">// written, and *no* header fields, we&#39;re stuck</span>
+                            <span class="comment">// in a loop...</span>
+                            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;CONTINUATION frame write loop; header value too big to encode&quot;</span>);
+                        }
+
                         <span class="self">self</span>.<span class="ident">next</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Next</span>::<span class="ident">Continuation</span>(<span class="ident">continuation</span>));
                     }
                 },
@@ -526,6 +559,11 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_max_frame_size</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">val</span>: <span class="ident">usize</span>) {
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">val</span> <span class="op">&lt;=</span> <span class="ident">frame</span>::<span class="ident">MAX_MAX_FRAME_SIZE</span> <span class="kw">as</span> <span class="ident">usize</span>);
         <span class="self">self</span>.<span class="ident">max_frame_size</span> <span class="op">=</span> <span class="ident">val</span> <span class="kw">as</span> <span class="ident">FrameSize</span>;
+    }
+
+    <span class="doccomment">/// Set the peer&#39;s max header table size.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_max_header_table_size</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">val</span>: <span class="ident">usize</span>) {
+        <span class="self">self</span>.<span class="ident">hpack</span>.<span class="ident">update_max_size</span>(<span class="ident">val</span>);
     }
 
     <span class="doccomment">/// Retrieve the last data frame that has been sent</span>

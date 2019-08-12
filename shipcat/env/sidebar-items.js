@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["print_bash","Print exports to source from a shell"]]});

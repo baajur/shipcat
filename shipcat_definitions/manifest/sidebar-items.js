@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Manifest","Main manifest, serializable from shipcat.yml or the shipcat CRD."]]});
+initSidebarItems({"struct":[["Manifest","Main manifest, serializable from manifest.yml or the shipcat CRD."]]});

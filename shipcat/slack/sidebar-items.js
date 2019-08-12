@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["env_channel",""],["env_hook_url",""],["have_credentials","Basic check to see that slack credentials is working"],["send",""]],"struct":[["Message","Slack message options we support"]]});
+initSidebarItems({"fn":[["env_channel",""],["env_hook_url",""],["have_credentials","Basic check to see that slack credentials is working"],["send","Send a message based on a upgrade event"],["send_dumb","Send entry point for `shipcat slack`"]],"struct":[["DumbMessage",""],["Message","Slack message options we support"]]});

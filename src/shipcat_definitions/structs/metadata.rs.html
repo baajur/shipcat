@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/structs/metadata.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>metadata.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/structs/metadata.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>metadata.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -195,8 +195,29 @@
 <span id="195">195</span>
 <span id="196">196</span>
 <span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">regex</span>::<span class="ident">Regex</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BTreeSet</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::{<span class="ident">Deref</span>, <span class="ident">DerefMut</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="prelude-ty">Result</span>;
@@ -276,7 +297,6 @@
 <span class="doccomment">/// Metadata for a service</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">derive</span>(<span class="ident">Default</span>))]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">filesystem</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Metadata</span> {
     <span class="doccomment">/// Git repository</span>
     <span class="kw">pub</span> <span class="ident">repo</span>: <span class="ident">String</span>,
@@ -305,6 +325,10 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">docs</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="comment">// TODO: generate swagger docs url from region and service name</span>
+
+    <span class="doccomment">/// Custom metadata, keys defined in the Config</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">custom</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 }
 <span class="kw">fn</span> <span class="ident">default_format_string</span>() <span class="op">-&gt;</span> <span class="ident">String</span> { <span class="string">&quot;{{ version }}&quot;</span>.<span class="ident">into</span>() }
 
@@ -319,10 +343,21 @@
         })<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">res</span>)
     }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">github_link_for_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ver</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+        <span class="kw">use</span> <span class="ident">semver</span>::<span class="ident">Version</span>;
+        <span class="kw">if</span> <span class="ident">Version</span>::<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>).<span class="ident">is_ok</span>() {
+            <span class="kw">let</span> <span class="ident">tag</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">version_template</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>).<span class="ident">unwrap_or</span>(<span class="ident">ver</span>.<span class="ident">to_string</span>());
+            <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/releases/tag/{}&quot;</span>, <span class="self">self</span>.<span class="ident">repo</span>, <span class="ident">tag</span>)
+        } <span class="kw">else</span> {
+            <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/commit/{}&quot;</span>, <span class="self">self</span>.<span class="ident">repo</span>, <span class="ident">ver</span>)
+        }
+    }
+
 }
 
 <span class="kw">impl</span> <span class="ident">Metadata</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">teams</span>: <span class="kw-2">&amp;</span>[<span class="ident">Team</span>]) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">teams</span>: <span class="kw-2">&amp;</span>[<span class="ident">Team</span>], <span class="ident">allowedCustomMetadata</span>: <span class="kw-2">&amp;</span><span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">ts</span> <span class="op">=</span> <span class="ident">teams</span>.<span class="ident">to_vec</span>().<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">name</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">ts</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">team</span>) {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Illegal team name {} not found in the config&quot;</span>, <span class="self">self</span>.<span class="ident">team</span>);
@@ -345,8 +380,13 @@
             <span class="ident">channel</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
         }
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">runbook</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">runbook</span> {
-            <span class="kw">if</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.md&quot;</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.rt&quot;</span>) {
-                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Runbook must be in markdown or restructured text in the service repo&quot;</span>);
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.md&quot;</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.rt&quot;</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.org&quot;</span>) {
+                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Runbook must be a file in the service repo with a valid extension (.md / .rt / .org)&quot;</span>);
+            }
+        }
+        <span class="kw">for</span> <span class="ident">k</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">custom</span>.<span class="ident">keys</span>() {
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">allowedCustomMetadata</span>.<span class="ident">contains</span>(<span class="ident">k</span>) {
+                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;{} is not an allowed metadata property&quot;</span>, <span class="ident">k</span>);
             }
         }
         <span class="prelude-val">Ok</span>(())

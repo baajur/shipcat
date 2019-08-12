@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_filebacked/src/load.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>load.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_filebacked/src/load.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>load.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat_filebacked/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -224,22 +224,8 @@
 <span id="224">224</span>
 <span id="225">225</span>
 <span id="226">226</span>
-<span id="227">227</span>
-<span id="228">228</span>
-<span id="229">229</span>
-<span id="230">230</span>
-<span id="231">231</span>
-<span id="232">232</span>
-<span id="233">233</span>
-<span id="234">234</span>
-<span id="235">235</span>
-<span id="236">236</span>
-<span id="237">237</span>
-<span id="238">238</span>
-<span id="239">239</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>::<span class="ident">File</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">path</span>::{<span class="ident">Path</span>, <span class="ident">PathBuf</span>};
 
 <span class="kw">use</span> <span class="ident">merge</span>::<span class="ident">Merge</span>;
@@ -250,11 +236,12 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">manifest</span>::{<span class="ident">ManifestDefaults</span>, <span class="ident">ManifestOverrides</span>, <span class="ident">ManifestSource</span>};
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">SimpleManifest</span>, <span class="ident">BaseManifest</span>};
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">authorization</span>::{<span class="ident">AuthorizationSource</span>};
+<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">util</span>::{<span class="ident">Build</span>, <span class="ident">Enabled</span>};
 
 <span class="kw">impl</span> <span class="ident">ManifestSource</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_manifest</span>(<span class="ident">service</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">reg</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Manifest</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">ManifestSource</span>::<span class="ident">load_merged</span>(<span class="ident">service</span>, <span class="ident">conf</span>, <span class="ident">reg</span>)<span class="question-mark">?</span>;
-        <span class="ident">manifest</span>.<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="ident">conf</span>, <span class="kw-2">&amp;</span><span class="ident">reg</span>)
+        <span class="ident">manifest</span>.<span class="ident">build</span>(<span class="kw-2">&amp;</span>(<span class="ident">conf</span>.<span class="ident">clone</span>(), <span class="ident">reg</span>.<span class="ident">clone</span>()))
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_metadata</span>(<span class="ident">service</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">reg</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SimpleManifest</span><span class="op">&gt;</span> {
@@ -273,22 +260,22 @@
         <span class="kw">let</span> <span class="ident">regional_defaults</span> <span class="op">=</span> <span class="ident">ManifestDefaults</span>::<span class="ident">from_region</span>(<span class="ident">reg</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">defaults</span> <span class="op">=</span> <span class="ident">global_defaults</span>.<span class="ident">merge</span>(<span class="ident">regional_defaults</span>);
 
-        <span class="kw">let</span> <span class="ident">source_path</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">services_dir</span>().<span class="ident">join</span>(<span class="ident">service</span>).<span class="ident">join</span>(<span class="string">&quot;shipcat.yml&quot;</span>);
+        <span class="kw">let</span> <span class="ident">source_path</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">services_dir</span>().<span class="ident">join</span>(<span class="ident">service</span>).<span class="ident">join</span>(<span class="string">&quot;manifest.yml&quot;</span>);
         <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Loading service manifest from {:?}&quot;</span>, <span class="ident">source_path</span>);
-        <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ManifestSource</span>::<span class="ident">read_from</span>(<span class="kw-2">&amp;</span><span class="ident">source_path</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">source</span> : <span class="ident">ManifestSource</span> <span class="op">=</span> <span class="ident">read_from</span>(<span class="kw-2">&amp;</span><span class="ident">source_path</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">defaults</span>.<span class="ident">merge_source</span>(<span class="ident">source</span>);
 
         <span class="kw">let</span> <span class="ident">env_path</span> <span class="op">=</span> <span class="ident">dir</span>.<span class="ident">join</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.yml&quot;</span>, <span class="ident">reg</span>.<span class="ident">environment</span>.<span class="ident">to_string</span>()));
         <span class="kw">if</span> <span class="ident">env_path</span>.<span class="ident">is_file</span>() {
             <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Loading service overrides from {:?}&quot;</span>, <span class="ident">env_path</span>);
-            <span class="kw">let</span> <span class="ident">env</span> <span class="op">=</span> <span class="ident">ManifestOverrides</span>::<span class="ident">read_from</span>(<span class="kw-2">&amp;</span><span class="ident">env_path</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">env</span> : <span class="ident">ManifestOverrides</span> <span class="op">=</span> <span class="ident">read_from</span>(<span class="kw-2">&amp;</span><span class="ident">env_path</span>)<span class="question-mark">?</span>;
             <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">merge_overrides</span>(<span class="ident">env</span>);
         }
 
         <span class="kw">let</span> <span class="ident">region_path</span> <span class="op">=</span> <span class="ident">dir</span>.<span class="ident">join</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.yml&quot;</span>, <span class="ident">reg</span>.<span class="ident">name</span>));
         <span class="kw">if</span> <span class="ident">region_path</span>.<span class="ident">is_file</span>() {
             <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Loading service overrides from {:?}&quot;</span>, <span class="ident">region_path</span>);
-            <span class="kw">let</span> <span class="ident">region</span> <span class="op">=</span> <span class="ident">ManifestOverrides</span>::<span class="ident">read_from</span>(<span class="kw-2">&amp;</span><span class="ident">region_path</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">region</span> : <span class="ident">ManifestOverrides</span> <span class="op">=</span> <span class="ident">read_from</span>(<span class="kw-2">&amp;</span><span class="ident">region_path</span>)<span class="question-mark">?</span>;
             <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">merge_overrides</span>(<span class="ident">region</span>);
         }
 
@@ -318,9 +305,9 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">all</span>(<span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BaseManifest</span><span class="op">&gt;&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">all</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
         <span class="kw">for</span> <span class="ident">service</span> <span class="kw">in</span> <span class="self">Self</span>::<span class="ident">all_names</span>() {
-            <span class="kw">let</span> <span class="ident">source_path</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">services_dir</span>().<span class="ident">join</span>(<span class="ident">service</span>).<span class="ident">join</span>(<span class="string">&quot;shipcat.yml&quot;</span>);
+            <span class="kw">let</span> <span class="ident">source_path</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">services_dir</span>().<span class="ident">join</span>(<span class="ident">service</span>).<span class="ident">join</span>(<span class="string">&quot;manifest.yml&quot;</span>);
             <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Loading service manifest from {:?}&quot;</span>, <span class="ident">source_path</span>);
-            <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">ManifestSource</span>::<span class="ident">read_from</span>(<span class="kw-2">&amp;</span><span class="ident">source_path</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">source</span> : <span class="ident">ManifestSource</span> <span class="op">=</span> <span class="ident">read_from</span>(<span class="kw-2">&amp;</span><span class="ident">source_path</span>)<span class="question-mark">?</span>;
             <span class="kw">let</span> <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">source</span>.<span class="ident">build_base</span>(<span class="ident">conf</span>)<span class="question-mark">?</span>;
             <span class="ident">all</span>.<span class="ident">push</span>(<span class="ident">manifest</span>);
         }
@@ -349,56 +336,43 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">defs</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">default</span>();
         <span class="ident">defs</span>.<span class="ident">chart</span> <span class="op">=</span> <span class="prelude-ty">Option</span>::<span class="prelude-val">Some</span>(<span class="ident">conf</span>.<span class="ident">defaults</span>.<span class="ident">chart</span>.<span class="ident">clone</span>());
         <span class="ident">defs</span>.<span class="ident">image_prefix</span> <span class="op">=</span> <span class="prelude-ty">Option</span>::<span class="prelude-val">Some</span>(<span class="ident">conf</span>.<span class="ident">defaults</span>.<span class="ident">imagePrefix</span>.<span class="ident">clone</span>());
-        <span class="ident">defs</span>.<span class="ident">replica_count</span> <span class="op">=</span> <span class="prelude-ty">Option</span>::<span class="prelude-val">Some</span>(<span class="ident">conf</span>.<span class="ident">defaults</span>.<span class="ident">replicaCount</span>.<span class="ident">clone</span>());
+        <span class="ident">defs</span>.<span class="ident">replica_count</span> <span class="op">=</span> <span class="prelude-ty">Option</span>::<span class="prelude-val">Some</span>(<span class="ident">conf</span>.<span class="ident">defaults</span>.<span class="ident">replicaCount</span>);
 
         <span class="prelude-val">Ok</span>(<span class="ident">defs</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">from_region</span>(<span class="ident">reg</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">defs</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">default</span>();
-        <span class="ident">defs</span>.<span class="ident">env</span> <span class="op">=</span> <span class="ident">reg</span>.<span class="ident">env</span>.<span class="ident">iter</span>()
-                .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="ident">v</span>)<span class="op">|</span> (<span class="ident">k</span>.<span class="ident">to_string</span>(), <span class="ident">v</span>.<span class="ident">into</span>()))
-                .<span class="ident">collect</span>();
+        <span class="ident">defs</span>.<span class="ident">env</span> <span class="op">=</span> <span class="ident">reg</span>.<span class="ident">env</span>.<span class="ident">clone</span>().<span class="ident">into</span>();
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">authz</span>) <span class="op">=</span> <span class="ident">reg</span>.<span class="ident">defaults</span>.<span class="ident">kong</span>.<span class="ident">authorization</span>.<span class="ident">clone</span>() {
-            <span class="ident">defs</span>.<span class="ident">kong</span>.<span class="ident">authorization</span> <span class="op">=</span> <span class="ident">AuthorizationSource</span> {
+            <span class="ident">defs</span>.<span class="ident">kong</span>.<span class="ident">item</span>.<span class="ident">authorization</span> <span class="op">=</span> <span class="ident">Enabled</span> {
                 <span class="ident">enabled</span>: <span class="prelude-val">None</span>,
-                <span class="ident">allow_anonymous</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">allow_anonymous</span>),
-                <span class="ident">allowed_audiences</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">allowed_audiences</span>),
-                <span class="ident">allow_cookies</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">allow_cookies</span>),
-                <span class="ident">allow_invalid_tokens</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">allow_invalid_tokens</span>),
-                <span class="ident">required_scopes</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">required_scopes</span>),
+                <span class="ident">item</span>: <span class="ident">AuthorizationSource</span> {
+                    <span class="ident">allow_anonymous</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">allow_anonymous</span>),
+                    <span class="ident">allowed_audiences</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">allowed_audiences</span>),
+                    <span class="ident">allow_cookies</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">allow_cookies</span>),
+                    <span class="ident">allow_invalid_tokens</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">allow_invalid_tokens</span>),
+                    <span class="ident">required_scopes</span>: <span class="prelude-val">Some</span>(<span class="ident">authz</span>.<span class="ident">required_scopes</span>),
+                },
             };
         }
+        <span class="ident">defs</span>.<span class="ident">kong</span>.<span class="ident">item</span>.<span class="ident">authorization</span>.<span class="ident">enabled</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">reg</span>.<span class="ident">defaults</span>.<span class="ident">kong</span>.<span class="ident">authorizationEnabled</span>);
         <span class="prelude-val">Ok</span>(<span class="ident">defs</span>)
     }
 }
 
-<span class="kw">trait</span> <span class="ident">ManifestFile</span>
-<span class="kw">where</span>
-    <span class="self">Self</span>: <span class="ident">Sized</span>,
-{
-    <span class="kw">fn</span> <span class="ident">read_from</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">PathBuf</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">ManifestFile</span> <span class="kw">for</span> <span class="ident">T</span>
-<span class="kw">where</span>
-    <span class="ident">T</span>: <span class="ident">DeserializeOwned</span>,
-{
-    <span class="kw">fn</span> <span class="ident">read_from</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">PathBuf</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Reading manifest in {}&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
-        <span class="kw">if</span> <span class="op">!</span><span class="ident">path</span>.<span class="ident">exists</span>() {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Manifest file {} does not exist&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>())
-        }
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">File</span>::<span class="ident">open</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">new</span>();
-        <span class="ident">f</span>.<span class="ident">read_to_string</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">data</span>)<span class="question-mark">?</span>;
-        <span class="kw">if</span> <span class="ident">data</span>.<span class="ident">is_empty</span>() {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Manifest file {} is empty&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
-        }
-
-        <span class="prelude-val">Ok</span>(<span class="ident">serde_yaml</span>::<span class="ident">from_str</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>)<span class="question-mark">?</span>)
+<span class="kw">fn</span> <span class="ident">read_from</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">PathBuf</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Reading manifest in {}&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">path</span>.<span class="ident">exists</span>() {
+        <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Manifest file {} does not exist&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>())
     }
+    <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">fs</span>::<span class="ident">read_to_string</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>)<span class="question-mark">?</span>;
+    <span class="kw">if</span> <span class="ident">data</span>.<span class="ident">is_empty</span>() {
+        <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Manifest file {} is empty&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
+    }
+    <span class="prelude-val">Ok</span>(<span class="ident">serde_yaml</span>::<span class="ident">from_str</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>)<span class="question-mark">?</span>)
 }
+
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {

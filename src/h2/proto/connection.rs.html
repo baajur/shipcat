@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/h2-0.1.13/src/proto/connection.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>connection.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/h2-0.1.26/src/proto/connection.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>connection.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../h2/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -408,6 +408,26 @@
 <span id="408">408</span>
 <span id="409">409</span>
 <span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> {<span class="ident">client</span>, <span class="ident">frame</span>, <span class="ident">proto</span>, <span class="ident">server</span>};
 <span class="kw">use</span> <span class="ident">codec</span>::<span class="ident">RecvError</span>;
@@ -550,10 +570,19 @@
         <span class="self">self</span>.<span class="ident">go_away</span>.<span class="ident">go_away</span>(<span class="ident">frame</span>);
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">go_away_now</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">e</span>: <span class="ident">Reason</span>) {
+    <span class="kw">fn</span> <span class="ident">go_away_now</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">e</span>: <span class="ident">Reason</span>) {
         <span class="kw">let</span> <span class="ident">last_processed_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">last_processed_id</span>();
         <span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="ident">frame</span>::<span class="ident">GoAway</span>::<span class="ident">new</span>(<span class="ident">last_processed_id</span>, <span class="ident">e</span>);
         <span class="self">self</span>.<span class="ident">go_away</span>.<span class="ident">go_away_now</span>(<span class="ident">frame</span>);
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">go_away_from_user</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">e</span>: <span class="ident">Reason</span>) {
+        <span class="kw">let</span> <span class="ident">last_processed_id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">last_processed_id</span>();
+        <span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="ident">frame</span>::<span class="ident">GoAway</span>::<span class="ident">new</span>(<span class="ident">last_processed_id</span>, <span class="ident">e</span>);
+        <span class="self">self</span>.<span class="ident">go_away</span>.<span class="ident">go_away_from_user</span>(<span class="ident">frame</span>);
+
+        <span class="comment">// Notify all streams of reason we&#39;re abruptly closing.</span>
+        <span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">recv_err</span>(<span class="kw-2">&amp;</span><span class="ident">proto</span>::<span class="ident">Error</span>::<span class="ident">Proto</span>(<span class="ident">e</span>));
     }
 
     <span class="kw">fn</span> <span class="ident">take_error</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">ours</span>: <span class="ident">Reason</span>) <span class="op">-&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>(), <span class="ident">proto</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
@@ -584,9 +613,13 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">maybe_close_connection_if_no_streams</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="comment">// If we poll() and realize that there are no streams or references</span>
         <span class="comment">// then we can close the connection by transitioning to GOAWAY</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">num_active_streams</span>() <span class="op">==</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">has_streams_or_other_references</span>() {
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">has_streams_or_other_references</span>() {
             <span class="self">self</span>.<span class="ident">go_away_now</span>(<span class="ident">Reason</span>::<span class="ident">NO_ERROR</span>);
         }
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">take_user_pings</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UserPings</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">ping_pong</span>.<span class="ident">take_user_pings</span>()
     }
 
     <span class="doccomment">/// Advances the internal state of the connection.</span>
@@ -609,7 +642,7 @@
                             <span class="macro">try_ready</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">poll_complete</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">codec</span>));
 
                             <span class="kw">if</span> <span class="self">self</span>.<span class="ident">error</span>.<span class="ident">is_some</span>() <span class="op">||</span> <span class="self">self</span>.<span class="ident">go_away</span>.<span class="ident">should_close_on_idle</span>() {
-                                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">num_active_streams</span>() <span class="op">==</span> <span class="number">0</span> {
+                                <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">has_streams</span>() {
                                     <span class="self">self</span>.<span class="ident">go_away_now</span>(<span class="ident">Reason</span>::<span class="ident">NO_ERROR</span>);
                                     <span class="kw">continue</span>;
                                 }
@@ -621,7 +654,7 @@
                         <span class="comment">// error. This is handled by setting a GOAWAY frame followed by</span>
                         <span class="comment">// terminating the connection.</span>
                         <span class="prelude-val">Err</span>(<span class="ident">Connection</span>(<span class="ident">e</span>)) <span class="op">=&gt;</span> {
-                            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Connection::poll; err={:?}&quot;</span>, <span class="ident">e</span>);
+                            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Connection::poll; connection error={:?}&quot;</span>, <span class="ident">e</span>);
 
                             <span class="comment">// We may have already sent a GOAWAY for this error,</span>
                             <span class="comment">// if so, don&#39;t send another, just flush and close up.</span>
@@ -644,7 +677,7 @@
                             <span class="ident">id</span>,
                             <span class="ident">reason</span>,
                         }) <span class="op">=&gt;</span> {
-                            <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;stream level error; id={:?}; reason={:?}&quot;</span>, <span class="ident">id</span>, <span class="ident">reason</span>);
+                            <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;stream error; id={:?}; reason={:?}&quot;</span>, <span class="ident">id</span>, <span class="ident">reason</span>);
                             <span class="self">self</span>.<span class="ident">streams</span>.<span class="ident">send_reset</span>(<span class="ident">id</span>, <span class="ident">reason</span>);
                         },
                         <span class="comment">// Attempting to read a frame resulted in an I/O error. All</span>
@@ -652,6 +685,7 @@
                         <span class="comment">//</span>
                         <span class="comment">// TODO: Are I/O errors recoverable?</span>
                         <span class="prelude-val">Err</span>(<span class="ident">Io</span>(<span class="ident">e</span>)) <span class="op">=&gt;</span> {
+                            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Connection::poll; IO error={:?}&quot;</span>, <span class="ident">e</span>);
                             <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">e</span>.<span class="ident">into</span>();
 
                             <span class="comment">// Reset all active streams</span>
@@ -663,7 +697,7 @@
                     }
                 }
                 <span class="ident">State</span>::<span class="ident">Closing</span>(<span class="ident">reason</span>) <span class="op">=&gt;</span> {
-                    <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;connection closing after flush, reason={:?}&quot;</span>, <span class="ident">reason</span>);
+                    <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;connection closing after flush&quot;</span>);
                     <span class="comment">// Flush/shutdown the codec</span>
                     <span class="macro">try_ready</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">codec</span>.<span class="ident">shutdown</span>());
 
@@ -691,7 +725,13 @@
             <span class="comment">// - If it has, we&#39;ve also added a PING to be sent in poll_ready</span>
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">reason</span>) <span class="op">=</span> <span class="macro">try_ready</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">poll_go_away</span>()) {
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">go_away</span>.<span class="ident">should_close_now</span>() {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RecvError</span>::<span class="ident">Connection</span>(<span class="ident">reason</span>));
+                    <span class="kw">if</span> <span class="self">self</span>.<span class="ident">go_away</span>.<span class="ident">is_user_initiated</span>() {
+                        <span class="comment">// A user initiated abrupt shutdown shouldn&#39;t return</span>
+                        <span class="comment">// the same error back to the user.</span>
+                        <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Async</span>::<span class="ident">Ready</span>(()));
+                    } <span class="kw">else</span> {
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RecvError</span>::<span class="ident">Connection</span>(<span class="ident">reason</span>));
+                    }
                 }
                 <span class="comment">// Only NO_ERROR should be waiting for idle</span>
                 <span class="macro">debug_assert_eq</span><span class="macro">!</span>(<span class="ident">reason</span>, <span class="ident">Reason</span>::<span class="ident">NO_ERROR</span>, <span class="string">&quot;graceful GOAWAY should be NO_ERROR&quot;</span>);

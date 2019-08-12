@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/reqwest-0.9.4/src/body.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>body.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/reqwest-0.9.19/src/body.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>body.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../reqwest/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -268,6 +268,40 @@
 <span id="268">268</span>
 <span id="269">269</span>
 <span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>::<span class="ident">File</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
@@ -380,12 +414,26 @@
             }
         }
     }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">try_clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">kind</span>.<span class="ident">try_clone</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">kind</span><span class="op">|</span> <span class="ident">Body</span> { <span class="ident">kind</span> })
+    }
 }
 
 
 <span class="kw">enum</span> <span class="ident">Kind</span> {
-    <span class="ident">Reader</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Read</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>),
+    <span class="ident">Reader</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Read</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>),
     <span class="ident">Bytes</span>(<span class="ident">Bytes</span>),
+}
+
+<span class="kw">impl</span> <span class="ident">Kind</span> {
+    <span class="kw">fn</span> <span class="ident">try_clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Kind</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident">Kind</span>::<span class="ident">Reader</span>(..) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+            <span class="ident">Kind</span>::<span class="ident">Bytes</span>(<span class="ident">v</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Kind</span>::<span class="ident">Bytes</span>(<span class="ident">v</span>.<span class="ident">clone</span>())),
+        }
+    }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span> <span class="kw">for</span> <span class="ident">Body</span> {
@@ -454,7 +502,7 @@
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum</span> <span class="ident">Reader</span> {
-    <span class="ident">Reader</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Read</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>),
+    <span class="ident">Reader</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Read</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>),
     <span class="ident">Bytes</span>(<span class="ident">Cursor</span><span class="op">&lt;</span><span class="ident">Bytes</span><span class="op">&gt;</span>),
 }
 
@@ -468,7 +516,7 @@
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">Sender</span> {
-    <span class="ident">body</span>: (<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Read</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>),
+    <span class="ident">body</span>: (<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Read</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>),
     <span class="ident">tx</span>: <span class="ident">hyper</span>::<span class="ident">body</span>::<span class="ident">Sender</span>,
 }
 
@@ -494,36 +542,56 @@
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(().<span class="ident">into</span>());
             }
 
+            <span class="comment">// The input stream is read only if the buffer is empty so</span>
+            <span class="comment">// that there is only one read in the buffer at any time.</span>
+            <span class="comment">//</span>
+            <span class="comment">// We need to know whether there is any data to send before</span>
+            <span class="comment">// we check the transmission channel (with poll_ready below)</span>
+            <span class="comment">// because somestimes the receiver disappears as soon as is</span>
+            <span class="comment">// considers the data is completely transmitted, which may</span>
+            <span class="comment">// be true.</span>
+            <span class="comment">//</span>
+            <span class="comment">// The use case is a web server that closes its</span>
+            <span class="comment">// input stream as soon as the data received is valid JSON.</span>
+            <span class="comment">// This behaviour is questionable, but it exists and the</span>
+            <span class="comment">// fact is that there is actually no remaining data to read.</span>
+            <span class="kw">if</span> <span class="ident">buf</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> {
+                <span class="kw">if</span> <span class="ident">buf</span>.<span class="ident">remaining_mut</span>() <span class="op">==</span> <span class="number">0</span> {
+                    <span class="ident">buf</span>.<span class="ident">reserve</span>(<span class="number">8192</span>);
+                }
+
+                <span class="kw">match</span> <span class="ident">body</span>.<span class="ident">read</span>(<span class="kw">unsafe</span> { <span class="ident">buf</span>.<span class="ident">bytes_mut</span>() }) {
+                    <span class="prelude-val">Ok</span>(<span class="number">0</span>) <span class="op">=&gt;</span> {
+                        <span class="comment">// The buffer was empty and nothing&#39;s left to</span>
+                        <span class="comment">// read. Return.</span>
+                        <span class="kw">return</span> <span class="prelude-val">Ok</span>(().<span class="ident">into</span>());
+                    }
+                    <span class="prelude-val">Ok</span>(<span class="ident">n</span>) <span class="op">=&gt;</span> {
+                        <span class="kw">unsafe</span> { <span class="ident">buf</span>.<span class="ident">advance_mut</span>(<span class="ident">n</span>); }
+                    }
+                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">e</span>.<span class="ident">kind</span>(), <span class="ident">e</span>.<span class="ident">to_string</span>());
+                        <span class="ident">tx</span>
+                            .<span class="ident">take</span>()
+                            .<span class="ident">expect</span>(<span class="string">&quot;tx only taken on error&quot;</span>)
+                            .<span class="ident">abort</span>();
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(::<span class="ident">error</span>::<span class="ident">from</span>(<span class="ident">ret</span>));
+                    }
+                }
+            }
+
+            <span class="comment">// The only way to get here is when the buffer is not empty.</span>
+            <span class="comment">// We can check the transmission channel</span>
             <span class="macro">try_ready</span><span class="macro">!</span>(<span class="ident">tx</span>
                 .<span class="ident">as_mut</span>()
                 .<span class="ident">expect</span>(<span class="string">&quot;tx only taken on error&quot;</span>)
                 .<span class="ident">poll_ready</span>()
                 .<span class="ident">map_err</span>(::<span class="ident">error</span>::<span class="ident">from</span>));
 
-            <span class="kw">if</span> <span class="ident">buf</span>.<span class="ident">remaining_mut</span>() <span class="op">==</span> <span class="number">0</span> {
-                <span class="ident">buf</span>.<span class="ident">reserve</span>(<span class="number">8192</span>);
-            }
-
-            <span class="kw">match</span> <span class="ident">body</span>.<span class="ident">read</span>(<span class="kw">unsafe</span> { <span class="ident">buf</span>.<span class="ident">bytes_mut</span>() }) {
-                <span class="prelude-val">Ok</span>(<span class="number">0</span>) <span class="op">=&gt;</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(().<span class="ident">into</span>())
-                },
-                <span class="prelude-val">Ok</span>(<span class="ident">n</span>) <span class="op">=&gt;</span> {
-                    <span class="kw">unsafe</span> { <span class="ident">buf</span>.<span class="ident">advance_mut</span>(<span class="ident">n</span>); }
-                    <span class="ident">written</span> <span class="op">+=</span> <span class="ident">n</span> <span class="kw">as</span> <span class="ident">u64</span>;
-                    <span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">as_mut</span>().<span class="ident">expect</span>(<span class="string">&quot;tx only taken on error&quot;</span>);
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send_data</span>(<span class="ident">buf</span>.<span class="ident">take</span>().<span class="ident">freeze</span>().<span class="ident">into</span>()) {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(::<span class="ident">error</span>::<span class="ident">timedout</span>(<span class="prelude-val">None</span>));
-                    }
-                }
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">e</span>.<span class="ident">kind</span>(), <span class="ident">e</span>.<span class="ident">to_string</span>());
-                    <span class="ident">tx</span>
-                        .<span class="ident">take</span>()
-                        .<span class="ident">expect</span>(<span class="string">&quot;tx only taken on error&quot;</span>)
-                        .<span class="ident">abort</span>();
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(::<span class="ident">error</span>::<span class="ident">from</span>(<span class="ident">ret</span>));
-                }
+            <span class="ident">written</span> <span class="op">+=</span> <span class="ident">buf</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>;
+            <span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">as_mut</span>().<span class="ident">expect</span>(<span class="string">&quot;tx only taken on error&quot;</span>);
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send_data</span>(<span class="ident">buf</span>.<span class="ident">take</span>().<span class="ident">freeze</span>().<span class="ident">into</span>()) {
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(::<span class="ident">error</span>::<span class="ident">timedout</span>(<span class="prelude-val">None</span>));
             }
         })
     }

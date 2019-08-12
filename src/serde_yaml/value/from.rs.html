@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_yaml-0.8.8/src/value/from.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>from.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_yaml-0.8.9/src/value/from.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>from.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../serde_yaml/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -179,50 +179,6 @@
 <span id="179">179</span>
 <span id="180">180</span>
 <span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
-<span id="198">198</span>
-<span id="199">199</span>
-<span id="200">200</span>
-<span id="201">201</span>
-<span id="202">202</span>
-<span id="203">203</span>
-<span id="204">204</span>
-<span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
-<span id="208">208</span>
-<span id="209">209</span>
-<span id="210">210</span>
-<span id="211">211</span>
-<span id="212">212</span>
-<span id="213">213</span>
-<span id="214">214</span>
-<span id="215">215</span>
-<span id="216">216</span>
-<span id="217">217</span>
-<span id="218">218</span>
-<span id="219">219</span>
-<span id="220">220</span>
-<span id="221">221</span>
-<span id="222">222</span>
-<span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Value</span>;
 <span class="kw">use</span> <span class="ident">mapping</span>::<span class="ident">Mapping</span>;
@@ -253,15 +209,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let b = false;</span>
     <span class="doccomment">/// let x: Value = b.into();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">f</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="ident">f</span>)
@@ -273,15 +225,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let s: String = &quot;lorem&quot;.to_string();</span>
     <span class="doccomment">/// let x: Value = s.into();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">f</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="ident">Value</span>::<span class="ident">String</span>(<span class="ident">f</span>)
@@ -293,15 +241,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let s: &amp;str = &quot;lorem&quot;;</span>
     <span class="doccomment">/// let x: Value = s.into();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="ident">Value</span>::<span class="ident">String</span>(<span class="ident">f</span>.<span class="ident">to_string</span>())
@@ -315,28 +259,20 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">/// use std::borrow::Cow;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let s: Cow&lt;str&gt; = Cow::Borrowed(&quot;lorem&quot;);</span>
     <span class="doccomment">/// let x: Value = s.into();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">/// use std::borrow::Cow;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let s: Cow&lt;str&gt; = Cow::Owned(&quot;lorem&quot;.to_string());</span>
     <span class="doccomment">/// let x: Value = s.into();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">f</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="ident">Value</span>::<span class="ident">String</span>(<span class="ident">f</span>.<span class="ident">to_string</span>())
@@ -348,16 +284,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::{Mapping, Value};</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let mut m = Mapping::new();</span>
     <span class="doccomment">/// m.insert(&quot;Lorem&quot;.into(), &quot;ipsum&quot;.into());</span>
     <span class="doccomment">/// let x: Value = m.into();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">f</span>: <span class="ident">Mapping</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="ident">Value</span>::<span class="ident">Mapping</span>(<span class="ident">f</span>)
@@ -369,15 +301,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let v = vec![&quot;lorem&quot;, &quot;ipsum&quot;, &quot;dolor&quot;];</span>
     <span class="doccomment">/// let x: Value = v.into();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">f</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="ident">Value</span>::<span class="ident">Sequence</span>(<span class="ident">f</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into</span>::<span class="ident">into</span>).<span class="ident">collect</span>())
@@ -389,15 +317,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let v: &amp;[&amp;str] = &amp;[&quot;lorem&quot;, &quot;ipsum&quot;, &quot;dolor&quot;];</span>
     <span class="doccomment">/// let x: Value = v.into();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">T</span>]) <span class="op">-&gt;</span> <span class="self">Self</span> {
         <span class="ident">Value</span>::<span class="ident">Sequence</span>(<span class="ident">f</span>.<span class="ident">iter</span>().<span class="ident">cloned</span>().<span class="ident">map</span>(<span class="ident">Into</span>::<span class="ident">into</span>).<span class="ident">collect</span>())
@@ -411,40 +335,28 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let v = std::iter::repeat(42).take(5);</span>
     <span class="doccomment">/// let x: Value = v.collect();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let v: Vec&lt;_&gt; = vec![&quot;lorem&quot;, &quot;ipsum&quot;, &quot;dolor&quot;];</span>
     <span class="doccomment">/// let x: Value = v.into_iter().collect();</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```rust</span>
-    <span class="doccomment">/// # extern crate serde_yaml;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// ```edition2018</span>
     <span class="doccomment">/// use std::iter::FromIterator;</span>
     <span class="doccomment">/// use serde_yaml::Value;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let x: Value = Value::from_iter(vec![&quot;lorem&quot;, &quot;ipsum&quot;, &quot;dolor&quot;]);</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">fn</span> <span class="ident">from_iter</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;&gt;</span>(<span class="ident">iter</span>: <span class="ident">I</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="ident">vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">into</span>()).<span class="ident">collect</span>();
+        <span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">T</span>::<span class="ident">into</span>).<span class="ident">collect</span>();
 
         <span class="ident">Value</span>::<span class="ident">Sequence</span>(<span class="ident">vec</span>)
     }

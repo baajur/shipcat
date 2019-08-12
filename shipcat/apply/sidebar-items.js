@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["UpgradeReason","Reason for an apply being allowed through"]],"fn":[["apply","shipcat apply"],["diff_helm","Minified helm diff shell out"]],"struct":[["UpgradeInfo","Information from an upgrade"]]});

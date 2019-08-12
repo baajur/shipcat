@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/reqwest-0.9.4/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/reqwest-0.9.19/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../reqwest/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -259,34 +259,110 @@
 <span id="259">259</span>
 <span id="260">260</span>
 <span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">deny</span>(<span class="ident">missing_docs</span>)]</span>
 <span class="attribute">#![<span class="ident">deny</span>(<span class="ident">missing_debug_implementations</span>)]</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">deny</span>(<span class="ident">warnings</span>))]</span>
-<span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">docs_rs_workaround</span>, <span class="ident">feature</span>(<span class="ident">extern_prelude</span>))]</span>
-<span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_root_url</span> <span class="op">=</span> <span class="string">&quot;https://docs.rs/reqwest/0.9.4&quot;</span>)]</span>
+<span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_root_url</span> <span class="op">=</span> <span class="string">&quot;https://docs.rs/reqwest/0.9.19&quot;</span>)]</span>
 
 <span class="doccomment">//! # reqwest</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The `reqwest` crate provides a convenient, higher-level HTTP Client.</span>
+<span class="doccomment">//! The `reqwest` crate provides a convenient, higher-level HTTP</span>
+<span class="doccomment">//! [`Client`][client].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! It handles many of the things that most people just expect an HTTP client</span>
 <span class="doccomment">//! to do for them.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - Uses system-native TLS</span>
-<span class="doccomment">//! - Plain bodies, JSON, urlencoded, multipart</span>
-<span class="doccomment">//! - Customizable redirect policy</span>
-<span class="doccomment">//! - Proxies</span>
-<span class="doccomment">//! - Cookies (only rudimentary support, full support is TODO)</span>
+<span class="doccomment">//! - Plain bodies, [JSON](#json), [urlencoded](#forms), [multipart](multipart)</span>
+<span class="doccomment">//! - Customizable [redirect policy](#redirect-policy)</span>
+<span class="doccomment">//! - HTTP [Proxies](#proxies)</span>
+<span class="doccomment">//! - Uses system-native [TLS](#tls)</span>
+<span class="doccomment">//! - Cookies</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The rudimentary cookie support means that the cookies need to be manually</span>
-<span class="doccomment">//! configured for every single request. In other words, there&#39;s no cookie jar</span>
-<span class="doccomment">//! support as of now. The tracking issue for this feature is available</span>
-<span class="doccomment">//! [on GitHub][cookiejar_issue].</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! The `reqwest::Client` is synchronous, making it a great fit for</span>
+<span class="doccomment">//! The [`reqwest::Client`][client] is synchronous, making it a great fit for</span>
 <span class="doccomment">//! applications that only require a few HTTP requests, and wish to handle</span>
 <span class="doccomment">//! them synchronously.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Additional learning resources include:</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! - [The Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/web/clients.html)</span>
+<span class="doccomment">//! - [Reqwest Repository Examples](https://github.com/seanmonstar/reqwest/tree/master/examples)</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Making a GET request</span>
 <span class="doccomment">//!</span>
@@ -379,16 +455,66 @@
 <span class="doccomment">//! # }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! ## Redirect Policies</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! By default, a `Client` will automatically handle HTTP redirects, detecting</span>
+<span class="doccomment">//! loops, and having a maximum redirect chain of 10 hops. To customize this</span>
+<span class="doccomment">//! behavior, a [`RedirectPolicy`][redirect] can used with a `ClientBuilder`.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Cookies</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The automatic storing and sending of session cookies can be enabled with</span>
+<span class="doccomment">//! the [`cookie_store`][ClientBuilder::cookie_store] method on `ClientBuilder`.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Proxies</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! A `Client` can be configured to make use of HTTP proxies by adding</span>
+<span class="doccomment">//! [`Proxy`](Proxy)s to a `ClientBuilder`.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ** NOTE** System proxies will be used in the next breaking change.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## TLS</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! By default, a `Client` will make use of system-native transport layer</span>
+<span class="doccomment">//! security to connect to HTTPS destinations. This means schannel on Windows,</span>
+<span class="doccomment">//! Security-Framework on macOS, and OpenSSL on Linux.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! - Additional X509 certificates can be configured on a `ClientBuilder` with the</span>
+<span class="doccomment">//!   [`Certificate`](Certificate) type.</span>
+<span class="doccomment">//! - Client certificates can be add to a `ClientBuilder` with the</span>
+<span class="doccomment">//!   [`Identity`][Identity] type.</span>
+<span class="doccomment">//! - Various parts of TLS can also be configured or even disabled on the</span>
+<span class="doccomment">//!   `ClientBuilder`.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Optional Features</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The following are a list of [Cargo features][cargo-features] that can be</span>
+<span class="doccomment">//! enabled or disabled:</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! - **default-tls** *(enabled by default)*: Provides TLS support via the</span>
+<span class="doccomment">//!   `native-tls` library to connect over HTTPS.</span>
+<span class="doccomment">//! - **default-tls-vendored**: Enables the `vendored` feature of `native-tls`.</span>
+<span class="doccomment">//! - **rustls-tls**: Provides TLS support via the `rustls` library.</span>
+<span class="doccomment">//! - **socks**: Provides SOCKS5 proxy support.</span>
+<span class="doccomment">//! - **trust-dns**: Enables a trust-dns async resolver instead of default</span>
+<span class="doccomment">//!   threadpool using `getaddrinfo`.</span>
+<span class="doccomment">//! - **hyper-011**: Provides support for hyper&#39;s old typed headers.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! [hyper]: http://hyper.rs</span>
 <span class="doccomment">//! [client]: ./struct.Client.html</span>
 <span class="doccomment">//! [response]: ./struct.Response.html</span>
 <span class="doccomment">//! [get]: ./fn.get.html</span>
 <span class="doccomment">//! [builder]: ./struct.RequestBuilder.html</span>
 <span class="doccomment">//! [serde]: http://serde.rs</span>
-<span class="doccomment">//! [cookiejar_issue]: https://github.com/seanmonstar/reqwest/issues/14</span>
+<span class="doccomment">//! [redirect]: ./struct.RedirectPolicy.html</span>
+<span class="doccomment">//! [Proxy]: ./struct.Proxy.html</span>
+<span class="doccomment">//! [cargo-features]: https://doc.rust-lang.org/stable/cargo/reference/manifest.html#the-features-section</span>
 
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">base64</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">bytes</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">cookie</span> <span class="kw">as</span> <span class="ident">cookie_crate</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">cookie_store</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">encoding_rs</span>;
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">futures</span>;
@@ -396,24 +522,47 @@
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">hyper</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-011&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">hyper_old_types</span> <span class="kw">as</span> <span class="ident">hyper_011</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;default-tls&quot;</span>)]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">hyper_tls</span>;
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">log</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libflate</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">flate2</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">mime</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">mime_guess</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;default-tls&quot;</span>)]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">native_tls</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-<span class="attribute">#[<span class="ident">macro_use</span>]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde_derive</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde_json</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde_urlencoded</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">time</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio</span>;
-<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio_executor</span>;
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;default-tls&quot;</span>, <span class="ident">macro_use</span>)]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio_io</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio_timer</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;trust-dns&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">trust_dns_resolver</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">url</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">uuid</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;socks&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">socks</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">winreg</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-tls&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">hyper_rustls</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-tls&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tokio_rustls</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-tls&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">webpki_roots</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustls-tls&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">rustls</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">doc_comment</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="macro">doctest</span><span class="macro">!</span>(<span class="string">&quot;../README.md&quot;</span>);
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">hyper</span>::<span class="ident">header</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">hyper</span>::<span class="ident">Method</span>;
@@ -429,6 +578,7 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">redirect</span>::{<span class="ident">RedirectAction</span>, <span class="ident">RedirectAttempt</span>, <span class="ident">RedirectPolicy</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">request</span>::{<span class="ident">Request</span>, <span class="ident">RequestBuilder</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">response</span>::<span class="ident">Response</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tls&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">tls</span>::{<span class="ident">Certificate</span>, <span class="ident">Identity</span>};
 
 
@@ -438,23 +588,23 @@
 
 <span class="kw">mod</span> <span class="ident">async_impl</span>;
 <span class="kw">mod</span> <span class="ident">connect</span>;
-<span class="kw">mod</span> <span class="ident">connect_async</span>;
 <span class="kw">mod</span> <span class="ident">body</span>;
 <span class="kw">mod</span> <span class="ident">client</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">cookie</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;trust-dns&quot;</span>)]</span>
+<span class="kw">mod</span> <span class="ident">dns</span>;
 <span class="kw">mod</span> <span class="ident">into_url</span>;
 <span class="kw">mod</span> <span class="ident">proxy</span>;
 <span class="kw">mod</span> <span class="ident">redirect</span>;
 <span class="kw">mod</span> <span class="ident">request</span>;
 <span class="kw">mod</span> <span class="ident">response</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tls&quot;</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tls</span>;
 <span class="kw">mod</span> <span class="ident">wait</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">multipart</span>;
 
 <span class="doccomment">/// An &#39;async&#39; implementation of the reqwest `Client`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Relies on the `futures` crate, which is unstable, hence this module</span>
-<span class="doccomment">/// is **unstable**.</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">async</span> {
     <span class="kw">pub</span> <span class="kw">use</span> ::<span class="ident">async_impl</span>::{
         <span class="ident">Body</span>,
@@ -466,6 +616,7 @@
         <span class="ident">RequestBuilder</span>,
         <span class="ident">Response</span>,
         <span class="ident">ResponseBuilderExt</span>,
+        <span class="ident">multipart</span>
     };
 }
 
@@ -499,7 +650,8 @@
 <span class="doccomment">/// - redirect loop was detected</span>
 <span class="doccomment">/// - redirect limit was exhausted</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IntoUrl</span><span class="op">&gt;</span>(<span class="ident">url</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> ::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span> {
-    <span class="ident">Client</span>::<span class="ident">new</span>()
+    <span class="ident">Client</span>::<span class="ident">builder</span>()
+        .<span class="ident">build</span>()<span class="question-mark">?</span>
         .<span class="ident">get</span>(<span class="ident">url</span>)
         .<span class="ident">send</span>()
 }

@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["audit_deployment",""],["audit_reconciliation",""]],"struct":[["AuditDeploymentPayload",""],["AuditEvent","Payload that gets sent via audit webhook"],["AuditReconciliationPayload",""]],"trait":[["AuditType",""]]});
+initSidebarItems({"fn":[["audit_apply","Apply audit sent by shipcat::aplpy"],["audit_reconciliation","Apply audit sent by shipcat::cluster"]],"struct":[["AuditDeploymentPayload",""],["AuditEvent","Payload that gets sent via audit webhook"],["AuditReconciliationPayload",""]],"trait":[["AuditType",""]]});

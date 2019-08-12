@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ErrorKind",""]],"mod":[["api","API helpers"],["client","A basic API client with standard kube error handling"],["config","In cluster or out of cluster kubeconfig to be used by an api client"]],"struct":[["ApiError","ApiError for when things fail"],["Error",""]],"type":[["Result",""]]});

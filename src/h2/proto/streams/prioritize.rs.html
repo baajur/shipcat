@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/h2-0.1.13/src/proto/streams/prioritize.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>prioritize.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script src="../../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/h2-0.1.26/src/proto/streams/prioritize.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>prioritize.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script src="../../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../../h2/index.html'><div class='logo-container'><img src='../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -850,6 +850,19 @@
 <span id="850">850</span>
 <span id="851">851</span>
 <span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
+<span id="855">855</span>
+<span id="856">856</span>
+<span id="857">857</span>
+<span id="858">858</span>
+<span id="859">859</span>
+<span id="860">860</span>
+<span id="861">861</span>
+<span id="862">862</span>
+<span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">store</span>::<span class="ident">Resolve</span>;
@@ -1205,6 +1218,14 @@
                 <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span>,
             };
 
+            <span class="comment">// Streams pending capacity may have been reset before capacity</span>
+            <span class="comment">// became available. In that case, the stream won&#39;t want any</span>
+            <span class="comment">// capacity, and so we shouldn&#39;t &quot;transition&quot; on it, but just evict</span>
+            <span class="comment">// it and continue the loop.</span>
+            <span class="kw">if</span> <span class="op">!</span>(<span class="ident">stream</span>.<span class="ident">state</span>.<span class="ident">is_send_streaming</span>() <span class="op">||</span> <span class="ident">stream</span>.<span class="ident">buffered_send_data</span> <span class="op">&gt;</span> <span class="number">0</span>) {
+                <span class="kw">continue</span>;
+            }
+
             <span class="ident">counts</span>.<span class="ident">transition</span>(<span class="ident">stream</span>, <span class="op">|</span><span class="kw">_</span>, <span class="kw-2">mut</span> <span class="ident">stream</span><span class="op">|</span> {
                 <span class="comment">// Try to assign capacity to the stream. This will also re-queue the</span>
                 <span class="comment">// stream if there isn&#39;t enough connection level capacity to fulfill</span>
@@ -1231,7 +1252,8 @@
         );
 
         <span class="macro">trace</span><span class="macro">!</span>(
-            <span class="string">&quot;try_assign_capacity; requested={}; additional={}; buffered={}; window={}; conn={}&quot;</span>,
+            <span class="string">&quot;try_assign_capacity; stream={:?}, requested={}; additional={}; buffered={}; window={}; conn={}&quot;</span>,
+            <span class="ident">stream</span>.<span class="ident">id</span>,
             <span class="ident">total_requested</span>,
             <span class="ident">additional</span>,
             <span class="ident">stream</span>.<span class="ident">buffered_send_data</span>,
@@ -1262,7 +1284,11 @@
             <span class="comment">// TODO: Should prioritization factor into this?</span>
             <span class="kw">let</span> <span class="ident">assign</span> <span class="op">=</span> <span class="ident">cmp</span>::<span class="ident">min</span>(<span class="ident">conn_available</span>, <span class="ident">additional</span>);
 
-            <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;  assigning; num={}&quot;</span>, <span class="ident">assign</span>);
+            <span class="macro">trace</span><span class="macro">!</span>(
+                <span class="string">&quot;  assigning; stream={:?}, capacity={}&quot;</span>,
+                <span class="ident">stream</span>.<span class="ident">id</span>,
+                <span class="ident">assign</span>,
+            );
 
             <span class="comment">// Assign the capacity to the stream</span>
             <span class="ident">stream</span>.<span class="ident">assign_capacity</span>(<span class="ident">assign</span>);
@@ -1272,7 +1298,7 @@
         }
 
         <span class="macro">trace</span><span class="macro">!</span>(
-            <span class="string">&quot;try_assign_capacity; available={}; requested={}; buffered={}; has_unavailable={:?}&quot;</span>,
+            <span class="string">&quot;try_assign_capacity(2); available={}; requested={}; buffered={}; has_unavailable={:?}&quot;</span>,
             <span class="ident">stream</span>.<span class="ident">send_flow</span>.<span class="ident">available</span>(),
             <span class="ident">stream</span>.<span class="ident">requested_send_capacity</span>,
             <span class="ident">stream</span>.<span class="ident">buffered_send_data</span>,
@@ -1457,7 +1483,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_queue</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Buffer</span><span class="op">&lt;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;&gt;</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">store</span>::<span class="ident">Ptr</span>) {
-        <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;clear_queue; stream-id={:?}&quot;</span>, <span class="ident">stream</span>.<span class="ident">id</span>);
+        <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;clear_queue; stream={:?}&quot;</span>, <span class="ident">stream</span>.<span class="ident">id</span>);
 
         <span class="comment">// TODO: make this more efficient?</span>
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">frame</span>) <span class="op">=</span> <span class="ident">stream</span>.<span class="ident">pending_send</span>.<span class="ident">pop_front</span>(<span class="ident">buffer</span>) {

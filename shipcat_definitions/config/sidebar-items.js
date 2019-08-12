@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Cluster","Kubernetes cluster information"],["Config","Main manifest, serializable from shipcat.yml"],["GithubParameters",""],["Location",""],["ManifestDefaults",""],["SlackParameters",""],["Team",""]]});
+initSidebarItems({"enum":[["NotificationMode","Modes for slack notification"]],"struct":[["Cluster","Kubernetes cluster information"],["Config","Main manifest, serializable from shipcat.conf"],["GithubParameters",""],["Location",""],["ManifestDefaults",""],["SlackParameters",""],["Team",""]]});

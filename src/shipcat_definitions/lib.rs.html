@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -113,6 +113,11 @@
 <span id="113">113</span>
 <span id="114">114</span>
 <span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">recursion_limit</span> <span class="op">=</span> <span class="string">&quot;1024&quot;</span>]</span>
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">renamed_and_removed_lints</span>)]</span>
@@ -121,14 +126,7 @@
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde_derive</span>;
 <span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">log</span>;
-
-<span class="doccomment">/// The backing for manifests must come from the filesystem or the CRD</span>
-<span class="doccomment">/// This assert enforce that users of this library choses a feature.</span>
-<span class="ident">static_assertions</span>::<span class="macro">assert_cfg</span><span class="macro">!</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;crd&quot;</span>)),
-                <span class="ident">any</span>(    <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;crd&quot;</span>)),
-<span class="string">&quot;shipcat definitions library behaves differently depending on compile time features:\n\n\
-Please `cargo build -p shipcat` or `cargo build -p raftcat` to force a backend choice, \
-or build from shipcat_definitions/ with --features to build the library directly.\n&quot;</span>);
+<span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">maplit</span>;
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">error_chain</span>; <span class="comment">// bail and error_chain macro</span>
 <span class="macro">error_chain</span><span class="macro">!</span> {
@@ -147,6 +145,7 @@ or build from shipcat_definitions/ with --features to build the library directly
         <span class="ident">Reqw</span>(<span class="ident">reqwest</span>::<span class="ident">UrlError</span>);
         <span class="ident">Reqe</span>(<span class="ident">reqwest</span>::<span class="ident">Error</span>);
         <span class="ident">Time</span>(::<span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">SystemTimeError</span>);
+        <span class="ident">Chrono</span>(<span class="ident">chrono</span>::<span class="ident">format</span>::<span class="ident">ParseError</span>);
     }
     <span class="ident">errors</span> {
         <span class="ident">MissingVaultAddr</span> {
@@ -190,7 +189,14 @@ or build from shipcat_definitions/ with --features to build the library directly
 
 <span class="doccomment">/// Config with regional data</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">region</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">region</span>::{<span class="ident">Region</span>, <span class="ident">VaultConfig</span>, <span class="ident">VersionScheme</span>, <span class="ident">KongConfig</span>, <span class="ident">Environment</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">region</span>::{
+    <span class="ident">Region</span>,
+    <span class="ident">VaultConfig</span>,
+    <span class="ident">VersionScheme</span>,
+    <span class="ident">KongConfig</span>,
+    <span class="ident">Environment</span>,
+    <span class="ident">ReconciliationMode</span>,
+};
 <span class="doccomment">/// Master config with cross-region data</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">config</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">config</span>::{<span class="ident">Config</span>, <span class="ident">Cluster</span>, <span class="ident">Team</span>, <span class="ident">ManifestDefaults</span>};
@@ -207,7 +213,11 @@ or build from shipcat_definitions/ with --features to build the library directly
 
 <span class="doccomment">/// Crd wrappers</span>
 <span class="kw">mod</span> <span class="ident">crds</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">crds</span>::{<span class="ident">Crd</span>, <span class="ident">CrdList</span>, <span class="ident">CrdEvent</span>, <span class="ident">CrdEventType</span>, <span class="ident">gen_all_crds</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">crds</span>::{<span class="ident">Crd</span>, <span class="ident">gen_all_crds</span>};
+
+<span class="doccomment">/// Status objects</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">status</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">status</span>::<span class="ident">ManifestStatus</span>;
 
 <span class="doccomment">/// Internal classifications and states</span>
 <span class="kw">mod</span> <span class="ident">states</span>;
