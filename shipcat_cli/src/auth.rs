@@ -37,7 +37,9 @@ You must install version 3.2.* and not 4.0.0");
 ///
 /// This will use teleport to login to EKS if a teleport url is set
 /// otherwise it assumes you have already set a context with `region.name` externally.
-pub fn login(conf: &Config, region: &Region) -> Result<()> {
+///
+/// If a github_token is given, we also log you into vault
+pub fn login(conf: &Config, region: &Region, github_token: Option<&str>) -> Result<()> {
     if let Some(cluster) = Region::find_owning_cluster(&region.name, &conf.clusters) {
         if let Some(teleport) = &cluster.teleport {
             ensure_teleport()?;
@@ -77,6 +79,32 @@ pub fn login(conf: &Config, region: &Region) -> Result<()> {
         }
     } else {
         bail!("Region {} does not have a cluster", region.name);
+    }
+    if let Some(token) = github_token {
+        vault_login(&region, token)?;
+    }
+    Ok(())
+}
+
+fn vault_login(region: &Region, token: &str) -> Result<()> {
+    let vault_args = vec![
+        "login".into(),
+        "-method=github".into(),
+        format!("token={}", token)
+    ];
+    trace!("vault {}", vault_args.join(" "));
+    info!("Logging in to vault at {}", region.vault.url);
+    let s = Command::new("vault")
+        .env("VAULT_ADDR", region.vault.url.clone())
+        .args(&vault_args)
+        .output()?;
+    let out = String::from_utf8_lossy(&s.stdout);
+    let err = String::from_utf8_lossy(&s.stderr);
+    if !out.is_empty() {
+        debug!("{}", out);
+    }
+    if !s.status.success() {
+        bail!("vault login: {}", err);
     }
     Ok(())
 }

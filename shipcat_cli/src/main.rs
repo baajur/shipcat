@@ -348,8 +348,11 @@ fn build_cli() -> App<'static, 'static> {
                 .about("Verify product manifests")))
 
         .subcommand(SubCommand::with_name("login")
-            .about("Login to a region (using teleport if possible)")
-            )
+            .arg(Arg::with_name("token")
+                .short("t")
+                .takes_value(true)
+                .help("A github personal access token for vault"))
+            .about("Login to a region (using teleport and vault if possible)"))
 }
 
 fn main() {
@@ -441,7 +444,8 @@ fn dispatch_commands(args: &ArgMatches) -> Result<()> {
     //}
     else if let Some(a) = args.subcommand_matches("login") {
         let (conf, region) = resolve_config(a, ConfigType::Base)?;
-        return shipcat::auth::login(&conf, &region);
+        let token = a.value_of("token");
+        return shipcat::auth::login(&conf, &region, token);
     }
     // getters
     else if let Some(a) = args.subcommand_matches("get") {
