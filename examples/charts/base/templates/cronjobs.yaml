@@ -30,7 +30,7 @@ spec:
             image: "{{ $.Values.image }}:{{ $.Values.version }}"
             imagePullPolicy: IfNotPresent
             env:
-{{- range $k, $v := $.Values.env }}
+{{- range $k, $v := (merge $.Values.env.plain $.Values.secrets) }}
             - name: {{ $k }}
               value: "{{ $v }}"
 {{- end }}
