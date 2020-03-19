@@ -369,6 +369,22 @@ async fn upgrade_kubectl(mf: &Manifest, tfile: &str) -> Result<()> {
 pub async fn diff_kubectl(mf: &Manifest, tfile: &str) -> Result<Option<String>> {
     let namespace = mf.namespace.clone();
     let pth = Path::new(tfile);
+
+    // Do a dry run first to catch the pruned objects
+    // This is necessary because kubectl diff does not support --prune
+    let (dryout, dryerr, drysuccess) = kubectl::dry_run_check(pth.to_path_buf(), &mf).await?;
+    if !drysuccess {
+        bail!("server-dry-run failure: {}", dryerr)
+    }
+    let changed_dry_run = diff::minify_apply_output(&dryout);
+    let has_pruned = changed_dry_run.contains("pruned");
+
+    if changed_dry_run.is_empty() {
+        info!("empty dry run, stopping");
+        return Ok(None); // no point diffing further
+    }
+    println!("{}", changed_dry_run);
+
     let (kdiffunobfusc, kdifferr, success) = kubectl::diff(pth.to_path_buf(), &namespace).await?;
 
     let kubediff = diff::obfuscate_secrets(
@@ -395,7 +411,12 @@ pub async fn diff_kubectl(mf: &Manifest, tfile: &str) -> Result<Option<String>> 
         println!("{}", smalldiff);
         Some(smalldiff)
     } else {
-        None
+        if has_pruned {
+            debug!("{}", dryout); // full dry output for logs
+            Some(diff::minify_apply_output(&dryout))
+        } else {
+            None
+        }
     })
 }
 

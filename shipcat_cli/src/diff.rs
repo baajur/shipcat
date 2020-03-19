@@ -236,6 +236,16 @@ fn minify_kube(diff: &str) -> String {
     res.join("\n")
 }
 
+/// Minify kubectl apply output
+pub fn minify_apply_output(dryout: &str) -> String {
+    let change_re = Regex::new(r"configured|created|pruned").unwrap();
+    dryout
+        .split('\n')
+        .filter(|l| change_re.is_match(l))
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
 /// Check if a diff contains only version related changes
 pub fn is_version_only(diff: &str, vers: (&str, &str)) -> bool {
     let smalldiff = minify(diff);
@@ -284,7 +294,24 @@ pub fn obfuscate_secrets(input: String, secrets: Vec<String>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{infer_version_change, is_version_only, minify};
+    use super::{infer_version_change, is_version_only, minify, minify_apply_output};
+
+    #[test]
+    fn verify_apply_minify() {
+        let input = r#"secret/raftcat-secrets unchanged (server dry run)
+serviceaccount/raftcat unchanged (server dry run)
+role.rbac.authorization.k8s.io/raftcat-role unchanged (server dry run)
+rolebinding.rbac.authorization.k8s.io/raftcat-binding pruned (server dry run)
+service/raftcat unchanged (server dry run)
+deployment.extensions/raftcat configured (server dry run)
+horizontalpodautoscaler.autoscaling/raftcat configured (server dry run)
+sidecar.networking.istio.io/raftcat unchanged (server dry run)
+"#;
+        let output = r#"rolebinding.rbac.authorization.k8s.io/raftcat-binding pruned (server dry run)
+deployment.extensions/raftcat configured (server dry run)
+horizontalpodautoscaler.autoscaling/raftcat configured (server dry run)"#;
+        assert_eq!(minify_apply_output(input), output);
+    }
 
     #[test]
     fn version_change_test() {

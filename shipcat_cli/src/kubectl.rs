@@ -338,6 +338,29 @@ pub async fn diff(pth: PathBuf, ns: &str) -> Result<(String, String, bool)> {
     Ok((out, err, s.status.success()))
 }
 
+///  An optional server-side dry-run to check against pruned resources
+///
+/// This is necessary because kubectl diff does not support --prune
+pub async fn dry_run_check(pth: PathBuf, mf: &Manifest) -> Result<(String, String, bool)> {
+    let args = vec![
+        "apply".into(),
+        "--server-dry-run".into(),
+        "--prune".into(),
+        // NB: assumes one deploy per namespace
+        format!("-l=app.kubernetes.io/name={}", mf.name),
+        format!("-n={}", mf.namespace),
+        format!("-f={}", pth.display()),
+    ];
+    // need the error code here so re-implent - and discard stderr
+    debug!("kubectl {}", args.join(" "));
+
+    let s = Command::new("kubectl").args(&args).output().await?;
+    let out: String = String::from_utf8_lossy(&s.stdout).into();
+    let err: String = String::from_utf8_lossy(&s.stderr).into();
+    trace!("out: {}, err: {}", out, err);
+    Ok((out, err, s.status.success()))
+}
+
 pub async fn find_redundant_manifests(ns: &str, svcs: &[String]) -> Result<Vec<String>> {
     use std::collections::HashSet;
     let requested: HashSet<_> = svcs.iter().cloned().collect();
