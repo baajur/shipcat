@@ -410,13 +410,11 @@ pub async fn diff_kubectl(mf: &Manifest, tfile: &str) -> Result<Option<String>> 
         debug!("{}", kubediff); // full diff for logs
         println!("{}", smalldiff);
         Some(smalldiff)
+    } else if has_pruned {
+        debug!("{}", dryout); // full dry output for logs
+        Some(diff::minify_apply_output(&dryout))
     } else {
-        if has_pruned {
-            debug!("{}", dryout); // full dry output for logs
-            Some(diff::minify_apply_output(&dryout))
-        } else {
-            None
-        }
+        None
     })
 }
 
