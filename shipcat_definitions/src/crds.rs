@@ -24,16 +24,16 @@ impl From<Config> for ShipcatConfig {
     fn from(conf: Config) -> ShipcatConfig {
         let rgs = conf.list_regions();
         assert!(!conf.has_secrets()); // no secrets
-        let allRegs = "unionised";
-        let rname: String = if rgs.len() == 1 {
-            // config has been filtered
-            // thus, can infer the region :-)
-            assert_ne!(rgs[0], allRegs); // it'd be silly to name a region like that, right?
+        // consistent name for shipcat-agnostic consumers
+        let federated_config_name = "unionised";
+        let name = if rgs.len() == 1 {
+            // config has been filtered - so infer region
+            assert_ne!(rgs[0], federated_config_name); // sanity..
             rgs[0].to_owned()
         } else {
             // non-filtered
-            allRegs.to_owned()
+            federated_config_name.to_owned()
         };
-        ShipcatConfig::new(&rname, conf)
+        ShipcatConfig::new(&name, conf)
     }
 }
