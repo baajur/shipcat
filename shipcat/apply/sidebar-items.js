@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["UpgradeReason","Reason for an apply being allowed through"]],"fn":[["apply","shipcat apply"],["diff_helm","Minified helm diff shell out"]],"struct":[["UpgradeInfo","Information from an upgrade"]]});
+initSidebarItems({"enum":[["UpgradeReason","Reason for an apply being allowed through"]],"fn":[["apply","shipcat apply"],["delete","Uninstall a service"],["diff_kubectl","Minified kubectl diff shell out"],["restart","Restart the workloads associated with a shipcatmanifest"]],"struct":[["UpgradeInfo","Information from an upgrade"]]});

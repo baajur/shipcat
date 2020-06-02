@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/manifest.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>manifest.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/manifest.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>manifest.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1021,37 +1021,247 @@
 <span id="1021">1021</span>
 <span id="1022">1022</span>
 <span id="1023">1023</span>
+<span id="1024">1024</span>
+<span id="1025">1025</span>
+<span id="1026">1026</span>
+<span id="1027">1027</span>
+<span id="1028">1028</span>
+<span id="1029">1029</span>
+<span id="1030">1030</span>
+<span id="1031">1031</span>
+<span id="1032">1032</span>
+<span id="1033">1033</span>
+<span id="1034">1034</span>
+<span id="1035">1035</span>
+<span id="1036">1036</span>
+<span id="1037">1037</span>
+<span id="1038">1038</span>
+<span id="1039">1039</span>
+<span id="1040">1040</span>
+<span id="1041">1041</span>
+<span id="1042">1042</span>
+<span id="1043">1043</span>
+<span id="1044">1044</span>
+<span id="1045">1045</span>
+<span id="1046">1046</span>
+<span id="1047">1047</span>
+<span id="1048">1048</span>
+<span id="1049">1049</span>
+<span id="1050">1050</span>
+<span id="1051">1051</span>
+<span id="1052">1052</span>
+<span id="1053">1053</span>
+<span id="1054">1054</span>
+<span id="1055">1055</span>
+<span id="1056">1056</span>
+<span id="1057">1057</span>
+<span id="1058">1058</span>
+<span id="1059">1059</span>
+<span id="1060">1060</span>
+<span id="1061">1061</span>
+<span id="1062">1062</span>
+<span id="1063">1063</span>
+<span id="1064">1064</span>
+<span id="1065">1065</span>
+<span id="1066">1066</span>
+<span id="1067">1067</span>
+<span id="1068">1068</span>
+<span id="1069">1069</span>
+<span id="1070">1070</span>
+<span id="1071">1071</span>
+<span id="1072">1072</span>
+<span id="1073">1073</span>
+<span id="1074">1074</span>
+<span id="1075">1075</span>
+<span id="1076">1076</span>
+<span id="1077">1077</span>
+<span id="1078">1078</span>
+<span id="1079">1079</span>
+<span id="1080">1080</span>
+<span id="1081">1081</span>
+<span id="1082">1082</span>
+<span id="1083">1083</span>
+<span id="1084">1084</span>
+<span id="1085">1085</span>
+<span id="1086">1086</span>
+<span id="1087">1087</span>
+<span id="1088">1088</span>
+<span id="1089">1089</span>
+<span id="1090">1090</span>
+<span id="1091">1091</span>
+<span id="1092">1092</span>
+<span id="1093">1093</span>
+<span id="1094">1094</span>
+<span id="1095">1095</span>
+<span id="1096">1096</span>
+<span id="1097">1097</span>
+<span id="1098">1098</span>
+<span id="1099">1099</span>
+<span id="1100">1100</span>
+<span id="1101">1101</span>
+<span id="1102">1102</span>
+<span id="1103">1103</span>
+<span id="1104">1104</span>
+<span id="1105">1105</span>
+<span id="1106">1106</span>
+<span id="1107">1107</span>
+<span id="1108">1108</span>
+<span id="1109">1109</span>
+<span id="1110">1110</span>
+<span id="1111">1111</span>
+<span id="1112">1112</span>
+<span id="1113">1113</span>
+<span id="1114">1114</span>
+<span id="1115">1115</span>
+<span id="1116">1116</span>
+<span id="1117">1117</span>
+<span id="1118">1118</span>
+<span id="1119">1119</span>
+<span id="1120">1120</span>
+<span id="1121">1121</span>
+<span id="1122">1122</span>
+<span id="1123">1123</span>
+<span id="1124">1124</span>
+<span id="1125">1125</span>
+<span id="1126">1126</span>
+<span id="1127">1127</span>
+<span id="1128">1128</span>
+<span id="1129">1129</span>
+<span id="1130">1130</span>
+<span id="1131">1131</span>
+<span id="1132">1132</span>
+<span id="1133">1133</span>
+<span id="1134">1134</span>
+<span id="1135">1135</span>
+<span id="1136">1136</span>
+<span id="1137">1137</span>
+<span id="1138">1138</span>
+<span id="1139">1139</span>
+<span id="1140">1140</span>
+<span id="1141">1141</span>
+<span id="1142">1142</span>
+<span id="1143">1143</span>
+<span id="1144">1144</span>
+<span id="1145">1145</span>
+<span id="1146">1146</span>
+<span id="1147">1147</span>
+<span id="1148">1148</span>
+<span id="1149">1149</span>
+<span id="1150">1150</span>
+<span id="1151">1151</span>
+<span id="1152">1152</span>
+<span id="1153">1153</span>
+<span id="1154">1154</span>
+<span id="1155">1155</span>
+<span id="1156">1156</span>
+<span id="1157">1157</span>
+<span id="1158">1158</span>
+<span id="1159">1159</span>
+<span id="1160">1160</span>
+<span id="1161">1161</span>
+<span id="1162">1162</span>
+<span id="1163">1163</span>
+<span id="1164">1164</span>
+<span id="1165">1165</span>
+<span id="1166">1166</span>
+<span id="1167">1167</span>
+<span id="1168">1168</span>
+<span id="1169">1169</span>
+<span id="1170">1170</span>
+<span id="1171">1171</span>
+<span id="1172">1172</span>
+<span id="1173">1173</span>
+<span id="1174">1174</span>
+<span id="1175">1175</span>
+<span id="1176">1176</span>
+<span id="1177">1177</span>
+<span id="1178">1178</span>
+<span id="1179">1179</span>
+<span id="1180">1180</span>
+<span id="1181">1181</span>
+<span id="1182">1182</span>
+<span id="1183">1183</span>
+<span id="1184">1184</span>
+<span id="1185">1185</span>
+<span id="1186">1186</span>
+<span id="1187">1187</span>
+<span id="1188">1188</span>
+<span id="1189">1189</span>
+<span id="1190">1190</span>
+<span id="1191">1191</span>
+<span id="1192">1192</span>
+<span id="1193">1193</span>
+<span id="1194">1194</span>
+<span id="1195">1195</span>
+<span id="1196">1196</span>
+<span id="1197">1197</span>
+<span id="1198">1198</span>
+<span id="1199">1199</span>
+<span id="1200">1200</span>
+<span id="1201">1201</span>
+<span id="1202">1202</span>
+<span id="1203">1203</span>
+<span id="1204">1204</span>
+<span id="1205">1205</span>
+<span id="1206">1206</span>
+<span id="1207">1207</span>
+<span id="1208">1208</span>
+<span id="1209">1209</span>
+<span id="1210">1210</span>
+<span id="1211">1211</span>
+<span id="1212">1212</span>
+<span id="1213">1213</span>
+<span id="1214">1214</span>
+<span id="1215">1215</span>
+<span id="1216">1216</span>
+<span id="1217">1217</span>
+<span id="1218">1218</span>
+<span id="1219">1219</span>
+<span id="1220">1220</span>
+<span id="1221">1221</span>
+<span id="1222">1222</span>
+<span id="1223">1223</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">vault</span>::<span class="ident">Vault</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BTreeSet</span>};
+<span class="kw">use</span> <span class="ident">kube_derive</span>::<span class="ident">CustomResource</span>;
 <span class="kw">use</span> <span class="ident">regex</span>::<span class="ident">Regex</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BTreeSet</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">config</span>::{<span class="ident">Config</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">region</span>::{<span class="ident">VaultConfig</span>, <span class="ident">Region</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">states</span>::<span class="ident">ManifestType</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="prelude-ty">Result</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">config</span>::<span class="ident">Config</span>,
+    <span class="ident">region</span>::{<span class="ident">Region</span>, <span class="ident">VaultConfig</span>},
+    <span class="ident">states</span>::{<span class="ident">ManifestState</span>, <span class="ident">PrimaryWorkload</span>},
+    <span class="ident">ManifestStatus</span>,
+};
 
 <span class="comment">// All structs come from the structs directory</span>
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">structs</span>::{
-    {<span class="ident">HealthCheck</span>, <span class="ident">ConfigMap</span>},
-    <span class="ident">Container</span>, <span class="ident">ResourceRequirements</span>, <span class="ident">HostAlias</span>,
-    <span class="ident">volume</span>::{<span class="ident">Volume</span>, <span class="ident">VolumeMount</span>},
-    <span class="ident">PersistentVolume</span>,
-    {<span class="ident">Metadata</span>, <span class="ident">VaultOpts</span>, <span class="ident">Dependency</span>},
-    <span class="ident">security</span>::<span class="ident">DataHandling</span>,
-    <span class="ident">Probe</span>,
-    <span class="ident">CronJob</span>, <span class="ident">Job</span>, <span class="ident">EnvVars</span>,
-    {<span class="ident">Gate</span>, <span class="ident">Kafka</span>, <span class="ident">Kong</span>, <span class="ident">Rbac</span>},
-    <span class="ident">RollingUpdate</span>,
     <span class="ident">autoscaling</span>::<span class="ident">AutoScaling</span>,
+    <span class="ident">newrelic</span>::<span class="ident">Newrelic</span>,
+    <span class="ident">security</span>::<span class="ident">DataHandling</span>,
+    <span class="ident">sentry</span>::<span class="ident">Sentry</span>,
     <span class="ident">tolerations</span>::<span class="ident">Tolerations</span>,
-    <span class="ident">LifeCycle</span>,
-    <span class="ident">Worker</span>,
-    <span class="ident">Port</span>,
+    <span class="ident">volume</span>::{<span class="ident">Volume</span>, <span class="ident">VolumeMount</span>},
+    <span class="ident">ConfigMap</span>, <span class="ident">Container</span>, <span class="ident">CronJob</span>, <span class="ident">Dependency</span>, <span class="ident">DestinationRule</span>, <span class="ident">EnvVars</span>, <span class="ident">EventStream</span>, <span class="ident">Gate</span>, <span class="ident">HealthCheck</span>,
+    <span class="ident">HostAlias</span>, <span class="ident">Kafka</span>, <span class="ident">KafkaResources</span>, <span class="ident">Kong</span>, <span class="ident">LifeCycle</span>, <span class="ident">Metadata</span>, <span class="ident">NotificationMode</span>, <span class="ident">PersistentVolume</span>, <span class="ident">Port</span>,
+    <span class="ident">Probe</span>, <span class="ident">PrometheusAlert</span>, <span class="ident">Rbac</span>, <span class="ident">ResourceRequirements</span>, <span class="ident">RollingUpdate</span>, <span class="ident">SecurityContext</span>, <span class="ident">VaultOpts</span>, <span class="ident">Worker</span>,
 };
 
 <span class="doccomment">/// Main manifest, serializable from manifest.yml or the shipcat CRD.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">CustomResource</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">kube</span>(
+    <span class="ident">group</span> <span class="op">=</span> <span class="string">&quot;babylontech.co.uk&quot;</span>,
+    <span class="ident">kind</span> <span class="op">=</span> <span class="string">&quot;ShipcatManifest&quot;</span>,
+    <span class="ident">version</span> <span class="op">=</span> <span class="string">&quot;v1&quot;</span>,
+    <span class="ident">namespaced</span>,
+    <span class="ident">shortname</span> <span class="op">=</span> <span class="string">&quot;sm&quot;</span>,
+    <span class="ident">status</span> <span class="op">=</span> <span class="string">&quot;ManifestStatus&quot;</span>,
+    <span class="ident">printcolumn</span> <span class="op">=</span> <span class="string">r#&quot;{&quot;name&quot;:&quot;Kong&quot;, &quot;jsonPath&quot;: &quot;.spec.kong_apis[*].uris&quot;, &quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;The URI where the service is available through kong&quot;}&quot;#</span>,
+    <span class="ident">printcolumn</span> <span class="op">=</span> <span class="string">r#&quot;{&quot;name&quot;:&quot;Version&quot;, &quot;jsonPath&quot;: &quot;.spec.version&quot;, &quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;The version of the service that is deployed&quot;}&quot;#</span>,
+    <span class="ident">printcolumn</span> <span class="op">=</span> <span class="string">r#&quot;{&quot;name&quot;:&quot;Team&quot;, &quot;jsonPath&quot;: &quot;.spec.metadata.team&quot;, &quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;The team that owns the service&quot;}&quot;#</span>
+)]</span>
+<span class="attribute">#[<span class="ident">kube</span>(<span class="ident">apiextensions</span> <span class="op">=</span> <span class="string">&quot;v1beta1&quot;</span>)]</span> <span class="comment">// kubernetes &lt; 1.16</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Manifest</span> {
     <span class="comment">// ------------------------------------------------------------------------</span>
     <span class="comment">// Non-mergeable global properties</span>
@@ -1060,7 +1270,6 @@
     <span class="comment">// These are often not exposed to kube and marked with `skip_serializing`,</span>
     <span class="comment">// but more often data that is used internally and assumed global.</span>
     <span class="comment">// ------------------------------------------------------------------------</span>
-
     <span class="doccomment">/// Name of the service</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This must match the folder name in a manifests repository, and additionally;</span>
@@ -1138,8 +1347,6 @@
     <span class="comment">// All properties in here should be mergeable, so ensure you add merge behaviour.</span>
     <span class="comment">// Merge behaviour is defined in the merge module.</span>
     <span class="comment">// ------------------------------------------------------------------------</span>
-
-
     <span class="doccomment">/// Chart to use for the service</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// All the properties in `Manifest` are tailored towards our `base` chart,</span>
@@ -1200,6 +1407,18 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">command</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
+    <span class="doccomment">/// Extend the workload with a securityContext</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This allows changing the ownership of mounted volumes</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">/// securityContext:</span>
+    <span class="doccomment">///   runAsUser: 1000</span>
+    <span class="doccomment">///   fsGroup: 1000</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">securityContext</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecurityContext</span><span class="op">&gt;</span>,
+
     <span class="doccomment">/// Data sources and handling strategies</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An experimental abstraction around GDPR</span>
@@ -1220,17 +1439,6 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing</span>)]</span>
     <span class="kw">pub</span> <span class="ident">dataHandling</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DataHandling</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Language the service is written in</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This does not provide any special behaviour at the moment.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```yaml</span>
-    <span class="doccomment">/// language: python</span>
-    <span class="doccomment">/// ```</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">language</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-
-
     <span class="doccomment">/// Kubernetes resource limits and requests</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Api straight from [kubernetes resources](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/)</span>
@@ -1245,7 +1453,7 @@
     <span class="doccomment">///     memory: 300Mi</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">resources</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ResourceRequirements</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">resources</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ResourceRequirements</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Kubernetes replication count</span>
     <span class="doccomment">///</span>
@@ -1270,27 +1478,22 @@
     <span class="doccomment">/// ```yaml</span>
     <span class="doccomment">/// env:</span>
     <span class="doccomment">///   # plain eva:</span>
-    <span class="doccomment">///   PLAIN_EVAR: plaintextvalue</span>
+    <span class="doccomment">///   RUST_LOG: &quot;tokio=info,raftcat=debug&quot;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///   # vault lookup:</span>
     <span class="doccomment">///   DATABASE_URL: IN_VAULT</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///   # templated evars:</span>
     <span class="doccomment">///   INTERNAL_AUTH_URL: &quot;{{ base_urls.services }}/auth/internal&quot;</span>
-    <span class="doccomment">///   AUTH_ID: &quot;{{ kong.consumers[&#39;webapp&#39;].oauth_client_id }}&quot;</span>
-    <span class="doccomment">///   AUTH_SECRET: &quot;{{ kong.consumers[&#39;webapp&#39;].oauth_client_secret | as_secret }}&quot;</span>
+    <span class="doccomment">///   REGION_NAME: &quot;{{ region }}&quot;</span>
+    <span class="doccomment">///   NAMESPACE: &quot;{{ namespace }}&quot;</span>
+
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The vault lookup will GET from the region specific path for vault, in the</span>
     <span class="doccomment">/// webapp subfolder, getting the `DATABASE_URL` secret.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The `kong` templating will use the secrets read from the `Config` for this</span>
-    <span class="doccomment">/// region, and replace them internally.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The `as_secret` destinction only serves to put `AUTH_SECRET` into `Manifest::secrets`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">env</span>: <span class="ident">EnvVars</span>,
-
 
     <span class="doccomment">/// Kubernetes Secret Files to inject</span>
     <span class="doccomment">///</span>
@@ -1308,7 +1511,6 @@
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">secretFiles</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
-
 
     <span class="doccomment">/// Config files to inline in a kubernetes `ConfigMap`</span>
     <span class="doccomment">///</span>
@@ -1396,7 +1598,24 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">dependencies</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Dependency</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Worker `Deployment` objects to additinally include</span>
+    <span class="doccomment">/// Destination Rules</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The intention here is that implementations will examine requests to determine if they</span>
+    <span class="doccomment">/// satisfy this rule and if so, redirect them to alternative services as specified by &#39;host&#39;.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// For an example, one could implement destination rules using an Istio virtual service</span>
+    <span class="doccomment">/// which matched on inbound request header values to determine whether to apply this rule and</span>
+    <span class="doccomment">/// redirect the request.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">/// destinationRules:</span>
+    <span class="doccomment">/// - identifier: &#39;USA&#39;</span>
+    <span class="doccomment">///   host: &#39;service.com&#39;</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">destinationRules</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">DestinationRule</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Worker `Deployment` objects to additionally include</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// These are more flexible than `sidecars`, because they scale independently of</span>
     <span class="doccomment">/// the main `replicaCount`. However, they are considered separate rolling upgrades.</span>
@@ -1565,7 +1784,7 @@
     <span class="doccomment">///     items:</span>
     <span class="doccomment">///     - key: file</span>
     <span class="doccomment">///       path: google-cloud-creds.json</span>
-    <span class="doccomment">///       mode: 292</span>
+    <span class="doccomment">///       mode: 0o777</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">volumes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Volume</span><span class="op">&gt;</span>,
@@ -1584,17 +1803,15 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">volumeMounts</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">VolumeMount</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// PersistentVolume injected in helm chart</span>
+    <span class="doccomment">/// PersistentVolumes for the deployment</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Exposed from shipcat, but not overrideable.</span>
-    <span class="doccomment">/// Straight from [kubernetes volumes](https://kubernetes.io/docs/concepts/storage/volumes/)</span>
+    <span class="doccomment">/// Mostly straight from [kubernetes persistent volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```yaml</span>
     <span class="doccomment">/// persistentVolumes:</span>
-    <span class="doccomment">/// - name: data</span>
-    <span class="doccomment">///   claim: mysql</span>
-    <span class="doccomment">///   storageClass: &quot;gp2&quot;</span>
-    <span class="doccomment">///   accessMode: ReadWriteOnce</span>
+    <span class="doccomment">/// - name: svc-cache-space</span>
+    <span class="doccomment">///   mountPath: /root/.scratch</span>
     <span class="doccomment">///   size: 10Gi</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
@@ -1614,21 +1831,6 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">cronJobs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CronJob</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Job images to run as kubernetes `Job` objects</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// An abstraction on top of [kubernetes jobs](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/)</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// NOTE: This experimental feature runs in parallel to deployments.</span>
-    <span class="doccomment">///       There are no guarantees. Jobs will currently fail silently if they fail.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```yaml</span>
-    <span class="doccomment">/// jobs:</span>
-    <span class="doccomment">/// - name: ping-task</span>
-    <span class="doccomment">///   command: [&quot;./ping.sh&quot;]</span>
-    <span class="doccomment">/// ```</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">jobs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Job</span><span class="op">&gt;</span>,
-
     <span class="doccomment">/// Annotations to set on `Service` objects</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Useful for `LoadBalancer` type `Service` objects.</span>
@@ -1645,7 +1847,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">serviceAnnotations</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Metadata Annotations for pod spec templates in deployments, jobs, and cron jobs</span>
+    <span class="doccomment">/// Metadata Annotations for pod spec templates in deployments, and cron jobs</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</span>
     <span class="doccomment">///</span>
@@ -1681,6 +1883,9 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">kongApis</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Kong</span><span class="op">&gt;</span>,
 
+    <span class="doccomment">///  Deprecated Gate config</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Do not use.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">gate</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Gate</span><span class="op">&gt;</span>,
 
@@ -1722,6 +1927,104 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">rbac</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rbac</span><span class="op">&gt;</span>,
 
+    <span class="doccomment">/// Kafka / EventStream configuration</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// A list of resources that will interact with the Kafka-operator CRD /</span>
+    <span class="doccomment">/// service to create kafka topics and ACLs. The Kafka-Operator is an</span>
+    <span class="doccomment">/// extension of the strimzi-kafka-operator project:</span>
+    <span class="doccomment">/// - https://strimzi.io/</span>
+    <span class="doccomment">/// - https://github.com/strimzi/strimzi-kafka-operator</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">///  eventStreams:</span>
+    <span class="doccomment">///  - name: topicA</span>
+    <span class="doccomment">///    producers:</span>
+    <span class="doccomment">///    - service1</span>
+    <span class="doccomment">///    - service2</span>
+    <span class="doccomment">///    consumers:</span>
+    <span class="doccomment">///    - service3</span>
+    <span class="doccomment">///    - service4</span>
+    <span class="doccomment">///    eventDefinitions:</span>
+    <span class="doccomment">///    - key: my_schema_key</span>
+    <span class="doccomment">///      value: my_schema_value</span>
+    <span class="doccomment">///    - key: my_schema_key_1</span>
+    <span class="doccomment">///      value: my_schema_value_1</span>
+    <span class="doccomment">///    config:</span>
+    <span class="doccomment">///        retention.ms: &quot;7200000&quot;</span>
+    <span class="doccomment">///        segment.bytes: &quot;1073741824&quot;</span>
+    <span class="doccomment">/// ```</span>
+
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">eventStreams</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventStream</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Kafka Resources (Topics and Users)</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// inputs for this struct relate directly to the strimzi kafka project.</span>
+    <span class="doccomment">/// Topic Inputs: [Strimzi Kafka Topic CRD ](https://github.com/strimzi/strimzi-kafka-operator/blob/master/install/topic-operator/04-Crd-kafkatopic.yaml)</span>
+    <span class="doccomment">/// User Inputs: [Strimzi Kafka User CRD ](https://github.com/strimzi/strimzi-kafka-operator/blob/master/install/user-operator/04-Crd-kafkauser.yaml)</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">/// kafkaResources:</span>
+    <span class="doccomment">///   topics:</span>
+    <span class="doccomment">///   - name: foo-topic-name</span>
+    <span class="doccomment">///     partitions: 1</span>
+    <span class="doccomment">///     replicas: 3</span>
+    <span class="doccomment">///     config:</span>
+    <span class="doccomment">///       retention.ms: 604800000</span>
+    <span class="doccomment">///       segment.bytes: 1073741824</span>
+    <span class="doccomment">///   users:</span>
+    <span class="doccomment">///   - name: foo-user-name</span>
+    <span class="doccomment">///     acls:</span>
+    <span class="doccomment">///     - resourceName: testtopic</span>
+    <span class="doccomment">///       resourceType: topic</span>
+    <span class="doccomment">///       patternType: literal</span>
+    <span class="doccomment">///       operation: write</span>
+    <span class="doccomment">///       host: &quot;*&quot;</span>
+    <span class="doccomment">///     - resourceName: testtopic</span>
+    <span class="doccomment">///       resourceType: topic</span>
+    <span class="doccomment">///       patternType: literal</span>
+    <span class="doccomment">///       operation: read</span>
+    <span class="doccomment">///       host: &quot;*&quot;</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">kafkaResources</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">KafkaResources</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Monitoring section covering NewRelic configuration</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">/// newrelic:</span>
+    <span class="doccomment">///   alerts:</span>
+    <span class="doccomment">///     alert_name_foo:</span>
+    <span class="doccomment">///       name: alert_name_foo:</span>
+    <span class="doccomment">///       template: appdex</span>
+    <span class="doccomment">///       params:</span>
+    <span class="doccomment">///         threshold: &quot;0.5&quot;</span>
+    <span class="doccomment">///         priority: critical</span>
+    <span class="doccomment">///   incidentPreference: PER_POLICY</span>
+    <span class="doccomment">///   slack: C12ABYZ78</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">newrelic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Newrelic</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Monitoring section covering Sentry configuration</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">/// sentry:</span>
+    <span class="doccomment">///   slack: C12ABYZ78</span>
+    <span class="doccomment">///   silent: false</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">sentry</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Sentry</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Slack upgrade notification settings</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">/// upgradeNotifications: Silent</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">upgradeNotifications</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NotificationMode</span><span class="op">&gt;</span>,
+
     <span class="comment">// ------------------------------------------------------------------------</span>
     <span class="comment">// Output variables</span>
     <span class="comment">//</span>
@@ -1729,7 +2032,6 @@
     <span class="comment">// if you add anything below here, you need to handle behaviour for it.</span>
     <span class="comment">// These must be marked with `skip_deserializing` serde attributes.</span>
     <span class="comment">// ------------------------------------------------------------------------</span>
-
     <span class="doccomment">/// Region injected into helm chart</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Exposed from shipcat, but not overrideable.</span>
@@ -1751,6 +2053,19 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">skip_deserializing</span>))]</span>
     <span class="kw">pub</span> <span class="ident">namespace</span>: <span class="ident">String</span>,
 
+    <span class="doccomment">/// Uid from the CRD injected into the helm chart</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is required to inject into the charts due to</span>
+    <span class="doccomment">/// https://github.com/kubernetes/kubernetes/issues/66068</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Exposed from shipcat, but not overrideable.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>,
+        <span class="ident">serde</span>(<span class="ident">skip_deserializing</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)
+    )]</span>
+    <span class="kw">pub</span> <span class="ident">uid</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+
     <span class="doccomment">/// Raw secrets from environment variables.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `env` map fills in secrets in this via the `vault` client.</span>
@@ -1761,51 +2076,103 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_deserializing</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">secrets</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Internal kind of the manifest</span>
+    <span class="doccomment">/// Internal state of the manifest</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A manifest goes through different stages of serialization, templating,</span>
     <span class="doccomment">/// config loading, secret injection. This property keeps track of it.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_deserializing</span>, <span class="ident">skip_serializing</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">kind</span>: <span class="ident">ManifestType</span>,
+    <span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">ManifestState</span>,
+
+    <span class="doccomment">/// The default workload associated with a Manifest</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Defaults to Deployment</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">/// workload: Statefulset</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">workload</span>: <span class="ident">PrimaryWorkload</span>,
+
+    <span class="doccomment">/// Prometheus alerts associated with the service.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```yaml</span>
+    <span class="doccomment">/// prometheusAlerts:</span>
+    <span class="doccomment">/// - name: AlertNameInPascalCase</span>
+    <span class="doccomment">///   summary: &quot;One-line summary of the issue&quot;</span>
+    <span class="doccomment">///   description: &quot;More details about the issue, supports Prometheus label templating&quot;</span>
+    <span class="doccomment">///   expr: &quot;rate(my_service_error_rate_metric[5m]) &gt; 123&quot;</span>
+    <span class="doccomment">///   min_duration: 15m</span>
+    <span class="doccomment">///   severity: warning</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">prometheusAlerts</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PrometheusAlert</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Manifest</span> {
     <span class="doccomment">/// Set the version field</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">version</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">version</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">version</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">version</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Print manifest to stdout</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">print</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">print</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">serde_yaml</span>::<span class="ident">to_string</span>(<span class="self">self</span>)<span class="question-mark">?</span>);
+        <span class="prelude-val">Ok</span>(())
+    }
+
+    <span class="doccomment">/// Verify the region for this manifest is one of its declared ones</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Assumes the manifest has been populated with `implicits`</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify_region</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">region</span> <span class="op">!</span><span class="op">=</span> <span class="string">&quot;&quot;</span>); <span class="comment">// needs to have been set by implicits!</span>
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">regions</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">region</span>.<span class="ident">to_string</span>()) {
+            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Unsupported region {} for service {}&quot;</span>, <span class="self">self</span>.<span class="ident">region</span>, <span class="self">self</span>.<span class="ident">name</span>);
+        };
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>)
+    }
+
+    <span class="doccomment">/// Verifies the &quot;destinationRules&quot; manifest entries if they are configured</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// It is erroneous to define destination rules without configuring the corresponding region&#39;s</span>
+    <span class="doccomment">/// destination rules host regular expression</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify_destination_rules</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">_destinationRules</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">destinationRules</span> {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">destinationRuleHostRegex</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">region</span>.<span class="ident">destinationRuleHostRegex</span> {
+                <span class="kw">for</span> <span class="ident">dr</span> <span class="kw">in</span> <span class="ident">_destinationRules</span> {
+                    <span class="ident">dr</span>.<span class="ident">verify</span>(<span class="ident">destinationRuleHostRegex</span>)<span class="question-mark">?</span>;
+                }
+            } <span class="kw">else</span> {
+                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Cannot use `destinationRules` in a region without a `destinationRuleHostRegex`&quot;</span>)
+            }
+        }
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="doccomment">/// Verify assumptions about manifest</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Assumes the manifest has been populated with `implicits`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">region</span> <span class="op">!=</span> <span class="string">&quot;&quot;</span>); <span class="comment">// needs to have been set by implicits!</span>
-        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">regions</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">region</span>.<span class="ident">to_string</span>()) {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Unsupported region {} for service {}&quot;</span>, <span class="self">self</span>.<span class="ident">region</span>, <span class="self">self</span>.<span class="ident">name</span>);
-        }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">verify_region</span>()<span class="question-mark">?</span>;
         <span class="comment">// limit to 50 characters, alphanumeric, dashes for sanity.</span>
         <span class="comment">// 63 is kube dns limit (13 char suffix buffer)</span>
         <span class="kw">let</span> <span class="ident">re</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;^[0-9a-z\-]{1,50}$&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">re</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>) {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Please use a short, lower case service names with dashes&quot;</span>);
         }
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">ends_with</span>(<span class="string">&#39;-&#39;</span>) <span class="op">||</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">starts_with</span>(<span class="string">&#39;-&#39;</span>) {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">ends_with</span>(<span class="string">&#39;-&#39;</span>) <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">starts_with</span>(<span class="string">&#39;-&#39;</span>) {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Please use dashes to separate words only&quot;</span>);
         }
 
+        <span class="self">self</span>.<span class="ident">verify_destination_rules</span>(<span class="ident">region</span>)<span class="question-mark">?</span>;
+
+        <span class="comment">// TODO: remove?</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">dh</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">dataHandling</span> {
             <span class="ident">dh</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>
-        } <span class="comment">// TODO: mandatory for later environments!</span>
+        }
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">md</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">metadata</span> {
-            <span class="ident">md</span>.<span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="ident">conf</span>.<span class="ident">teams</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>.<span class="ident">allowedCustomMetadata</span>)<span class="question-mark">?</span>;
+            <span class="ident">md</span>.<span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="ident">conf</span>.<span class="ident">owners</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>.<span class="ident">allowedCustomMetadata</span>)<span class="question-mark">?</span>;
         } <span class="kw">else</span> {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Missing metadata for {}&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>);
         }
@@ -1824,7 +2191,7 @@
             <span class="kw">if</span> <span class="self">self</span>.<span class="ident">kongApis</span>.<span class="ident">is_empty</span>() {
                 <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Can&#39;t have a `gate` configuration without a `kong` one&quot;</span>);
             }
-            <span class="kw">if</span> <span class="ident">g</span>.<span class="ident">public</span> <span class="op">!=</span> <span class="self">self</span>.<span class="ident">publiclyAccessible</span> {
+            <span class="kw">if</span> <span class="ident">g</span>.<span class="ident">public</span> <span class="op">!</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">publiclyAccessible</span> {
                 <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;[Migration plan] `publiclyAccessible` and `gate.public` must be equal&quot;</span>);
             }
         }
@@ -1841,14 +2208,12 @@
         <span class="kw">for</span> <span class="ident">d</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">dependencies</span> {
             <span class="ident">d</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
         }
+
         <span class="kw">for</span> <span class="ident">ha</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">hostAliases</span> {
             <span class="ident">ha</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
         }
         <span class="kw">for</span> <span class="ident">tl</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">tolerations</span> {
             <span class="ident">tl</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
-        }
-        <span class="kw">for</span> <span class="ident">p</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">ports</span> {
-            <span class="ident">p</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
         }
         <span class="kw">for</span> <span class="ident">r</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">rbac</span> {
             <span class="ident">r</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
@@ -1859,8 +2224,22 @@
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">cmap</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">configs</span> {
             <span class="ident">cmap</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
         }
+        <span class="kw">for</span> <span class="ident">k</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">labels</span>.<span class="ident">keys</span>() {
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">conf</span>.<span class="ident">allowedLabels</span>.<span class="ident">contains</span>(<span class="ident">k</span>) {
+                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Service: {} using label {} not defined in config&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>, <span class="ident">k</span>)
+            }
+        }
+        <span class="kw">for</span> <span class="ident">es</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">eventStreams</span> {
+            <span class="ident">es</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
+        }
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">kr</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">kafkaResources</span> {
+            <span class="ident">kr</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
+        }
+        <span class="kw">for</span> <span class="ident">pa</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">prometheusAlerts</span> {
+            <span class="ident">pa</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
+        }
         <span class="comment">// misc minor properties</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">replicaCount</span>.<span class="ident">unwrap</span>() <span class="op">==</span> <span class="number">0</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">replicaCount</span>.<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Need replicaCount to be at least 1&quot;</span>);
         }
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">ru</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">rollingUpdate</span> {
@@ -1879,42 +2258,28 @@
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">chart</span>.<span class="ident">is_none</span>() {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;chart must be set at this point&quot;</span>);
         }
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">namespace</span> <span class="op">==</span> <span class="string">&quot;&quot;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">namespace</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;&quot;</span> {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;namespace must be set at this point&quot;</span>);
         }
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">regions</span>.<span class="ident">is_empty</span>() {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;No regions specified for {}&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>);
         }
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">environment</span> <span class="op">==</span> <span class="string">&quot;&quot;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">environment</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;&quot;</span> {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Service {} ended up with an empty environment&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>);
         }
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">namespace</span> <span class="op">==</span> <span class="string">&quot;&quot;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">namespace</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;&quot;</span> {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Service {} ended up with an empty namespace&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>);
         }
 
         <span class="comment">// health check</span>
-        <span class="comment">// every service that exposes http MUST have a health check</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">httpPort</span>.<span class="ident">is_some</span>() <span class="op">&amp;&amp;</span> (<span class="self">self</span>.<span class="ident">health</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">readinessProbe</span>.<span class="ident">is_none</span>()) {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;{} has an httpPort but no health check&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>)
-        }
-
-        <span class="comment">// add some warnigs about missing health checks and ports regardless</span>
-        <span class="comment">// TODO: make both mandatory once we have sidecars supported</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">httpPort</span>.<span class="ident">is_none</span>() {
-            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;{} exposes no http port&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>);
-        }
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">health</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">readinessProbe</span>.<span class="ident">is_none</span>() {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">health</span>.<span class="ident">is_none</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">readinessProbe</span>.<span class="ident">is_none</span>() {
             <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;{} does not set a health check&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>)
-        }
-
-        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">serviceAnnotations</span>.<span class="ident">is_empty</span>() {
-            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;serviceAnnotation is an experimental/temporary feature&quot;</span>)
         }
 
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">get_vault_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vc</span>: <span class="kw-2">&amp;</span><span class="ident">VaultConfig</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+    <span class="kw">fn</span> <span class="ident">get_vault_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vc</span>: <span class="kw-2">&amp;</span><span class="ident">VaultConfig</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="comment">// some services use keys from other services</span>
         <span class="kw">let</span> (<span class="ident">svc</span>, <span class="ident">reg</span>) <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">vopts</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">vault</span> {
             (<span class="ident">vopts</span>.<span class="ident">name</span>.<span class="ident">clone</span>(), <span class="ident">vc</span>.<span class="ident">folder</span>.<span class="ident">clone</span>())
@@ -1925,7 +2290,7 @@
     }
 
     <span class="comment">// Get EnvVars for all containers, workers etc. for this Manifest.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_env_vars</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EnvVars</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_env_vars</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EnvVars</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">envs</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
         <span class="ident">envs</span>.<span class="ident">push</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">env</span>);
         <span class="kw">for</span> <span class="ident">s</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">sidecars</span> {
@@ -1937,9 +2302,6 @@
         <span class="kw">for</span> <span class="ident">c</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">cronJobs</span> {
             <span class="ident">envs</span>.<span class="ident">push</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">c</span>.<span class="ident">container</span>.<span class="ident">env</span>);
         }
-        <span class="kw">for</span> <span class="ident">j</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">jobs</span> {
-            <span class="ident">envs</span>.<span class="ident">push</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">j</span>.<span class="ident">container</span>.<span class="ident">env</span>);
-        }
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">initContainers</span> {
             <span class="ident">envs</span>.<span class="ident">push</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">i</span>.<span class="ident">env</span>);
         }
@@ -1950,7 +2312,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will use the HTTP api of Vault using the configuration parameters</span>
     <span class="doccomment">/// in the `Config`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">Vault</span>, <span class="ident">vc</span>: <span class="kw-2">&amp;</span><span class="ident">VaultConfig</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">Vault</span>, <span class="ident">vc</span>: <span class="kw-2">&amp;</span><span class="ident">VaultConfig</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">pth</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_vault_path</span>(<span class="ident">vc</span>);
         <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Injecting secrets from vault {} ({:?})&quot;</span>, <span class="ident">pth</span>, <span class="ident">client</span>.<span class="ident">mode</span>());
 
@@ -1962,8 +2324,11 @@
             }
             <span class="kw">for</span> (<span class="ident">k</span>, <span class="ident">v</span>) <span class="kw">in</span> <span class="ident">e</span>.<span class="ident">template_secrets</span>() {
                 <span class="kw">let</span> <span class="ident">original</span> <span class="op">=</span> <span class="ident">template_secrets</span>.<span class="ident">insert</span>(<span class="ident">k</span>.<span class="ident">to_string</span>(), <span class="ident">v</span>.<span class="ident">to_string</span>());
-                <span class="kw">if</span> <span class="ident">original</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">v</span>) {
-                    <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Secret {} can not be used in multiple templates with different values&quot;</span>, <span class="ident">k</span>);
+                <span class="kw">if</span> <span class="ident">original</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">v</span>) {
+                    <span class="macro">bail</span><span class="macro">!</span>(
+                        <span class="string">&quot;Secret {} can not be used in multiple templates with different values&quot;</span>,
+                        <span class="ident">k</span>
+                    );
                 }
             }
         }
@@ -1976,16 +2341,16 @@
         <span class="comment">// Lookup values for each secret in vault.</span>
         <span class="kw">for</span> <span class="ident">k</span> <span class="kw">in</span> <span class="ident">vault_secrets</span> {
             <span class="kw">let</span> <span class="ident">vkey</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/{}&quot;</span>, <span class="ident">pth</span>, <span class="ident">k</span>);
-            <span class="self">self</span>.<span class="ident">secrets</span>.<span class="ident">insert</span>(<span class="ident">k</span>.<span class="ident">to_string</span>(), <span class="ident">client</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>)<span class="question-mark">?</span>);
+            <span class="self">self</span>.<span class="ident">secrets</span>.<span class="ident">insert</span>(<span class="ident">k</span>.<span class="ident">to_string</span>(), <span class="ident">client</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>).<span class="kw">await</span><span class="question-mark">?</span>);
         }
 
         <span class="self">self</span>.<span class="ident">secrets</span>.<span class="ident">append</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">template_secrets</span>);
 
         <span class="comment">// do the same for secret secrets</span>
         <span class="kw">for</span> (<span class="ident">k</span>, <span class="ident">v</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">secretFiles</span> {
-            <span class="kw">if</span> <span class="ident">v</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span> {
+            <span class="kw">if</span> <span class="ident">v</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;IN_VAULT&quot;</span> {
                 <span class="kw">let</span> <span class="ident">vkey</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/{}&quot;</span>, <span class="ident">pth</span>, <span class="ident">k</span>);
-                <span class="kw-2">*</span><span class="ident">v</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>)<span class="question-mark">?</span>;
+                <span class="kw-2">*</span><span class="ident">v</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>).<span class="kw">await</span><span class="question-mark">?</span>;
             }
             <span class="comment">// sanity check; secretFiles are assumed base64 verify we can decode</span>
             <span class="kw">if</span> <span class="ident">base64</span>::<span class="ident">decode</span>(<span class="ident">v</span>).<span class="ident">is_err</span>() {
@@ -1998,11 +2363,16 @@
     <span class="doccomment">/// Get a list of raw secrets (without associated keys)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Useful for obfuscation mechanisms so it knows what to obfuscate.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_secrets</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">secrets</span>.<span class="ident">values</span>().<span class="ident">cloned</span>().<span class="ident">collect</span>()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_secrets</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">secrets</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+        <span class="kw">for</span> <span class="ident">s</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">secrets</span>.<span class="ident">values</span>() {
+            <span class="ident">secrets</span>.<span class="ident">push</span>(<span class="ident">s</span>.<span class="ident">clone</span>());
+            <span class="ident">secrets</span>.<span class="ident">push</span>(<span class="ident">base64</span>::<span class="ident">encode</span>(<span class="ident">s</span>));
+        }
+        <span class="ident">secrets</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vc</span>: <span class="kw-2">&amp;</span><span class="ident">VaultConfig</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vc</span>: <span class="kw-2">&amp;</span><span class="ident">VaultConfig</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashSet</span>;
         <span class="comment">// what are we requesting</span>
         <span class="comment">// TODO: Use envvars directly</span>
@@ -2011,14 +2381,17 @@
             .<span class="ident">plain</span>
             .<span class="ident">clone</span>()
             .<span class="ident">into_iter</span>()
-            .<span class="ident">filter</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span>)
+            .<span class="ident">filter</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;IN_VAULT&quot;</span>)
             .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">k</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
-        <span class="kw">let</span> <span class="ident">files</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">secretFiles</span>.<span class="ident">clone</span>().<span class="ident">into_iter</span>()
-            .<span class="ident">filter</span>(<span class="op">|</span>(<span class="kw">_</span>,<span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span>)
+            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="ident">files</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="ident">secretFiles</span>
+            .<span class="ident">clone</span>()
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">filter</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;IN_VAULT&quot;</span>)
             .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">k</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">keys</span>.<span class="ident">union</span>(<span class="kw-2">&amp;</span><span class="ident">files</span>).<span class="ident">cloned</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
+            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">keys</span>.<span class="ident">union</span>(<span class="kw-2">&amp;</span><span class="ident">files</span>).<span class="ident">cloned</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
         <span class="kw">if</span> <span class="ident">expected</span>.<span class="ident">is_empty</span>() {
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(()); <span class="comment">// no point trying to cross reference</span>
         }
@@ -2028,22 +2401,49 @@
         <span class="kw">let</span> <span class="ident">secpth</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_vault_path</span>(<span class="ident">vc</span>);
 
         <span class="comment">// list secrets; fail immediately if folder is empty</span>
-        <span class="kw">let</span> <span class="ident">found</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">v</span>.<span class="ident">list</span>(<span class="kw-2">&amp;</span><span class="ident">secpth</span>) {
-            <span class="prelude-val">Ok</span>(<span class="ident">lst</span>) <span class="op">=&gt;</span> <span class="ident">lst</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>(),
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span>
-                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Missing secret folder {} expected to contain {:?}: {}&quot;</span>,
-                    <span class="ident">secpth</span>, <span class="ident">expected</span>, <span class="ident">e</span>),
+        <span class="kw">let</span> <span class="ident">found</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">v</span>.<span class="ident">list</span>(<span class="kw-2">&amp;</span><span class="ident">secpth</span>).<span class="kw">await</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">lst</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">lst</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>(),
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
+                <span class="string">&quot;Missing secret folder {} expected to contain {:?}: {}&quot;</span>,
+                <span class="ident">secpth</span>,
+                <span class="ident">expected</span>,
+                <span class="ident">e</span>
+            ),
         };
         <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Found secrets {:?} for {}&quot;</span>, <span class="ident">found</span>, <span class="self">self</span>.<span class="ident">name</span>);
 
         <span class="comment">// compare sets</span>
-        <span class="kw">let</span> <span class="ident">missing</span> <span class="op">=</span> <span class="ident">expected</span>.<span class="ident">difference</span>(<span class="kw-2">&amp;</span><span class="ident">found</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
+        <span class="kw">let</span> <span class="ident">missing</span> <span class="op">=</span> <span class="ident">expected</span>.<span class="ident">difference</span>(<span class="kw-2">&amp;</span><span class="ident">found</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">missing</span>.<span class="ident">is_empty</span>() {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Missing secrets: {:?} not found in vault {}&quot;</span>,
-                <span class="ident">missing</span>, <span class="ident">secpth</span>);
+            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Missing secrets: {:?} not found in vault {}&quot;</span>, <span class="ident">missing</span>, <span class="ident">secpth</span>);
         }
         <span class="prelude-val">Ok</span>(())
     }
 }
+
+<span class="comment">// Cross-crate test manifest creator</span>
+<span class="kw">impl</span> <span class="ident">Manifest</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Manifest</span> {
+        <span class="kw">use</span> <span class="ident">serde_json</span>::<span class="ident">json</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mf</span>: <span class="ident">Manifest</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="ident">from_value</span>(<span class="macro">json</span><span class="macro">!</span>({
+            <span class="string">&quot;name&quot;</span>: <span class="ident">name</span>,
+            <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,
+            <span class="string">&quot;regions&quot;</span>: [<span class="string">&quot;dev-uk&quot;</span>],
+            <span class="comment">// and it has defaults from filebacked:</span>
+            <span class="string">&quot;chart&quot;</span>: <span class="string">&quot;base&quot;</span>,
+            <span class="comment">// plus some mandatory properties normally not needed in tests</span>
+            <span class="string">&quot;metadata&quot;</span>: {
+                <span class="string">&quot;team&quot;</span>: <span class="string">&quot;doves&quot;</span>,
+                <span class="string">&quot;repo&quot;</span>: <span class="string">&quot;https://github.com/babylonhealth/shipcat&quot;</span>
+            },
+        }))
+        .<span class="ident">expect</span>(<span class="string">&quot;minimal manifest format is parseable&quot;</span>);
+        <span class="comment">// fill some defaults normally done when loading it</span>
+        <span class="ident">mf</span>.<span class="ident">namespace</span> <span class="op">=</span> <span class="string">&quot;apps&quot;</span>.<span class="ident">into</span>();
+        <span class="ident">mf</span>.<span class="ident">region</span> <span class="op">=</span> <span class="string">&quot;dev-uk&quot;</span>.<span class="ident">into</span>();
+        <span class="ident">mf</span>.<span class="ident">environment</span> <span class="op">=</span> <span class="string">&quot;dev&quot;</span>.<span class="ident">into</span>();
+        <span class="ident">mf</span>
+    }
+}
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "shipcat_definitions";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "shipcat_definitions";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

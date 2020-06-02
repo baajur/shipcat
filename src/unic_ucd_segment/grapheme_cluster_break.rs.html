@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/unic-ucd-segment-0.7.0/src/grapheme_cluster_break.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>grapheme_cluster_break.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../unic_ucd_segment/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/unic-ucd-segment-0.7.0/src/grapheme_cluster_break.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>grapheme_cluster_break.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../unic_ucd_segment/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -479,26 +479,26 @@
     <span class="doccomment">/// * &lt;https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries&gt;</span>
     <span class="doccomment">/// * &lt;https://www.unicode.org/reports/tr29/#Grapheme_Cluster_Break_Property_Values&gt;</span>
     <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">GraphemeClusterBreak</span> {
-        <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="string">&quot;GCB&quot;</span>;
-        <span class="ident">long</span> <span class="op">=&gt;</span> <span class="string">&quot;Grapheme_Cluster_Break&quot;</span>;
-        <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Grapheme Cluster Break&quot;</span>;
+        <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;GCB&quot;</span>;
+        <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Grapheme_Cluster_Break&quot;</span>;
+        <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Grapheme Cluster Break&quot;</span>;
 
         <span class="doccomment">/// ```text</span>
         <span class="doccomment">/// U+000D CARRIAGE RETURN (CR)</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">CR</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">CR</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">CR</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Carriage Return&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">CR</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">CR</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Carriage Return&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
         <span class="doccomment">/// U+000A LINE FEED (LF)</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">LF</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">LF</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">LF</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Line Feed&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LF</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LF</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Line Feed&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -514,9 +514,9 @@
         <span class="doccomment">/// and not U+200D ZERO WIDTH JOINER (ZWJ)</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">Control</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">CN</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">Control</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Control&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">CN</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Control</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Control&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -529,18 +529,18 @@
         <span class="doccomment">/// plus a few General_Category = Spacing_Mark needed for canonical equivalence.</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">Extend</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">EX</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">Extend</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Extend&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EX</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Extend</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Extend&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
         <span class="doccomment">/// U+200D ZERO WIDTH JOINER</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">ZWJ</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">ZWJ</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">ZWJ</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Zero Width Joiner (ZWJ)&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ZWJ</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ZWJ</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Zero Width Joiner (ZWJ)&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -554,9 +554,9 @@
         <span class="doccomment">/// ..U+1F1FF REGIONAL INDICATOR SYMBOL LETTER Z</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">RegionalIndicator</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">RI</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">Regional_Indicator</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Regional Indicator&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">RI</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Regional_Indicator</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Regional Indicator&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -565,9 +565,9 @@
         <span class="doccomment">/// Prepended_Concatenation_Mark = Yes</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">Prepend</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">PP</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">Prepend</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Prepend&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PP</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Prepend</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Prepend&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -604,9 +604,9 @@
         <span class="doccomment">/// U+11721 ( 𑜡 ) AHOM VOWEL SIGN AA</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">SpacingMark</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">SM</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">SpacingMark</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Spacing Mark&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SM</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SpacingMark</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Spacing Mark&quot;</span>,
         }
 
         <span class="comment">// Hangul</span>
@@ -624,9 +624,9 @@
         <span class="doccomment">/// U+A97C ( ꥼ ) HANGUL CHOSEONG SSANGYEORINHIEUH</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">L</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">L</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">L</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Hangul Syllable Type L&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">L</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">L</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Hangul Syllable Type L&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -642,9 +642,9 @@
         <span class="doccomment">/// U+D7C6 ( ퟆ ) HANGUL JUNGSEONG ARAEA-E</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">V</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">V</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">V</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Hangul Syllable Type V&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">V</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">V</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Hangul Syllable Type V&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -660,9 +660,9 @@
         <span class="doccomment">/// U+D7FB ( ퟻ ) HANGUL JONGSEONG PHIEUPH-THIEUTH</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">T</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">T</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">T</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Hangul Syllable Type T&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">T</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">T</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Hangul Syllable Type T&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -678,9 +678,9 @@
         <span class="doccomment">/// ...</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">LV</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">LV</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">LV</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Hangul Syllable Type LV&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LV</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LV</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Hangul Syllable Type LV&quot;</span>,
         }
 
         <span class="doccomment">/// ```text</span>
@@ -697,9 +697,9 @@
         <span class="doccomment">/// ...</span>
         <span class="doccomment">/// ```</span>
         <span class="ident">LVT</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">LVT</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">LVT</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Hangul Syllable Type LVT&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LVT</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LVT</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Hangul Syllable Type LVT&quot;</span>,
         }
 
         <span class="comment">// Emoji</span>
@@ -709,18 +709,18 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// See &lt;https://www.unicode.org/reports/tr51/&gt;.</span>
         <span class="ident">EBase</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">EB</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">E_Base</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Emoji Base&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EB</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">E_Base</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Emoji Base&quot;</span>,
         }
 
         <span class="doccomment">/// Emoji characters listed as `Emoji_Modifer=Yes` in `emoji-data.txt`.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// See &lt;https://www.unicode.org/reports/tr51/&gt;.</span>
         <span class="ident">EModifier</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">EM</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">E_Modifier</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Emoji Modifier&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EM</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">E_Modifier</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Emoji Modifier&quot;</span>,
         }
 
         <span class="doccomment">/// Emoji characters that do not break from a previous ZWJ in a defined emoji ZWJ sequence,</span>
@@ -728,9 +728,9 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// See &lt;https://www.unicode.org/reports/tr51/&gt;.</span>
         <span class="ident">GlueAfterZwj</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">GAZ</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">Glue_After_Zwj</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Glue After ZWJ&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">GAZ</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Glue_After_Zwj</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Glue After ZWJ&quot;</span>,
         }
 
         <span class="doccomment">/// Emoji characters listed as `Emoji_Modifer_Base=Yes` in `emoji_data.txt`, and also occur</span>
@@ -738,16 +738,16 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// See &lt;https://www.unicode.org/reports/tr51/&gt;.</span>
         <span class="ident">EBaseGAZ</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">EBG</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">E_Base_GAZ</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Emoji Base and Glue After ZWJ&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EBG</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">E_Base_GAZ</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Emoji Base and Glue After ZWJ&quot;</span>,
         }
 
         <span class="doccomment">/// All other characters</span>
         <span class="ident">Other</span> {
-            <span class="ident">abbr</span> <span class="op">=&gt;</span> <span class="ident">XX</span>,
-            <span class="ident">long</span> <span class="op">=&gt;</span> <span class="ident">Other</span>,
-            <span class="ident">human</span> <span class="op">=&gt;</span> <span class="string">&quot;Other&quot;</span>,
+            <span class="ident">abbr</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">XX</span>,
+            <span class="ident">long</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Other</span>,
+            <span class="ident">human</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Other&quot;</span>,
         }
     }
 
@@ -771,13 +771,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TotalCharProperty</span> <span class="kw">for</span> <span class="ident">GraphemeClusterBreak</span> {
-    <span class="kw">fn</span> <span class="ident">of</span>(<span class="ident">ch</span>: <span class="ident">char</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">of</span>(<span class="ident">ch</span>: <span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">of</span>(<span class="ident">ch</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">GraphemeClusterBreak</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">GraphemeClusterBreak</span>::<span class="ident">Other</span>
     }
 }
@@ -791,7 +791,7 @@
 
 <span class="kw">impl</span> <span class="ident">GraphemeClusterBreak</span> {
     <span class="doccomment">/// Find the character *Grapheme_Cluster_Break* property value.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">of</span>(<span class="ident">ch</span>: <span class="ident">char</span>) <span class="op">-&gt;</span> <span class="ident">GraphemeClusterBreak</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">of</span>(<span class="ident">ch</span>: <span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GraphemeClusterBreak</span> {
         <span class="ident">data</span>::<span class="ident">GRAPHEME_CLUSTER_BREAK_TABLE</span>.<span class="ident">find_or_default</span>(<span class="ident">ch</span>)
     }
 }
@@ -898,4 +898,4 @@
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "unic_ucd_segment";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "unic_ucd_segment";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

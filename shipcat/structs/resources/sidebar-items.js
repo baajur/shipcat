@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["parse_memory",""]],"struct":[["ResourceRequirements","Kubernetes resources"],["Resources","Kubernetes resource requests or limit"]]});
+initSidebarItems({"fn":[["parse_memory","Parse normal k8s memory/disk resource value into floats"]],"struct":[["ResourceRequirements","Kubernetes resources"],["Resources","Kubernetes resource requests or limit"]]});

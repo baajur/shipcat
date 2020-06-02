@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MinimalManifest",""],["ShipKube","Interface for dealing with kubernetes shipcatmanifests"]]});

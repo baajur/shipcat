@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/structs/metadata.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>metadata.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/structs/metadata.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>metadata.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -215,15 +215,117 @@
 <span id="215">215</span>
 <span id="216">216</span>
 <span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">teams</span>::<span class="ident">Owners</span>;
 <span class="kw">use</span> <span class="ident">regex</span>::<span class="ident">Regex</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BTreeSet</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::{<span class="ident">Deref</span>, <span class="ident">DerefMut</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{
+    <span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BTreeSet</span>},
+    <span class="ident">ops</span>::{<span class="ident">Deref</span>, <span class="ident">DerefMut</span>},
+};
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="prelude-ty">Result</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">config</span>::{<span class="ident">Team</span>, <span class="ident">SlackParameters</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">config</span>::<span class="ident">SlackParameters</span>;
 
-<span class="doccomment">/// Contact data</span>
+<span class="doccomment">/// Legacy contact data</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This property is being phased out in favour of .maintainer</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Contact</span> {
     <span class="doccomment">/// Free text name</span>
@@ -238,19 +340,22 @@
     <span class="kw">pub</span> <span class="ident">github</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 <span class="kw">impl</span> <span class="ident">Contact</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">is_empty</span>() {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Contact name cannot be empty&quot;</span>)
         }
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">slack</span>.<span class="ident">starts_with</span>(<span class="string">&#39;@&#39;</span>) {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Contact slack handle needs to start with the slack guid &#39;@U...&#39; - got {}&quot;</span>, <span class="self">self</span>.<span class="ident">slack</span>)
+            <span class="macro">bail</span><span class="macro">!</span>(
+                <span class="string">&quot;Contact slack handle needs to start with the slack guid &#39;@U...&#39; - got {}&quot;</span>,
+                <span class="self">self</span>.<span class="ident">slack</span>
+            )
         }
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">slack</span>.<span class="ident">contains</span>(<span class="string">&#39;|&#39;</span>) {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Contact slack user id invalid - got {}&quot;</span>, <span class="self">self</span>.<span class="ident">slack</span>)
         }
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">gh</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">github</span> {
-            <span class="kw">if</span> <span class="ident">gh</span>.<span class="ident">starts_with</span>(<span class="string">&#39;@&#39;</span>) <span class="op">||</span> <span class="ident">gh</span>.<span class="ident">contains</span>(<span class="string">&#39;/&#39;</span>) {
-               <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;github id must be the raw username only - got {}&quot;</span>, <span class="ident">gh</span>)
+            <span class="kw">if</span> <span class="ident">gh</span>.<span class="ident">starts_with</span>(<span class="string">&#39;@&#39;</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">gh</span>.<span class="ident">contains</span>(<span class="string">&#39;/&#39;</span>) {
+                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;github id must be the raw username only - got {}&quot;</span>, <span class="ident">gh</span>)
             }
             <span class="comment">// TODO: check members of org!</span>
         }
@@ -262,35 +367,93 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">PartialEq</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SlackChannel</span>(<span class="ident">String</span>);
 <span class="kw">impl</span> <span class="ident">SlackChannel</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chan</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chan</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">SlackChannel</span>(<span class="ident">chan</span>.<span class="ident">into</span>())
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">channelre</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;^#[a-z0-9._-]+$&quot;</span>).<span class="ident">unwrap</span>();
-        <span class="kw">if</span> <span class="op">!</span><span class="ident">channelre</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">channelre</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;^#[a-z0-9._-]+$&quot;</span>).<span class="ident">unwrap</span>(); <span class="comment">// plaintext</span>
+        <span class="kw">let</span> <span class="ident">channelre2</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;^C|G[A-Z0-9]+$&quot;</span>).<span class="ident">unwrap</span>(); <span class="comment">// better</span>
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">channelre</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">channelre2</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>) {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;channel is invalid: {}&quot;</span>, <span class="self">self</span>.<span class="number">0</span>)
         }
 
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">link</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">params</span>: <span class="kw-2">&amp;</span><span class="ident">SlackParameters</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
-        <span class="kw">let</span> <span class="ident">hashless</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">clone</span>().<span class="ident">split_off</span>(<span class="number">1</span>);
-        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;slack://channel?id={}&amp;team={}&quot;</span>, <span class="ident">hashless</span>, <span class="ident">params</span>.<span class="ident">team</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">link</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">params</span>: <span class="kw-2">&amp;</span><span class="ident">SlackParameters</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">starts_with</span>(<span class="string">&#39;#&#39;</span>) {
+            <span class="kw">let</span> <span class="ident">hashless</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">clone</span>().<span class="ident">split_off</span>(<span class="number">1</span>);
+            <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;slack://channel?id={}&amp;team={}&quot;</span>, <span class="ident">hashless</span>, <span class="ident">params</span>.<span class="ident">team</span>)
+        } <span class="kw">else</span> {
+            <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;slack://channel?id={}&amp;team={}&quot;</span>, <span class="self">self</span>.<span class="number">0</span>, <span class="ident">params</span>.<span class="ident">team</span>)
+        }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Deref</span> <span class="kw">for</span> <span class="ident">SlackChannel</span> {
     <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> <span class="ident">String</span>;
-    <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Target</span> {
+
+    <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Target</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">DerefMut</span> <span class="kw">for</span> <span class="ident">SlackChannel</span> {
-    <span class="kw">fn</span> <span class="ident">deref_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">String</span> {
+    <span class="kw">fn</span> <span class="ident">deref_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">String</span> {
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="number">0</span>
+    }
+}
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;lowercase&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Language</span> {
+    <span class="ident">Rust</span>,
+    <span class="ident">Go</span>,
+    <span class="ident">Scala</span>,
+    <span class="ident">Java</span>,
+    <span class="ident">Ruby</span>,
+    <span class="ident">Python</span>,
+    <span class="ident">JavaScript</span>,
+    <span class="ident">TypeScript</span>,
+    <span class="ident">Kotlin</span>,
+    <span class="ident">Swift</span>,
+    <span class="ident">Php</span>,
+    <span class="ident">Elixir</span>,
+    <span class="ident">Clojure</span>,
+    <span class="ident">Haskell</span>,
+    <span class="ident">C</span>,
+    <span class="ident">Cpp</span>,
+    <span class="ident">Bash</span>,
+    <span class="comment">// You&#39;re something weird.</span>
+    <span class="ident">Other</span>,
+}
+
+<span class="doccomment">/// Context section, defining parent context in overall architecture</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Informational use only, referenced by external tooling in order</span>
+<span class="doccomment">/// to create a software map of domains and constituent services.</span>
+<span class="doccomment">/// ```yaml</span>
+<span class="doccomment">/// context:</span>
+<span class="doccomment">///   name: consultations</span>
+<span class="doccomment">/// ```</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Context</span> {
+    <span class="doccomment">/// name of parent context</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Context</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="comment">// limit to 30 characters, alphanumeric/dashes.</span>
+        <span class="kw">let</span> <span class="ident">re</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;^[0-9a-z\-]{1,30}$&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">re</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>) {
+            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Invalid context name.&quot;</span>);
+        }
+
+        <span class="prelude-val">Ok</span>(())
     }
 }
 
@@ -300,17 +463,38 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Metadata</span> {
     <span class="doccomment">/// Git repository</span>
     <span class="kw">pub</span> <span class="ident">repo</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Owning team</span>
+    <span class="doccomment">/// Owning squad</span>
     <span class="kw">pub</span> <span class="ident">team</span>: <span class="ident">String</span>,
+
+    <span class="doccomment">/// Context this resource belongs to</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">context</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Squad output parameter - not deserialized</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_deserializing</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">squad</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Tribe output parameter - not deserialized</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_deserializing</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">tribe</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Language the service is written in</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">language</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Language</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Release tagging scheme</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Defaults to the version itself. Leading v tagging services can use &quot;v{{ version }}&quot;</span>
     <span class="doccomment">/// Monorepos that have multiple tags can use &quot;{{ version }}-app&quot;</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;default_format_string&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">gitTagTemplate</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Contact person</span>
+
+    <span class="doccomment">/// Contact person (legacy)</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">contacts</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Contact</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Maintainers - names of people in teams.yml</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">maintainers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+
     <span class="doccomment">/// Support channel - human interaction</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">support</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SlackChannel</span><span class="op">&gt;</span>,
@@ -325,16 +509,17 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">docs</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="comment">// TODO: generate swagger docs url from region and service name</span>
-
     <span class="doccomment">/// Custom metadata, keys defined in the Config</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">custom</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 }
-<span class="kw">fn</span> <span class="ident">default_format_string</span>() <span class="op">-&gt;</span> <span class="ident">String</span> { <span class="string">&quot;{{ version }}&quot;</span>.<span class="ident">into</span>() }
+<span class="kw">fn</span> <span class="ident">default_format_string</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+    <span class="string">&quot;{{ version }}&quot;</span>.<span class="ident">into</span>()
+}
 
 <span class="kw">impl</span> <span class="ident">Metadata</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version_template</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ver</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="kw">use</span> <span class="ident">tera</span>::{<span class="ident">Tera</span>, <span class="ident">Context</span>};
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version_template</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ver</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">use</span> <span class="ident">tera</span>::{<span class="ident">Context</span>, <span class="ident">Tera</span>};
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ctx</span> <span class="op">=</span> <span class="ident">Context</span>::<span class="ident">new</span>();
         <span class="ident">ctx</span>.<span class="ident">insert</span>(<span class="string">&quot;version&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">ver</span>.<span class="ident">to_string</span>());
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Tera</span>::<span class="ident">one_off</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">gitTagTemplate</span>, <span class="kw-2">&amp;</span><span class="ident">ctx</span>, <span class="bool-val">false</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
@@ -344,26 +529,35 @@
         <span class="prelude-val">Ok</span>(<span class="ident">res</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">github_link_for_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ver</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">github_link_for_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ver</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="kw">use</span> <span class="ident">semver</span>::<span class="ident">Version</span>;
-        <span class="kw">if</span> <span class="ident">Version</span>::<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>).<span class="ident">is_ok</span>() {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">repo</span>.<span class="ident">contains</span>(<span class="string">&quot;/tree/&quot;</span>) {
+            <span class="comment">// subfolder specified in tree - cannot do a nice tag link for that</span>
+            <span class="self">self</span>.<span class="ident">repo</span>.<span class="ident">clone</span>()
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">Version</span>::<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>).<span class="ident">is_ok</span>() {
             <span class="kw">let</span> <span class="ident">tag</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">version_template</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>).<span class="ident">unwrap_or</span>(<span class="ident">ver</span>.<span class="ident">to_string</span>());
             <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/releases/tag/{}&quot;</span>, <span class="self">self</span>.<span class="ident">repo</span>, <span class="ident">tag</span>)
         } <span class="kw">else</span> {
             <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/commit/{}&quot;</span>, <span class="self">self</span>.<span class="ident">repo</span>, <span class="ident">ver</span>)
         }
     }
-
 }
 
 <span class="kw">impl</span> <span class="ident">Metadata</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">teams</span>: <span class="kw-2">&amp;</span>[<span class="ident">Team</span>], <span class="ident">allowedCustomMetadata</span>: <span class="kw-2">&amp;</span><span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">ts</span> <span class="op">=</span> <span class="ident">teams</span>.<span class="ident">to_vec</span>().<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">name</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
-        <span class="kw">if</span> <span class="op">!</span><span class="ident">ts</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">team</span>) {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Illegal team name {} not found in the config&quot;</span>, <span class="self">self</span>.<span class="ident">team</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">owners</span>: <span class="kw-2">&amp;</span><span class="ident">Owners</span>, <span class="ident">allowedCustomMetadata</span>: <span class="kw-2">&amp;</span><span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">owners</span>.<span class="ident">squads</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">team</span>) {
+            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Team name {} does not match a squad in teams.yml&quot;</span>, <span class="self">self</span>.<span class="ident">team</span>);
         }
         <span class="kw">for</span> <span class="ident">cc</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">contacts</span> {
             <span class="ident">cc</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
+        }
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">context</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">context</span> {
+            <span class="ident">context</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
+        }
+        <span class="kw">for</span> <span class="ident">m</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">maintainers</span> {
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">owners</span>.<span class="ident">people</span>.<span class="ident">contains_key</span>(<span class="ident">m</span>) {
+                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Person {} does not match a person in teams.yml&quot;</span>, <span class="ident">m</span>)
+            }
         }
         <span class="kw">let</span> <span class="ident">re</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;[a-z0-9\-\.\{\}]&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">re</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">gitTagTemplate</span>) {
@@ -371,7 +565,10 @@
         }
         <span class="kw">let</span> <span class="ident">sanityre</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;\{\{.?version.?\}\}&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">sanityre</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">gitTagTemplate</span>) {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;gitTagTemplate {} does not dereference {{ version }}&quot;</span>, <span class="self">self</span>.<span class="ident">gitTagTemplate</span>);
+            <span class="macro">bail</span><span class="macro">!</span>(
+                <span class="string">&quot;gitTagTemplate {} does not dereference {{ version }}&quot;</span>,
+                <span class="self">self</span>.<span class="ident">gitTagTemplate</span>
+            );
         }
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">channel</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">support</span> {
             <span class="ident">channel</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
@@ -380,7 +577,7 @@
             <span class="ident">channel</span>.<span class="ident">verify</span>()<span class="question-mark">?</span>;
         }
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">runbook</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">runbook</span> {
-            <span class="kw">if</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.md&quot;</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.rt&quot;</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.org&quot;</span>) {
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.md&quot;</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.rt&quot;</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">runbook</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.org&quot;</span>) {
                 <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Runbook must be a file in the service repo with a valid extension (.md / .rt / .org)&quot;</span>);
             }
         }
@@ -395,9 +592,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Metadata</span>;
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">SlackChannel</span>;
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">default_format_string</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">default_format_string</span>, <span class="ident">Metadata</span>, <span class="ident">SlackChannel</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">version_tpl</span>() {
@@ -429,9 +624,8 @@
     <span class="kw">fn</span> <span class="ident">invalid_slack_channel</span>() {
         <span class="kw">let</span> <span class="ident">sc</span> <span class="op">=</span> <span class="ident">SlackChannel</span>::<span class="ident">new</span>(<span class="string">&quot;# iaminvalidåß∂ƒ••&quot;</span>);
         <span class="kw">let</span> <span class="ident">valid</span> <span class="op">=</span> <span class="ident">sc</span>.<span class="ident">verify</span>();
-        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">valid</span>);
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">valid</span>.<span class="ident">is_err</span>());
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../";window.currentCrate = "shipcat_definitions";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "shipcat_definitions";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

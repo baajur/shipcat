@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/structs/kongfig.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>kongfig.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/structs/kongfig.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>kongfig.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -513,97 +513,33 @@
 <span id="513">513</span>
 <span id="514">514</span>
 <span id="515">515</span>
-<span id="516">516</span>
-<span id="517">517</span>
-<span id="518">518</span>
-<span id="519">519</span>
-<span id="520">520</span>
-<span id="521">521</span>
-<span id="522">522</span>
-<span id="523">523</span>
-<span id="524">524</span>
-<span id="525">525</span>
-<span id="526">526</span>
-<span id="527">527</span>
-<span id="528">528</span>
-<span id="529">529</span>
-<span id="530">530</span>
-<span id="531">531</span>
-<span id="532">532</span>
-<span id="533">533</span>
-<span id="534">534</span>
-<span id="535">535</span>
-<span id="536">536</span>
-<span id="537">537</span>
-<span id="538">538</span>
-<span id="539">539</span>
-<span id="540">540</span>
-<span id="541">541</span>
-<span id="542">542</span>
-<span id="543">543</span>
-<span id="544">544</span>
-<span id="545">545</span>
-<span id="546">546</span>
-<span id="547">547</span>
-<span id="548">548</span>
-<span id="549">549</span>
-<span id="550">550</span>
-<span id="551">551</span>
-<span id="552">552</span>
-<span id="553">553</span>
-<span id="554">554</span>
-<span id="555">555</span>
-<span id="556">556</span>
-<span id="557">557</span>
-<span id="558">558</span>
-<span id="559">559</span>
-<span id="560">560</span>
-<span id="561">561</span>
-<span id="562">562</span>
-<span id="563">563</span>
-<span id="564">564</span>
-<span id="565">565</span>
-<span id="566">566</span>
-<span id="567">567</span>
-<span id="568">568</span>
-<span id="569">569</span>
-<span id="570">570</span>
-<span id="571">571</span>
-<span id="572">572</span>
-<span id="573">573</span>
-<span id="574">574</span>
-<span id="575">575</span>
-<span id="576">576</span>
-<span id="577">577</span>
-<span id="578">578</span>
-<span id="579">579</span>
-<span id="580">580</span>
-<span id="581">581</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="comment">//use super::traits::Verify;</span>
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">structs</span>::{<span class="ident">Kong</span>, <span class="ident">Cors</span>, <span class="ident">BabylonAuthHeader</span>, <span class="ident">Authentication</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">region</span>::{<span class="ident">KongConfig</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Region</span>};
+<span class="comment">// use super::traits::Verify;</span>
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">region</span>::<span class="ident">KongConfig</span>,
+    <span class="ident">structs</span>::{<span class="ident">Authentication</span>, <span class="ident">BabylonAuthHeader</span>, <span class="ident">Cors</span>, <span class="ident">Kong</span>},
+    <span class="ident">Region</span>,
+};
+<span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">ser</span>::{<span class="ident">Serialize</span>, <span class="ident">SerializeMap</span>, <span class="ident">Serializer</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">BTreeMap</span>;
-<span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">ser</span>::{<span class="ident">Serialize</span>, <span class="ident">Serializer</span>, <span class="ident">SerializeMap</span>};
 
 <span class="doccomment">/// Kongfig structs</span>
 <span class="doccomment">/// https://github.com/mybuilder/kongfig</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Api</span> {
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">plugins</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ApiPlugin</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">attributes</span>: <span class="ident">ApiAttributes</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApiAttributes</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;empty_as_brackets&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">hosts</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;none_as_brackets&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">uris</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">uris</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;none_as_brackets&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">methods</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">methods</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">strip_uri</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">preserve_host</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">upstream_url</span>: <span class="ident">String</span>,
@@ -616,7 +552,7 @@
 }
 
 <span class="doccomment">/// Plugins and their configs</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CorsPluginConfig</span> {
     <span class="kw">pub</span> <span class="ident">methods</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">exposed_headers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -628,7 +564,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">CorsPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">cors</span>: <span class="ident">Cors</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">cors</span>: <span class="ident">Cors</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">CorsPluginConfig</span> {
             <span class="ident">credentials</span>: <span class="ident">cors</span>.<span class="ident">credentials</span>,
             <span class="ident">exposed_headers</span>: <span class="ident">splitter</span>(<span class="ident">cors</span>.<span class="ident">exposed_headers</span>),
@@ -636,27 +572,29 @@
             <span class="ident">methods</span>: <span class="ident">splitter</span>(<span class="ident">cors</span>.<span class="ident">methods</span>),
             <span class="ident">origins</span>: <span class="ident">splitter</span>(<span class="ident">cors</span>.<span class="ident">origin</span>),
             <span class="ident">headers</span>: <span class="ident">splitter</span>(<span class="ident">cors</span>.<span class="ident">headers</span>),
-            <span class="ident">preflight_continue</span>: <span class="ident">cors</span>.<span class="ident">preflight_continue</span>
+            <span class="ident">preflight_continue</span>: <span class="ident">cors</span>.<span class="ident">preflight_continue</span>,
         }
     }
 }
 
 <span class="doccomment">/// Serialise nil as brackets, a strange kongfig idiom</span>
-<span class="kw">fn</span> <span class="ident">none_as_brackets</span><span class="op">&lt;</span><span class="ident">S</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">t</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">s</span>: <span class="ident">S</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span>
-<span class="kw">where</span> <span class="ident">T</span>: <span class="ident">Serialize</span>,
-      <span class="ident">S</span>: <span class="ident">Serializer</span>
+<span class="kw">fn</span> <span class="ident">none_as_brackets</span><span class="op">&lt;</span><span class="ident">S</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">t</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">s</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">T</span>: <span class="ident">Serialize</span>,
+    <span class="ident">S</span>: <span class="ident">Serializer</span>,
 {
     <span class="kw">match</span> <span class="ident">t</span> {
-        <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">value</span>) <span class="op">=&gt;</span> <span class="ident">s</span>.<span class="ident">serialize_some</span>(<span class="ident">value</span>),
-        <span class="prelude-val">None</span>            <span class="op">=&gt;</span> <span class="ident">s</span>.<span class="ident">serialize_map</span>(<span class="prelude-val">Some</span>(<span class="number">0</span>))<span class="question-mark">?</span>.<span class="ident">end</span>(),
+        <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">s</span>.<span class="ident">serialize_some</span>(<span class="ident">value</span>),
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">s</span>.<span class="ident">serialize_map</span>(<span class="prelude-val">Some</span>(<span class="number">0</span>))<span class="question-mark">?</span>.<span class="ident">end</span>(),
     }
 }
 
 <span class="doccomment">/// Serialise empty as brackets.</span>
 <span class="doccomment">/// Kong represents an empty list as {}, so Kongfig expects the same to correctly diff the state to work out required changes.</span>
-<span class="kw">fn</span> <span class="ident">empty_as_brackets</span><span class="op">&lt;</span><span class="ident">S</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">t</span>: <span class="kw-2">&amp;</span>[<span class="ident">T</span>], <span class="ident">s</span>: <span class="ident">S</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span>
-<span class="kw">where</span> <span class="ident">T</span>: <span class="ident">Serialize</span>,
-      <span class="ident">S</span>: <span class="ident">Serializer</span>
+<span class="kw">fn</span> <span class="ident">empty_as_brackets</span><span class="op">&lt;</span><span class="ident">S</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">t</span>: <span class="kw-2">&amp;</span>[<span class="ident">T</span>], <span class="ident">s</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">T</span>: <span class="ident">Serialize</span>,
+    <span class="ident">S</span>: <span class="ident">Serializer</span>,
 {
     <span class="kw">if</span> <span class="ident">t</span>.<span class="ident">is_empty</span>() {
         <span class="ident">s</span>.<span class="ident">serialize_map</span>(<span class="prelude-val">Some</span>(<span class="number">0</span>))<span class="question-mark">?</span>.<span class="ident">end</span>()
@@ -665,15 +603,15 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HeadersAndJson</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;none_as_brackets&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">headers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">headers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;none_as_brackets&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">json</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">json</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ResponseTransformerPluginConfig</span> {
     <span class="kw">pub</span> <span class="ident">add</span>: <span class="ident">HeadersAndJson</span>,
     <span class="kw">pub</span> <span class="ident">append</span>: <span class="ident">HeadersAndJson</span>,
@@ -682,7 +620,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ResponseTransformerPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">headers</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">headers</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">headers_strs</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
         <span class="kw">for</span> (<span class="ident">k</span>, <span class="ident">v</span>) <span class="kw">in</span> <span class="ident">headers</span> {
             <span class="ident">headers_strs</span>.<span class="ident">push</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}: {}&quot;</span>, <span class="ident">k</span>, <span class="ident">v</span>));
@@ -690,7 +628,7 @@
         <span class="ident">ResponseTransformerPluginConfig</span> {
             <span class="ident">add</span>: <span class="ident">HeadersAndJson</span> {
                 <span class="ident">headers</span>: <span class="prelude-val">Some</span>(<span class="ident">headers_strs</span>),
-                <span class="ident">json</span>: <span class="prelude-val">None</span>
+                <span class="ident">json</span>: <span class="prelude-val">None</span>,
             },
             <span class="ident">append</span>: <span class="ident">HeadersAndJson</span>::<span class="ident">default</span>(),
             <span class="ident">remove</span>: <span class="ident">HeadersAndJson</span>::<span class="ident">default</span>(),
@@ -699,7 +637,7 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RequestTransformerPluginConfig</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">http_method</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -713,15 +651,15 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HeadersQueryBody</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;none_as_brackets&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">querystring</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">querystring</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;none_as_brackets&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">headers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">headers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;none_as_brackets&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RequestTransformerPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">headers</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">headers</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">headers_strs</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
         <span class="kw">for</span> (<span class="ident">k</span>, <span class="ident">v</span>) <span class="kw">in</span> <span class="ident">headers</span> {
             <span class="ident">headers_strs</span>.<span class="ident">push</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}: {}&quot;</span>, <span class="ident">k</span>, <span class="ident">v</span>));
@@ -733,7 +671,7 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TcpLogPluginConfig</span> {
     <span class="kw">pub</span> <span class="ident">host</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">port</span>: <span class="ident">u32</span>,
@@ -742,7 +680,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TcpLogPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">host</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">port</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">host</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">port</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">TcpLogPluginConfig</span> {
             <span class="ident">host</span>: <span class="ident">host</span>.<span class="ident">into</span>(),
             <span class="ident">port</span>: <span class="ident">port</span>,
@@ -752,43 +690,7 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Oauth2PluginConfig</span> {
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">anonymous_username</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">enable_client_credentials</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">mandatory_scope</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">hide_credentials</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">enable_implicit_grant</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">global_credentials</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">provision_key</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">enable_password_grant</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">enable_authorization_code</span>: <span class="ident">bool</span>,
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">anonymous</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">token_expiration</span>: <span class="ident">u32</span>,
-    <span class="kw">pub</span> <span class="ident">accept_http_if_already_terminated</span>: <span class="ident">bool</span>,
-}
-
-<span class="kw">impl</span> <span class="ident">Oauth2PluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">kong_token_expiration</span>: <span class="ident">u32</span>, <span class="ident">oauth_provision_key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">anonymous_consumer</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="ident">Oauth2PluginConfig</span> {
-            <span class="ident">anonymous</span>: <span class="kw">match</span> <span class="ident">anonymous_consumer</span>.<span class="ident">clone</span>() {
-                <span class="prelude-val">Some</span>(<span class="ident">_s</span>) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-                <span class="prelude-val">None</span>     <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>.<span class="ident">into</span>()),
-            },
-            <span class="ident">anonymous_username</span>: <span class="ident">anonymous_consumer</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;anonymous&quot;</span>.<span class="ident">into</span>()),
-            <span class="ident">global_credentials</span>: <span class="bool-val">true</span>,
-            <span class="ident">provision_key</span>: <span class="ident">oauth_provision_key</span>.<span class="ident">into</span>(),
-            <span class="ident">enable_password_grant</span>: <span class="bool-val">true</span>,
-            <span class="ident">enable_authorization_code</span>: <span class="bool-val">true</span>,
-            <span class="ident">token_expiration</span>: <span class="ident">kong_token_expiration</span>,
-            ..<span class="ident">Oauth2PluginConfig</span>::<span class="ident">default</span>()
-        }
-    }
-}
-
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">JwtPluginConfig</span> {
     <span class="kw">pub</span> <span class="ident">key_claim_name</span>: <span class="ident">String</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;empty_as_brackets&quot;</span>)]</span>
@@ -808,7 +710,7 @@
     <span class="kw">pub</span> <span class="ident">anonymous</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 <span class="kw">impl</span> <span class="ident">JwtPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">anonymous_consumer</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">anonymous_consumer</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">JwtPluginConfig</span> {
             <span class="ident">uri_param_names</span>: <span class="macro">vec</span><span class="macro">!</span>[],
             <span class="ident">cookie_names</span>: <span class="macro">vec</span><span class="macro">!</span>[],
@@ -817,8 +719,8 @@
             <span class="ident">key_claim_name</span>: <span class="string">&quot;kid&quot;</span>.<span class="ident">into</span>(),
 
             <span class="ident">anonymous</span>: <span class="kw">match</span> <span class="ident">anonymous_consumer</span>.<span class="ident">clone</span>() {
-                <span class="prelude-val">Some</span>(<span class="ident">_s</span>) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-                <span class="prelude-val">None</span>     <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>.<span class="ident">into</span>()),
+                <span class="prelude-val">Some</span>(<span class="ident">_s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>.<span class="ident">into</span>()),
             },
             <span class="ident">anonymous_username</span>: <span class="ident">anonymous_consumer</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;anonymous&quot;</span>.<span class="ident">into</span>()),
             <span class="ident">secret_is_base64</span>: <span class="bool-val">false</span>,
@@ -827,7 +729,7 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">JwtValidatorPluginConfig</span> {
     <span class="kw">pub</span> <span class="ident">allowed_audiences</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">expected_region</span>: <span class="ident">String</span>,
@@ -835,40 +737,34 @@
     <span class="kw">pub</span> <span class="ident">allow_invalid_tokens</span>: <span class="ident">bool</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">JsonCookiesCsrfPluginConfig</span> {
-    <span class="kw">pub</span> <span class="ident">csrf_field_name</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">cookie_name</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">strict</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span> <span class="ident">csrf_header_name</span>: <span class="ident">String</span>,
-}
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">JsonCookiesCsrfPluginConfig</span> {}
+
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">JsonCookiesCsrfPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="ident">JsonCookiesCsrfPluginConfig</span> {
-            <span class="ident">cookie_name</span>: <span class="string">&quot;autologin_info&quot;</span>.<span class="ident">into</span>(),
-            <span class="ident">csrf_field_name</span>: <span class="string">&quot;csrf_token&quot;</span>.<span class="ident">into</span>(),
-            <span class="ident">csrf_header_name</span>: <span class="string">&quot;x-security-token&quot;</span>.<span class="ident">into</span>(),
-            <span class="ident">strict</span>: <span class="bool-val">true</span>,
-        }
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">JsonCookiesCsrfPluginConfig</span> {}
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">JsonCookiesToHeadersPluginConfig</span> {
-    <span class="kw">pub</span> <span class="ident">field_name</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">cookie_name</span>: <span class="ident">String</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">auth_service</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">body_refresh_token_key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">cookie_max_age_sec</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">cookie_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">enable_refresh_expired_access_tokens</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">http_timeout_msec</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">renew_before_expiry_sec</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">JsonCookiesToHeadersPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="ident">JsonCookiesToHeadersPluginConfig</span> {
-            <span class="ident">field_name</span>: <span class="string">&quot;kong_token&quot;</span>.<span class="ident">into</span>(),
-            <span class="ident">cookie_name</span>: <span class="string">&quot;autologin_token&quot;</span>.<span class="ident">into</span>(),
-        }
-    }
-}
-
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BabylonAuthHeaderPluginConfig</span> {
     <span class="kw">pub</span> <span class="ident">auth_service</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">cache_timeout_sec</span>: <span class="ident">u32</span>,
@@ -876,7 +772,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">BabylonAuthHeaderPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">authheader</span>: <span class="ident">BabylonAuthHeader</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">authheader</span>: <span class="ident">BabylonAuthHeader</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">BabylonAuthHeaderPluginConfig</span> {
             <span class="ident">auth_service</span>: <span class="ident">authheader</span>.<span class="ident">auth_service</span>,
             <span class="ident">cache_timeout_sec</span>: <span class="ident">authheader</span>.<span class="ident">cache_timeout_sec</span>,
@@ -885,7 +781,7 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CorrelationIdPluginConfig</span> {
     <span class="kw">pub</span> <span class="ident">echo_downstream</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">header_name</span>: <span class="ident">String</span>,
@@ -893,7 +789,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">CorrelationIdPluginConfig</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">CorrelationIdPluginConfig</span> {
             <span class="ident">echo_downstream</span>: <span class="bool-val">true</span>,
             <span class="ident">header_name</span>: <span class="string">&quot;babylon-request-id&quot;</span>.<span class="ident">into</span>(),
@@ -903,11 +799,10 @@
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">large_enum_variant</span>)]</span> <span class="comment">// variants all reasonably similar</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;name&quot;</span>, <span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;kebab-case&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ApiPlugin</span> {
     <span class="ident">TcpLog</span>(<span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">TcpLogPluginConfig</span><span class="op">&gt;</span>),
-    <span class="ident">Oauth2</span>(<span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">Oauth2PluginConfig</span><span class="op">&gt;</span>),
     <span class="ident">Jwt</span>(<span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">JwtPluginConfig</span><span class="op">&gt;</span>),
     <span class="ident">JwtValidator</span>(<span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">JwtValidatorPluginConfig</span><span class="op">&gt;</span>),
     <span class="ident">Cors</span>(<span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">CorsPluginConfig</span><span class="op">&gt;</span>),
@@ -919,7 +814,7 @@
     <span class="ident">RequestTransformer</span>(<span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">RequestTransformerPluginConfig</span><span class="op">&gt;</span>),
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;ensure&quot;</span>, <span class="ident">content</span> <span class="op">=</span> <span class="string">&quot;attributes&quot;</span>, <span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;lowercase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="ident">Present</span>(<span class="ident">PluginAttributes</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
@@ -927,44 +822,44 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Default</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> { <span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">T</span>::<span class="ident">default</span>()) }
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">T</span>::<span class="ident">default</span>())
+    }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">PluginBase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">config</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">config</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">PluginBase</span>::<span class="ident">Present</span>(<span class="ident">PluginAttributes</span> {
             <span class="ident">enabled</span>: <span class="bool-val">true</span>,
             <span class="ident">config</span>: <span class="ident">config</span>,
         })
     }
-    <span class="kw">fn</span> <span class="ident">removed</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+
+    <span class="kw">fn</span> <span class="ident">removed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">PluginBase</span>::<span class="ident">Removed</span>
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PluginAttributes</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">pub</span> <span class="ident">enabled</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span> <span class="ident">config</span>: <span class="ident">T</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Default</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PluginAttributes</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">PluginAttributes</span> {
             <span class="ident">enabled</span>: <span class="bool-val">true</span>,
-            <span class="ident">config</span>: <span class="ident">T</span>::<span class="ident">default</span>()
+            <span class="ident">config</span>: <span class="ident">T</span>::<span class="ident">default</span>(),
         }
     }
 }
 
-<span class="kw">fn</span> <span class="ident">splitter</span>(<span class="ident">value</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-    <span class="ident">value</span>.<span class="ident">split</span>(<span class="string">&#39;,&#39;</span>)
-        .<span class="ident">map</span>(<span class="op">|</span><span class="ident">h</span><span class="op">|</span> <span class="ident">h</span>.<span class="ident">trim</span>())
-        .<span class="ident">map</span>(<span class="ident">String</span>::<span class="ident">from</span>)
-        .<span class="ident">collect</span>()
+<span class="kw">fn</span> <span class="ident">splitter</span>(<span class="ident">value</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="ident">value</span>.<span class="ident">split</span>(<span class="string">&#39;,&#39;</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">h</span><span class="op">|</span> <span class="ident">h</span>.<span class="ident">trim</span>()).<span class="ident">map</span>(<span class="ident">String</span>::<span class="ident">from</span>).<span class="ident">collect</span>()
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kongfig_apis</span>(<span class="ident">from</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Kong</span><span class="op">&gt;</span>, <span class="ident">config</span>: <span class="ident">KongConfig</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Api</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kongfig_apis</span>(<span class="ident">from</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Kong</span><span class="op">&gt;</span>, <span class="ident">config</span>: <span class="ident">KongConfig</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Api</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">apis</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
     <span class="kw">for</span> (<span class="ident">k</span>, <span class="ident">v</span>) <span class="kw">in</span> <span class="ident">from</span>.<span class="ident">clone</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">plugins</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
@@ -976,47 +871,50 @@
 
         <span class="comment">// If globally enabled: TCP Logging</span>
         <span class="kw">if</span> <span class="ident">config</span>.<span class="ident">tcp_log</span>.<span class="ident">enabled</span> {
-            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">TcpLog</span>(<span class="ident">PluginBase</span>::<span class="ident">new</span>(
-                <span class="ident">TcpLogPluginConfig</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">tcp_log</span>.<span class="ident">host</span>, <span class="ident">config</span>.<span class="ident">tcp_log</span>.<span class="ident">port</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>()),
-            )));
+            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">TcpLog</span>(<span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">TcpLogPluginConfig</span>::<span class="ident">new</span>(
+                <span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">tcp_log</span>.<span class="ident">host</span>,
+                <span class="ident">config</span>.<span class="ident">tcp_log</span>.<span class="ident">port</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>(),
+            ))));
         }
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">a</span>) <span class="op">=</span> <span class="ident">v</span>.<span class="ident">authorization</span> {
-            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">Oauth2</span>(<span class="ident">PluginBase</span>::<span class="ident">removed</span>()));
-            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">Jwt</span>(<span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">JwtPluginConfig</span>::<span class="ident">new</span>(<span class="kw">if</span> <span class="ident">a</span>.<span class="ident">allow_anonymous</span> {
-                <span class="prelude-val">Some</span>(<span class="string">&quot;anonymous&quot;</span>.<span class="ident">to_string</span>())
-            } <span class="kw">else</span> {
-                <span class="prelude-val">None</span>
-            }))));
-            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JwtValidator</span>(<span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">JwtValidatorPluginConfig</span> {
-                <span class="ident">allowed_audiences</span>: <span class="ident">a</span>.<span class="ident">allowed_audiences</span>,
-                <span class="ident">expected_scope</span>: <span class="ident">a</span>.<span class="ident">required_scopes</span>.<span class="ident">get</span>(<span class="number">0</span>).<span class="ident">map_or</span>(<span class="string">&quot;&quot;</span>.<span class="ident">to_string</span>(), <span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">to_string</span>()),
-                <span class="ident">allow_invalid_tokens</span>: <span class="ident">a</span>.<span class="ident">allow_invalid_tokens</span>,
-                <span class="ident">expected_region</span>: <span class="ident">region</span>.<span class="ident">name</span>.<span class="ident">clone</span>(),
-            })));
+            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">Jwt</span>(<span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">JwtPluginConfig</span>::<span class="ident">new</span>(
+                <span class="kw">if</span> <span class="ident">a</span>.<span class="ident">allow_anonymous</span> {
+                    <span class="prelude-val">Some</span>(<span class="string">&quot;anonymous&quot;</span>.<span class="ident">to_string</span>())
+                } <span class="kw">else</span> {
+                    <span class="prelude-val">None</span>
+                },
+            ))));
+            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JwtValidator</span>(<span class="ident">PluginBase</span>::<span class="ident">new</span>(
+                <span class="ident">JwtValidatorPluginConfig</span> {
+                    <span class="ident">allowed_audiences</span>: <span class="ident">a</span>.<span class="ident">allowed_audiences</span>,
+                    <span class="ident">expected_scope</span>: <span class="ident">a</span>.<span class="ident">required_scopes</span>.<span class="ident">get</span>(<span class="number">0</span>).<span class="ident">map_or</span>(<span class="string">&quot;&quot;</span>.<span class="ident">to_string</span>(), <span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">to_string</span>()),
+                    <span class="ident">allow_invalid_tokens</span>: <span class="ident">a</span>.<span class="ident">allow_invalid_tokens</span>,
+                    <span class="ident">expected_region</span>: <span class="ident">region</span>.<span class="ident">name</span>.<span class="ident">clone</span>(),
+                },
+            )));
             <span class="kw">if</span> <span class="ident">a</span>.<span class="ident">allow_cookies</span> {
-                <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JsonCookiesToHeaders</span>(<span class="ident">PluginBase</span>::<span class="ident">default</span>()));
+                <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JsonCookiesToHeaders</span>(<span class="ident">PluginBase</span>::<span class="ident">new</span>(
+                    <span class="ident">JsonCookiesToHeadersPluginConfig</span> {
+                        <span class="ident">auth_service</span>: <span class="ident">a</span>.<span class="ident">refresh_auth_service</span>,
+                        <span class="ident">body_refresh_token_key</span>: <span class="ident">a</span>.<span class="ident">refresh_body_refresh_token_key</span>,
+                        <span class="ident">cookie_max_age_sec</span>: <span class="ident">a</span>.<span class="ident">refresh_max_age_sec</span>,
+                        <span class="ident">cookie_domain</span>: <span class="ident">a</span>.<span class="ident">refresh_cookie_domain</span>,
+                        <span class="ident">enable_refresh_expired_access_tokens</span>: <span class="prelude-val">Some</span>(<span class="ident">a</span>.<span class="ident">enable_cookie_refresh</span>),
+                        <span class="ident">http_timeout_msec</span>: <span class="ident">a</span>.<span class="ident">refresh_http_timeout_msec</span>,
+                        <span class="ident">renew_before_expiry_sec</span>: <span class="ident">a</span>.<span class="ident">refresh_renew_before_expiry_sec</span>,
+                    },
+                )));
                 <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JsonCookiesCsrf</span>(<span class="ident">PluginBase</span>::<span class="ident">default</span>()));
             } <span class="kw">else</span> {
                 <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JsonCookiesToHeaders</span>(<span class="ident">PluginBase</span>::<span class="ident">removed</span>()));
                 <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JsonCookiesCsrf</span>(<span class="ident">PluginBase</span>::<span class="ident">removed</span>()));
             }
         } <span class="kw">else</span> {
-            <span class="comment">// OAuth2 plugins</span>
-            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">Oauth2</span>(<span class="kw">match</span> <span class="ident">v</span>.<span class="ident">auth</span> {
-                <span class="ident">Authentication</span>::<span class="ident">OAuth2</span> <span class="op">=&gt;</span> <span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">Oauth2PluginConfig</span>::<span class="ident">new</span>(
-                    <span class="ident">config</span>.<span class="ident">kong_token_expiration</span>,
-                    <span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">oauth_provision_key</span>,
-                    <span class="prelude-val">None</span>)),
-                <span class="kw">_</span> <span class="op">=&gt;</span> <span class="ident">PluginBase</span>::<span class="ident">removed</span>(),
-            }));
-
             <span class="comment">// JWT plugin</span>
             <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">Jwt</span>(<span class="kw">match</span> <span class="ident">v</span>.<span class="ident">auth</span> {
-                <span class="ident">Authentication</span>::<span class="ident">Jwt</span> <span class="op">=&gt;</span> <span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">JwtPluginConfig</span>::<span class="ident">new</span>(
-                    <span class="prelude-val">None</span>,
-                )),
-                <span class="kw">_</span> <span class="op">=&gt;</span> <span class="ident">PluginBase</span>::<span class="ident">removed</span>(),
+                <span class="prelude-val">Some</span>(<span class="ident">Authentication</span>::<span class="ident">Jwt</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PluginBase</span>::<span class="ident">new</span>(<span class="ident">JwtPluginConfig</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>)),
+                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PluginBase</span>::<span class="ident">removed</span>(),
             }));
             <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JwtValidator</span>(<span class="ident">PluginBase</span>::<span class="ident">removed</span>()));
         }
@@ -1049,21 +947,12 @@
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">upstream_service</span>) <span class="op">=</span> <span class="ident">v</span>.<span class="ident">upstream_service</span> {
             <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">RequestTransformer</span>(<span class="ident">PluginBase</span>::<span class="ident">new</span>(
-                <span class="ident">RequestTransformerPluginConfig</span>::<span class="ident">new</span>(<span class="macro">btreemap</span><span class="macro">!</span>{
-                    <span class="string">&quot;Upstream-Service&quot;</span>.<span class="ident">into</span>() <span class="op">=&gt;</span> <span class="ident">upstream_service</span>,
-                })
+                <span class="ident">RequestTransformerPluginConfig</span>::<span class="ident">new</span>(<span class="macro">btreemap</span><span class="macro">!</span> {
+                    <span class="string">&quot;Upstream-Service&quot;</span>.<span class="ident">into</span>() <span class="op">=</span><span class="op">&gt;</span> <span class="ident">upstream_service</span>,
+                }),
             )))
         } <span class="kw">else</span> {
             <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">RequestTransformer</span>(<span class="ident">PluginBase</span>::<span class="ident">removed</span>()))
-        }
-
-        <span class="comment">// If enabled: JsonCookies and JsonCookiesCsrf</span>
-        <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">cookie_auth</span> {
-            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JsonCookiesToHeaders</span>(<span class="ident">PluginBase</span>::<span class="ident">default</span>()));
-        }
-
-        <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">cookie_auth_csrf</span> {
-            <span class="ident">plugins</span>.<span class="ident">push</span>(<span class="ident">ApiPlugin</span>::<span class="ident">JsonCookiesCsrf</span>(<span class="ident">PluginBase</span>::<span class="ident">default</span>()));
         }
 
         <span class="comment">// Create the main API object</span>
@@ -1080,72 +969,51 @@
                 <span class="ident">upstream_send_timeout</span>: <span class="ident">v</span>.<span class="ident">upstream_send_timeout</span>.<span class="ident">unwrap_or</span>(<span class="number">30000</span>),
                 <span class="ident">upstream_url</span>: <span class="ident">v</span>.<span class="ident">upstream_url</span>,
                 ..<span class="ident">Default</span>::<span class="ident">default</span>()
-            }
+            },
         });
     }
     <span class="ident">apis</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kongfig_consumers</span>(<span class="ident">k</span>: <span class="ident">KongConfig</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Consumer</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">consumers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Consumer</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">k</span>.<span class="ident">consumers</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>,<span class="ident">v</span>)<span class="op">|</span> {
-        <span class="ident">Consumer</span> {
-            <span class="ident">username</span>: <span class="ident">k</span>.<span class="ident">to_string</span>(),
-            <span class="ident">acls</span>: <span class="macro">vec</span><span class="macro">!</span>[],
-            <span class="ident">credentials</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">ConsumerCredentials</span>::<span class="ident">OAuth2</span>(<span class="ident">OAuth2CredentialsAttributes</span> {
-                <span class="ident">name</span>: <span class="ident">v</span>.<span class="ident">username</span>,
-                <span class="ident">client_id</span>: <span class="ident">v</span>.<span class="ident">oauth_client_id</span>,
-                <span class="ident">client_secret</span>: <span class="ident">v</span>.<span class="ident">oauth_client_secret</span>,
-                <span class="ident">redirect_uri</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="string">&quot;http://example.com/unused&quot;</span>.<span class="ident">into</span>()]
-            })],
-        }
-    }).<span class="ident">collect</span>();
-
-    <span class="ident">k</span>.<span class="ident">jwt_consumers</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>,<span class="ident">v</span>)<span class="op">|</span> {
-        <span class="ident">Consumer</span> {
-            <span class="ident">username</span>: <span class="ident">k</span>.<span class="ident">to_string</span>(),
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">kongfig_consumers</span>(<span class="ident">k</span>: <span class="ident">KongConfig</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Consumer</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">consumers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Consumer</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">k</span>
+        .<span class="ident">jwt_consumers</span>
+        .<span class="ident">into_iter</span>()
+        .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">Consumer</span> {
+            <span class="ident">username</span>: <span class="ident">k</span>,
             <span class="ident">acls</span>: <span class="macro">vec</span><span class="macro">!</span>[],
             <span class="ident">credentials</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">ConsumerCredentials</span>::<span class="ident">Jwt</span>(<span class="ident">JwtCredentialsAttributes</span> {
                 <span class="ident">key</span>: <span class="ident">v</span>.<span class="ident">kid</span>,
                 <span class="ident">algorithm</span>: <span class="string">&quot;RS256&quot;</span>.<span class="ident">into</span>(),
                 <span class="ident">rsa_public_key</span>: <span class="ident">v</span>.<span class="ident">public_key</span>,
-            })]
-        }
-    }).<span class="ident">for_each</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">consumers</span>.<span class="ident">push</span>(<span class="ident">c</span>));
+            })],
+        })
+        .<span class="ident">collect</span>();
 
     <span class="comment">// Add the anonymous customer as well</span>
     <span class="ident">consumers</span>.<span class="ident">push</span>(<span class="ident">Consumer</span> {
         <span class="ident">username</span>: <span class="string">&quot;anonymous&quot;</span>.<span class="ident">into</span>(),
         <span class="ident">acls</span>: <span class="macro">vec</span><span class="macro">!</span>[],
-        <span class="ident">credentials</span>: <span class="macro">vec</span><span class="macro">!</span>[]
+        <span class="ident">credentials</span>: <span class="macro">vec</span><span class="macro">!</span>[],
     });
 
     <span class="ident">consumers</span>
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Consumer</span> {
     <span class="kw">pub</span> <span class="ident">username</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">acls</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">credentials</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ConsumerCredentials</span><span class="op">&gt;</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;name&quot;</span>, <span class="ident">content</span> <span class="op">=</span> <span class="string">&quot;attributes&quot;</span>, <span class="ident">rename_all</span><span class="op">=</span><span class="string">&quot;kebab-case&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;name&quot;</span>, <span class="ident">content</span> <span class="op">=</span> <span class="string">&quot;attributes&quot;</span>, <span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;kebab-case&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ConsumerCredentials</span> {
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;oauth2&quot;</span>)]</span>
-    <span class="ident">OAuth2</span>(<span class="ident">OAuth2CredentialsAttributes</span>),
     <span class="ident">Jwt</span>(<span class="ident">JwtCredentialsAttributes</span>),
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OAuth2CredentialsAttributes</span> {
-    <span class="kw">pub</span> <span class="ident">client_id</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">redirect_uri</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">client_secret</span>: <span class="ident">String</span>,
-}
-
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">JwtCredentialsAttributes</span> {
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">String</span>,
@@ -1153,13 +1021,13 @@
 }
 
 <span class="doccomment">/// Not used yet</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Plugin</span> {}
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Upstream</span> {}
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Certificate</span> {}
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../";window.currentCrate = "shipcat_definitions";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "shipcat_definitions";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

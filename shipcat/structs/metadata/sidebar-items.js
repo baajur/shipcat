@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Language",""]],"struct":[["Contact","Legacy contact data"],["Context","Context section, defining parent context in overall architecture"],["Metadata","Metadata for a service"],["SlackChannel","Slack channel verifier"]]});

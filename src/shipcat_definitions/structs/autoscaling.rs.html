@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/structs/autoscaling.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>autoscaling.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1"> 1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/structs/autoscaling.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>autoscaling.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -32,69 +32,13 @@
 <span id="32">32</span>
 <span id="33">33</span>
 <span id="34">34</span>
-<span id="35">35</span>
-<span id="36">36</span>
-<span id="37">37</span>
-<span id="38">38</span>
-<span id="39">39</span>
-<span id="40">40</span>
-<span id="41">41</span>
-<span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
-<span id="55">55</span>
-<span id="56">56</span>
-<span id="57">57</span>
-<span id="58">58</span>
-<span id="59">59</span>
-<span id="60">60</span>
-<span id="61">61</span>
-<span id="62">62</span>
-<span id="63">63</span>
-<span id="64">64</span>
-<span id="65">65</span>
-<span id="66">66</span>
-<span id="67">67</span>
-<span id="68">68</span>
-<span id="69">69</span>
-<span id="70">70</span>
-<span id="71">71</span>
-<span id="72">72</span>
-<span id="73">73</span>
-<span id="74">74</span>
-<span id="75">75</span>
-<span id="76">76</span>
-<span id="77">77</span>
-<span id="78">78</span>
-<span id="79">79</span>
-<span id="80">80</span>
-<span id="81">81</span>
-<span id="82">82</span>
-<span id="83">83</span>
-<span id="84">84</span>
-<span id="85">85</span>
-<span id="86">86</span>
-<span id="87">87</span>
-<span id="88">88</span>
-<span id="89">89</span>
-<span id="90">90</span>
-<span id="91">91</span>
-<span id="92">92</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// AutoScaling types roughly as defined in kubernetes source</span>
 <span class="comment">// https://github.com/kubernetes/kubernetes/blob/master/pkg/apis/autoscaling/types.go</span>
+<span class="comment">// https://docs.rs/k8s-openapi/0.7.1/k8s_openapi/api/autoscaling/v2beta2/struct.HorizontalPodAutoscalerSpec.html</span>
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="prelude-ty">Result</span>};
+<span class="kw">use</span> <span class="kw">super</span>::<span class="prelude-ty">Result</span>;
+<span class="kw">use</span> <span class="ident">k8s_openapi</span>::<span class="ident">api</span>::<span class="ident">autoscaling</span>::<span class="ident">v2beta2</span>::<span class="ident">MetricSpec</span>;
 
 <span class="doccomment">/// Configuration parameters for HorizontalPodAutoScaler</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
@@ -102,86 +46,26 @@
     <span class="kw">pub</span> <span class="ident">minReplicas</span>: <span class="ident">u32</span>,
     <span class="kw">pub</span> <span class="ident">maxReplicas</span>: <span class="ident">u32</span>,
 
-    <span class="doccomment">/// Metrics to scale on</span>
-    <span class="kw">pub</span> <span class="ident">metrics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ScalingMetric</span><span class="op">&gt;</span>,
-}
-
-<span class="doccomment">/// Kubernetes Scaling Metrics (adjacently tagged enums)</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// The content name (for adjacency) is dynamic - so need wrapper structs..</span>
-<span class="doccomment">/// The name of the wrapper is tagged correctly via serde under a `type` key</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ScalingMetric</span> {
-    <span class="ident">Resource</span>(<span class="ident">ScalingMetricResourceWrapper</span>),
-    <span class="ident">Pods</span>(<span class="ident">ScalingMetricPodWrapper</span>),
-    <span class="comment">// no Object support yet</span>
-}
-
-<span class="comment">// dumb adjacency wrappers to get the adjacency content</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScalingMetricResourceWrapper</span> { <span class="ident">resource</span>: <span class="ident">ScalingMetricResource</span> }
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScalingMetricPodWrapper</span> { <span class="ident">pods</span>: <span class="ident">ScalingMetricPod</span> }
-
-<span class="doccomment">/// Native resource scaling via kube</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScalingMetricResource</span> {
-    <span class="ident">name</span>: <span class="ident">ScalingMetricResourceType</span>,
-    <span class="doccomment">/// The target value of the average of the resource metric across relevant pods,</span>
-    <span class="doccomment">/// represented as a percentage of the requested value of the resource for the pods</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">targetAverageUtilization</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// The target value of the average of the resource metric across relevant pods,</span>
-    <span class="doccomment">/// represented as a raw value (not percentage of request)</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">targetAverageValue</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-}
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ScalingMetricResourceType</span> {
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;cpu&quot;</span>)]</span>
-    <span class="ident">CPU</span>,
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;memory&quot;</span>)]</span>
-    <span class="ident">Memory</span>,
-}
-
-<span class="doccomment">/// Scaling Metrics from prometheus</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScalingMetricPod</span> {
-    <span class="doccomment">/// Promethus metric name</span>
-    <span class="kw">pub</span> <span class="ident">metricName</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">targetAverageValue</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// Specifications to use to calculate the desired replica count</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The desired replica count is calculated multiplying the ratio between</span>
+    <span class="doccomment">/// the target value and the current value by the current number of pods.</span>
+    <span class="doccomment">/// Ergo, metrics used must decrease as the pod count is increased, and vice-versa.</span>
+    <span class="doccomment">/// See the individual metric source types for more information about how each</span>
+    <span class="doccomment">/// type of metric must respond.</span>
+    <span class="doccomment">/// If not set, the default metric will be set to 80% average CPU utilization.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The maximum replica count across all metrics will be used.</span>
+    <span class="kw">pub</span> <span class="ident">metrics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MetricSpec</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">AutoScaling</span> {
-     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">minReplicas</span> <span class="op">==</span> <span class="number">0</span> {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;minReplicas must be at least 1&quot;</span>);
-        }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">minReplicas</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">maxReplicas</span> {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;maxReplicas must be &gt; minReplicas&quot;</span>);
         }
-        <span class="kw">for</span> <span class="ident">m</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">metrics</span> {
-            <span class="kw">match</span> <span class="ident">m</span> {
-                <span class="ident">ScalingMetric</span>::<span class="ident">Resource</span>(<span class="ident">r</span>) <span class="op">=&gt;</span> {
-                    <span class="comment">// need at least one of the values</span>
-                    <span class="comment">// docs seem to hint at one for cpu and one for memory...</span>
-                    <span class="comment">// if this is the case should disallow both to be set..</span>
-                    <span class="kw">match</span> <span class="ident">r</span>.<span class="ident">resource</span>.<span class="ident">name</span> {
-                        <span class="ident">ScalingMetricResourceType</span>::<span class="ident">CPU</span> <span class="op">=&gt;</span> {
-                            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">r</span>.<span class="ident">resource</span>.<span class="ident">targetAverageUtilization</span>.<span class="ident">is_some</span>());
-                        },
-                        <span class="ident">ScalingMetricResourceType</span>::<span class="ident">Memory</span> <span class="op">=&gt;</span> {
-                            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">r</span>.<span class="ident">resource</span>.<span class="ident">targetAverageValue</span>.<span class="ident">is_some</span>());
-                        }
-                    }
-                },
-                <span class="ident">ScalingMetric</span>::<span class="ident">Pods</span>(<span class="ident">_p</span>) <span class="op">=&gt;</span> {} <span class="comment">// no validation here</span>
-            }
-        }
-
         <span class="prelude-val">Ok</span>(())
-     }
+    }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../";window.currentCrate = "shipcat_definitions";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "shipcat_definitions";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

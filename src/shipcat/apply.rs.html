@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_cli/src/apply.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>apply.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_cli/src/apply.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>apply.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -507,39 +507,171 @@
 <span id="507">507</span>
 <span id="508">508</span>
 <span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
+<span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
+<span id="561">561</span>
+<span id="562">562</span>
+<span id="563">563</span>
+<span id="564">564</span>
+<span id="565">565</span>
+<span id="566">566</span>
+<span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">Path</span>;
+<span class="kw">use</span> <span class="ident">tokio</span>::<span class="ident">fs</span>;
+
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">diff</span>, <span class="ident">helm</span>,
+    <span class="ident">kubeapi</span>::<span class="ident">ShipKube</span>,
+    <span class="ident">kubectl</span>, <span class="ident">track</span>,
+    <span class="ident">webhooks</span>::{<span class="self">self</span>, <span class="ident">UpgradeState</span>},
+};
+<span class="kw">use</span> <span class="ident">serde_json</span>::<span class="ident">json</span>;
 
 <span class="kw">use</span> <span class="ident">shipcat_definitions</span>::{
-    <span class="ident">Manifest</span>, <span class="ident">Config</span>, <span class="ident">Region</span>,
-    <span class="ident">ReconciliationMode</span>,
-    <span class="ident">structs</span>::<span class="ident">Metadata</span>,
-};
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">helm</span>,
-    <span class="ident">kubectl</span>,
-    <span class="ident">status</span>,
-    <span class="ident">diff</span>,
-    <span class="ident">webhooks</span>::{<span class="self">self</span>, <span class="ident">UpgradeState</span>}
+    <span class="ident">status</span>::{<span class="ident">make_date</span>, <span class="ident">Condition</span>},
+    <span class="ident">structs</span>::{<span class="ident">Metadata</span>, <span class="ident">NotificationMode</span>},
+    <span class="ident">Config</span>, <span class="ident">Manifest</span>, <span class="ident">PrimaryWorkload</span>, <span class="ident">ReconciliationMode</span>, <span class="ident">Region</span>,
 };
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="prelude-ty">Result</span>, <span class="ident">ResultExt</span>, <span class="ident">ErrorKind</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ErrorKind</span>, <span class="prelude-ty">Result</span>, <span class="ident">ResultExt</span>};
 
 <span class="doccomment">/// Information from an upgrade</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This information is generated by apply on a best-effort basis.</span>
 <span class="doccomment">/// It is provided for webhooks and notifications to make good interfaces.</span>
-<span class="doccomment">/// TODO: remove fork in helm module</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UpgradeInfo</span> {
     <span class="doccomment">/// Name of service</span>
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Metadata for service</span>
     <span class="kw">pub</span> <span class="ident">metadata</span>: <span class="ident">Metadata</span>,
+    <span class="doccomment">/// Slack NotificationMode for the service</span>
+    <span class="kw">pub</span> <span class="ident">slackMode</span>: <span class="ident">NotificationMode</span>,
     <span class="doccomment">/// Validated version string</span>
     <span class="kw">pub</span> <span class="ident">version</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Chart the service is using</span>
-    <span class="ident">chart</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Validated region requested for installation</span>
     <span class="kw">pub</span> <span class="ident">region</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Validated namespace inferred from region</span>
@@ -552,12 +684,18 @@
     <span class="doccomment">/// Export the information needed for book-keeping</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Requires a valid manifest with a pre-determined version</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">mf</span>: <span class="kw-2">&amp;</span><span class="ident">Manifest</span>) <span class="op">-&gt;</span>  <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">mf</span>: <span class="kw-2">&amp;</span><span class="ident">Manifest</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">UpgradeInfo</span> {
             <span class="ident">name</span>: <span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>(),
-            <span class="ident">version</span>: <span class="ident">mf</span>.<span class="ident">version</span>.<span class="ident">clone</span>().<span class="ident">expect</span>(<span class="string">&quot;version must be set before calling UpgradeInfo::new&quot;</span>),
-            <span class="ident">metadata</span>: <span class="ident">mf</span>.<span class="ident">metadata</span>.<span class="ident">clone</span>().<span class="ident">expect</span>(<span class="string">&quot;metadata must exist on every manifest&quot;</span>),
-            <span class="ident">chart</span>: <span class="ident">mf</span>.<span class="ident">chart</span>.<span class="ident">clone</span>().<span class="ident">expect</span>(<span class="string">&quot;must have a chart for a manifest&quot;</span>),
+            <span class="ident">version</span>: <span class="ident">mf</span>
+                .<span class="ident">version</span>
+                .<span class="ident">clone</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;version must be set before calling UpgradeInfo::new&quot;</span>),
+            <span class="ident">metadata</span>: <span class="ident">mf</span>
+                .<span class="ident">metadata</span>
+                .<span class="ident">clone</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;metadata must exist on every manifest&quot;</span>),
+            <span class="ident">slackMode</span>: <span class="ident">mf</span>.<span class="ident">upgradeNotifications</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>(),
             <span class="ident">region</span>: <span class="ident">mf</span>.<span class="ident">region</span>.<span class="ident">clone</span>(),
             <span class="ident">namespace</span>: <span class="ident">mf</span>.<span class="ident">namespace</span>.<span class="ident">clone</span>(),
             <span class="ident">diff</span>: <span class="prelude-val">None</span>,
@@ -568,7 +706,8 @@
 <span class="doccomment">/// shipcat apply</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is the main entrypoint for cli upgrades of a service in a region.</span>
-<span class="doccomment">/// It currently uses tiller, but this function will be updated to bypass that soon.</span>
+<span class="doccomment">/// It now only supports the shipcat controlled CRD upgrade.</span>
+<span class="doccomment">/// Tiller support has been removed.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The design goals of this is to support:</span>
 <span class="doccomment">/// - shipcat apply mysvc</span>
@@ -584,340 +723,17 @@
 <span class="doccomment">/// It is also entirely responsible for sending webhooks on errors / successes.</span>
 <span class="doccomment">/// As such, it&#39;s entirely responsible for not propagating random errors here with `?`</span>
 <span class="doccomment">/// Every error cases is something that might need to be notified.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">apply</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-             <span class="ident">force</span>: <span class="ident">bool</span>,
-             <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>,
-             <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>,
-             <span class="ident">wait</span>: <span class="ident">bool</span>,
-             <span class="ident">passed_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UpgradeInfo</span><span class="op">&gt;&gt;</span>
-{
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">apply</span>(
+    <span class="ident">svc</span>: <span class="ident">String</span>,
+    <span class="ident">force</span>: <span class="ident">bool</span>,
+    <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>,
+    <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>,
+    <span class="ident">wait</span>: <span class="ident">bool</span>,
+    <span class="ident">passed_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UpgradeInfo</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">region</span>.<span class="ident">reconciliationMode</span> {
-        <span class="ident">ReconciliationMode</span>::<span class="ident">CrdStatus</span> <span class="op">=&gt;</span>
-            <span class="ident">apply_with_crd</span>(<span class="ident">svc</span>, <span class="ident">force</span>, <span class="ident">region</span>, <span class="ident">conf</span>, <span class="ident">wait</span>, <span class="ident">passed_version</span>),
-        <span class="ident">ReconciliationMode</span>::<span class="ident">CrdVersioned</span> <span class="op">=&gt;</span>
-            <span class="ident">apply_helm</span>(<span class="ident">svc</span>, <span class="ident">force</span>, <span class="ident">region</span>, <span class="ident">conf</span>, <span class="ident">wait</span>, <span class="ident">passed_version</span>),
-        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="ident">ReconciliationMode</span>::<span class="ident">CrdOwned</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">apply_kubectl</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="ident">force</span>, <span class="ident">region</span>, <span class="ident">conf</span>, <span class="ident">wait</span>, <span class="ident">passed_version</span>).<span class="kw">await</span>,
     }
-}
-
-
-<span class="doccomment">/// Current legacy version</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Reads CRDs, but doesn&#39;t write to them. Upgrades through tiller.</span>
-<span class="kw">fn</span> <span class="ident">apply_helm</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-             <span class="ident">force</span>: <span class="ident">bool</span>,
-             <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>,
-             <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>,
-             <span class="ident">wait</span>: <span class="ident">bool</span>,
-             <span class="ident">passed_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UpgradeInfo</span><span class="op">&gt;&gt;</span>
-{
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">webhooks</span>::<span class="ident">ensure_requirements</span>(<span class="kw-2">&amp;</span><span class="ident">region</span>) {
-        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Could not ensure webhook requirements: {}&quot;</span>, <span class="ident">e</span>);
-    }
-    <span class="kw">let</span> <span class="ident">mfbase</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>)<span class="question-mark">?</span>;
-
-    <span class="comment">// A version is set EITHER via `-t SOMEVER` on CLI, or pinned in manifest</span>
-    <span class="kw">if</span> <span class="ident">passed_version</span>.<span class="ident">is_some</span>() <span class="op">&amp;&amp;</span> <span class="ident">mfbase</span>.<span class="ident">version</span>.<span class="ident">is_some</span>() {
-        <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Overriding a pinned version will be undone at next reconcile&quot;</span>);
-        <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Cannot override version for &#39;{}&#39; because it is pinned in manifests&quot;</span>, <span class="ident">svc</span>);
-    }
-    <span class="kw">let</span> <span class="ident">explicit_version</span> <span class="op">=</span> <span class="ident">mfbase</span>.<span class="ident">version</span>.<span class="ident">clone</span>().<span class="ident">or</span>(<span class="ident">passed_version</span>);
-
-    <span class="comment">// Figure out if the service is already installed</span>
-    <span class="comment">// This is currently needed to determine whether or not we run a diff.</span>
-    <span class="comment">// (kube 1.13 diff can work this out, but helm diff can&#39;t.)</span>
-    <span class="comment">// TODO: when on 1.13 only do this when explicit_version.is_none()</span>
-    <span class="kw">let</span> (<span class="ident">exists</span>, <span class="ident">fallback</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">kubectl</span>::<span class="ident">get_running_version</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="kw-2">&amp;</span><span class="ident">mfbase</span>.<span class="ident">namespace</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">running_ver</span>) <span class="op">=&gt;</span> (<span class="bool-val">true</span>, <span class="ident">running_ver</span>),
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">explicit_version</span> {
-                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;&#39;{}&#39; {} will be installed&quot;</span>, <span class="ident">svc</span>, <span class="ident">v</span>);
-                (<span class="bool-val">false</span>, <span class="ident">v</span>.<span class="ident">to_string</span>())
-            } <span class="kw">else</span> {
-                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;&#39;{}&#39; cannot be installed (no version inferable)&quot;</span>, <span class="ident">svc</span>);
-                <span class="comment">// can&#39;t notify here, it&#39;s super spammy to do so because it&#39;s:</span>
-                <span class="comment">// - user upgrading manually without -t on new svc (via CI / cli)</span>
-                <span class="comment">// - reconcile not knowing what to do for new svc (via CI)</span>
-                <span class="comment">// These cases are user errors and should be visible therein.</span>
-                <span class="comment">//</span>
-                <span class="comment">// The legit cases where we are missing versions in non-rolling</span>
-                <span class="comment">// environments must be caught elsewhere.</span>
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>.<span class="ident">chain_err</span>(<span class="op">||</span> <span class="ident">ErrorKind</span>::<span class="ident">MissingRollingVersion</span>(<span class="ident">svc</span>.<span class="ident">into</span>())));
-            }
-        },
-    };
-
-    <span class="comment">// Determine what version we should actually use</span>
-    <span class="kw">let</span> <span class="ident">actual_version</span> <span class="op">=</span> <span class="ident">explicit_version</span>.<span class="ident">unwrap_or</span>(<span class="ident">fallback</span>);
-    <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;using {}={}&quot;</span>, <span class="ident">svc</span>, <span class="ident">actual_version</span>);
-    <span class="comment">// Verify it&#39;s a legal version (no-shoehorning in illegal versions in rolling envs)</span>
-    <span class="ident">region</span>.<span class="ident">versioningScheme</span>.<span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="ident">actual_version</span>)<span class="question-mark">?</span>;
-
-    <span class="kw">let</span> <span class="ident">mfcrd</span> <span class="op">=</span> <span class="ident">mfbase</span>.<span class="ident">version</span>(<span class="ident">actual_version</span>);
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ui</span> <span class="op">=</span> <span class="ident">UpgradeInfo</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">mfcrd</span>);
-
-    <span class="comment">// Make one complete manifest variant with version and secrets (needs to pass)</span>
-    <span class="kw">let</span> <span class="ident">mf</span> <span class="op">=</span> <span class="ident">mfcrd</span>.<span class="ident">clone</span>().<span class="ident">complete</span>(<span class="kw-2">&amp;</span><span class="ident">region</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-        <span class="comment">// Fire failed events if secrets fail to resolve</span>
-        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-        <span class="ident">e</span>
-    })<span class="question-mark">?</span>;
-
-    <span class="comment">// Move the only incomplete manifest (with version) into kcrd apply</span>
-    <span class="comment">// Old style apply shipcatmanifest crd (TODO: use kube api for .status setting)</span>
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">mfcrd</span>.<span class="ident">version</span>.<span class="ident">is_some</span>()); <span class="comment">// ensure crd is in right state w/o secrets</span>
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">mfcrd</span>.<span class="ident">is_base</span>()); <span class="comment">// TODO: inside crd apply fn</span>
-    <span class="kw">let</span> <span class="ident">changed</span> <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">apply_crd</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="ident">mfcrd</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>.<span class="ident">namespace</span>)<span class="question-mark">?</span>;
-    <span class="kw">if</span> <span class="ident">exists</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">changed</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">force</span> {
-        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;{} up to date (crd check)&quot;</span>, <span class="ident">svc</span>);
-        <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
-    }
-
-    <span class="comment">// Create values file</span>
-    <span class="kw">let</span> <span class="ident">hfile</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.helm.gen.yml&quot;</span>, <span class="ident">svc</span>);
-    <span class="ident">helm</span>::<span class="ident">values</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">hfile</span>)<span class="question-mark">?</span>;
-
-    <span class="comment">// Attach diff to UpgradeInfo if the service exists and we can diff</span>
-    <span class="kw">if</span> <span class="ident">exists</span> { <span class="comment">// attach diff if possible</span>
-        <span class="kw">match</span> <span class="ident">diff_helm</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">hfile</span>) {
-            <span class="prelude-val">Ok</span>(<span class="ident">hdiff</span>) <span class="op">=&gt;</span> {
-                <span class="ident">ui</span>.<span class="ident">diff</span> <span class="op">=</span> <span class="ident">hdiff</span>;
-                <span class="comment">// If we explicitly received no diff, don&#39;t try to upgrade</span>
-                <span class="comment">// This is a stronger diff than CRD-only if this succeeds; STOP.</span>
-                <span class="kw">if</span> <span class="ident">ui</span>.<span class="ident">diff</span>.<span class="ident">is_none</span>() {
-                    <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;{} up to date (full diff check)&quot;</span>, <span class="ident">svc</span>);
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
-                }
-            }
-            <span class="comment">// If diffing failed, only run the upgrade if using --force</span>
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Unable to diff against {}: {}&quot;</span>, <span class="ident">svc</span>, <span class="ident">e</span>);
-                <span class="kw">if</span> <span class="op">!</span><span class="ident">force</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
-                }
-            }
-        }
-    }
-
-    <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Pending</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-    <span class="kw">match</span> <span class="ident">upgrade_helm</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">hfile</span>) {
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-            <span class="comment">// upgrade failed immediately - couldn&#39;t create resources</span>
-            <span class="comment">// typically validation failures or rbac faults</span>
-            <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;{} from {}&quot;</span>, <span class="ident">e</span>, <span class="ident">ui</span>.<span class="ident">name</span>);
-            <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
-        },
-        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
-            <span class="kw">if</span> <span class="op">!</span><span class="ident">wait</span> {
-                <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;successfully applied {} (without waiting)&quot;</span>, <span class="ident">ui</span>.<span class="ident">name</span>);
-            }
-            <span class="kw">else</span> {
-                <span class="kw">match</span> <span class="ident">kubectl</span>::<span class="ident">await_rollout_status</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>) <span class="op">=&gt;</span> {
-                        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;successfully rolled out {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>.<span class="ident">name</span>);
-                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Completed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-                    },
-                    <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>) <span class="op">=&gt;</span> {
-                        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">debug_rollout_status</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>);
-                        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">debug</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>);
-                        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;failed to roll out {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>.<span class="ident">name</span>);
-                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">UpgradeTimeout</span>(<span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>(), <span class="ident">mf</span>.<span class="ident">estimate_wait_time</span>()).<span class="ident">into</span>());
-                    },
-                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>)
-                    }
-                }
-            }
-        }
-    };
-    <span class="comment">// cleanups in non-error cases</span>
-    <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">fs</span>::<span class="ident">remove_file</span>(<span class="kw-2">&amp;</span><span class="ident">hfile</span>); <span class="comment">// try to remove temporary file</span>
-    <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">ui</span>))
-}
-
-<span class="doccomment">/// Last version of apply that uses tiller</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This writes events to uses the shipcatmanifest crd</span>
-<span class="kw">fn</span> <span class="ident">apply_with_crd</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-             <span class="ident">force</span>: <span class="ident">bool</span>,
-             <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>,
-             <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>,
-             <span class="ident">wait</span>: <span class="ident">bool</span>,
-             <span class="ident">passed_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UpgradeInfo</span><span class="op">&gt;&gt;</span>
-{
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">webhooks</span>::<span class="ident">ensure_requirements</span>(<span class="kw-2">&amp;</span><span class="ident">region</span>) {
-        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Could not ensure webhook requirements: {}&quot;</span>, <span class="ident">e</span>);
-    }
-    <span class="kw">let</span> <span class="ident">mfbase</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>)<span class="question-mark">?</span>;
-
-    <span class="comment">// A version is set EITHER via `-t SOMEVER` on CLI, or pinned in manifest</span>
-    <span class="kw">if</span> <span class="ident">passed_version</span>.<span class="ident">is_some</span>() <span class="op">&amp;&amp;</span> <span class="ident">mfbase</span>.<span class="ident">version</span>.<span class="ident">is_some</span>() {
-        <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Overriding a pinned version will be undone at next reconcile&quot;</span>);
-        <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Cannot override version for &#39;{}&#39; because it is pinned in manifests&quot;</span>, <span class="ident">svc</span>);
-    }
-    <span class="kw">let</span> <span class="ident">explicit_version</span> <span class="op">=</span> <span class="ident">mfbase</span>.<span class="ident">version</span>.<span class="ident">clone</span>().<span class="ident">or</span>(<span class="ident">passed_version</span>);
-
-    <span class="comment">// Interact with the kube api to get the shipcatmanifest crd and its .status</span>
-    <span class="comment">// This lets us work out:</span>
-    <span class="comment">// - if the service has been installed before (negates the need for a diff)</span>
-    <span class="comment">// - if we need to apply a new crd (so we have an atomic change)</span>
-    <span class="comment">// - if we need to interact with secret-manager TODO: do</span>
-    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">status</span>::<span class="ident">Status</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">mfbase</span>)<span class="question-mark">?</span>;
-
-    <span class="comment">// Next large batch is working out the reason for the upgrade (if any)</span>
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reason</span> <span class="op">=</span> <span class="prelude-val">None</span>;
-    <span class="comment">// Fetch the full shipcatmanifest crd</span>
-    <span class="comment">// NB: if kube api or early stuff here fails, then we are in a bad state.</span>
-    <span class="comment">// Before we have applied any CRDs it&#39;s safe to bail. Next run can retry.</span>
-    <span class="kw">let</span> (<span class="ident">actual_version</span>, <span class="ident">crd</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">s</span>.<span class="ident">get</span>() {
-        <span class="prelude-val">Err</span>(<span class="ident">_e</span>) <span class="op">=&gt;</span> {
-            <span class="comment">// This usually fails because it&#39;s not yet installed</span>
-            <span class="comment">// Other error cases: retry later</span>
-            <span class="kw">match</span> <span class="ident">explicit_version</span> {
-                <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
-                    <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;&#39;{}&#39; cannot be installed (no version inferable)&quot;</span>, <span class="ident">svc</span>);
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">MissingRollingVersion</span>(<span class="ident">svc</span>.<span class="ident">into</span>()).<span class="ident">into</span>());
-                },
-                <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=&gt;</span> {
-                    <span class="ident">reason</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">NewService</span>);
-                    (<span class="ident">v</span>, <span class="prelude-val">None</span>)
-                }
-            }
-        },
-        <span class="prelude-val">Ok</span>(<span class="ident">o</span>) <span class="op">=&gt;</span> {
-            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;existing manifest crd: {}={:?}&quot;</span>, <span class="ident">o</span>.<span class="ident">spec</span>.<span class="ident">name</span>, <span class="ident">o</span>.<span class="ident">status</span>);
-            <span class="kw">let</span> <span class="ident">fallback</span> <span class="op">=</span> <span class="ident">o</span>.<span class="ident">spec</span>.<span class="ident">version</span>.<span class="ident">clone</span>().<span class="ident">expect</span>(<span class="string">&quot;manifest.version set&quot;</span>);
-
-            <span class="comment">// A version was supplied, and it differs from active CRD</span>
-            <span class="kw">if</span> <span class="ident">explicit_version</span>.<span class="ident">is_some</span>() <span class="op">&amp;&amp;</span> <span class="ident">explicit_version</span> <span class="op">!=</span> <span class="ident">o</span>.<span class="ident">spec</span>.<span class="ident">version</span> {
-                <span class="ident">reason</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">VersionChange</span>);
-            }
-            (<span class="ident">explicit_version</span>.<span class="ident">unwrap_or</span>(<span class="ident">fallback</span>), <span class="prelude-val">Some</span>(<span class="ident">o</span>))
-         },
-    };
-    <span class="kw">let</span> <span class="ident">existed</span> <span class="op">=</span> <span class="ident">crd</span>.<span class="ident">is_some</span>(); <span class="comment">// no crd =&gt; nothing installed</span>
-    <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;using {}={}&quot;</span>, <span class="ident">svc</span>, <span class="ident">actual_version</span>);
-    <span class="comment">// no shoehorning in illegal versions in the crd!</span>
-    <span class="ident">region</span>.<span class="ident">versioningScheme</span>.<span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="ident">actual_version</span>)<span class="question-mark">?</span>;
-
-    <span class="comment">// Complete and apply the CRD</span>
-    <span class="kw">let</span> <span class="ident">mfcrd</span> <span class="op">=</span> <span class="ident">mfbase</span>.<span class="ident">version</span>(<span class="ident">actual_version</span>);
-    <span class="kw">let</span> <span class="ident">crd_changed</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">apply</span>(<span class="ident">mfcrd</span>.<span class="ident">clone</span>())<span class="question-mark">?</span>;
-    <span class="comment">// Cheap reconcile ends here if !changed &amp;&amp; !force</span>
-    <span class="kw">if</span> <span class="ident">crd_changed</span> {
-        <span class="ident">reason</span> <span class="op">=</span> <span class="ident">reason</span>.<span class="ident">or</span>(<span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">ManifestChange</span>));
-    }
-    <span class="kw">if</span> <span class="ident">reason</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">force</span> {
-        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;{} up to date (crd check)&quot;</span>, <span class="ident">svc</span>);
-        <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
-    }
-
-    <span class="comment">// Prepare for an actual upgrade now..</span>
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ui</span> <span class="op">=</span> <span class="ident">UpgradeInfo</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">mfcrd</span>);
-    <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Pending</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-
-    <span class="comment">// Fetch all the secrets so we can create a completed manifest</span>
-    <span class="comment">// TODO: check scp.status.secretChecksum against secret-manager instead</span>
-    <span class="kw">let</span> <span class="ident">mf</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">mfcrd</span>.<span class="ident">clone</span>().<span class="ident">complete</span>(<span class="kw-2">&amp;</span><span class="ident">region</span>) {
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-            <span class="comment">// Fire failed events if secrets fail to resolve</span>
-            <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-            <span class="ident">s</span>.<span class="ident">update_generate_false</span>(<span class="string">&quot;SecretFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())<span class="question-mark">?</span>;
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>.<span class="ident">into</span>());
-        },
-        <span class="prelude-val">Ok</span>(<span class="ident">m</span>) <span class="op">=&gt;</span> <span class="ident">m</span>,
-    };
-
-    <span class="comment">// Create values file</span>
-    <span class="kw">let</span> <span class="ident">hfile</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.helm.gen.yml&quot;</span>, <span class="ident">svc</span>);
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">helm</span>::<span class="ident">values</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">hfile</span>) {
-        <span class="comment">// Errors here are obscure, and should not happen, but pass them up anyway</span>
-        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-        <span class="ident">s</span>.<span class="ident">update_generate_false</span>(<span class="string">&quot;ResolveFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())<span class="question-mark">?</span>;
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
-    };
-
-    <span class="comment">// Attach diff to UpgradeInfo if diffing is possible</span>
-    <span class="comment">// TODO: use kubectl diff in 1.13</span>
-    <span class="kw">if</span> <span class="ident">existed</span> { <span class="comment">// helm diff only supports diffing if already installed..</span>
-        <span class="kw">match</span> <span class="ident">diff_helm</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">hfile</span>) {
-            <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">hdiff</span>)) <span class="op">=&gt;</span> {
-                <span class="ident">ui</span>.<span class="ident">diff</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hdiff</span>);
-                <span class="ident">reason</span> <span class="op">=</span> <span class="ident">reason</span>.<span class="ident">or</span>(<span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">TemplateDiff</span>));
-            },
-            <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> {
-                <span class="comment">// If we explicitly received no diff, don&#39;t try to upgrade</span>
-                <span class="comment">// This is a stronger diff than CRD-only if this succeeds; STOP.</span>
-                <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;{} up to date (full diff check)&quot;</span>, <span class="ident">svc</span>);
-                <span class="ident">s</span>.<span class="ident">update_generate_true</span>()<span class="question-mark">?</span>; <span class="comment">// every force reconcile makes one generate cond</span>
-                <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Cancelled</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
-            }
-            <span class="comment">// If diffing failed, only run the upgrade if using --force</span>
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Unable to diff against {}: {}&quot;</span>, <span class="ident">svc</span>, <span class="ident">e</span>);
-                <span class="kw">if</span> <span class="op">!</span><span class="ident">force</span> {
-                    <span class="comment">// pass on a diff failure</span>
-                    <span class="ident">s</span>.<span class="ident">update_generate_false</span>(<span class="string">&quot;DiffFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())<span class="question-mark">?</span>;
-                    <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Cancelled</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="comment">// but ultimately ignore this in fast reconciles</span>
-                }
-                <span class="ident">reason</span> <span class="op">=</span> <span class="ident">reason</span>.<span class="ident">or</span>(<span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">Forced</span>))
-            }
-        }
-    }
-
-    <span class="comment">// We cannot be here without a reason now, although you have to convince yourself.</span>
-    <span class="kw">let</span> <span class="ident">ureason</span> <span class="op">=</span> <span class="ident">reason</span>.<span class="ident">expect</span>(<span class="string">&quot;cannot apply without a reason&quot;</span>);
-    <span class="ident">s</span>.<span class="ident">update_generate_true</span>()<span class="question-mark">?</span>; <span class="comment">// if this fails, stop, want .status to be correct</span>
-    <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Started</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-
-    <span class="kw">match</span> <span class="ident">upgrade_helm</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">hfile</span>) {
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-            <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;{} from {}&quot;</span>, <span class="ident">e</span>, <span class="ident">ui</span>.<span class="ident">name</span>);
-            <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-            <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>();
-            <span class="ident">s</span>.<span class="ident">update_apply_false</span>(<span class="ident">ureason</span>.<span class="ident">to_string</span>(), <span class="string">&quot;ApplyFailure&quot;</span>, <span class="ident">reason</span>)<span class="question-mark">?</span>; <span class="comment">// TODO: chain</span>
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
-        },
-        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">update_apply_true</span>(<span class="ident">ureason</span>.<span class="ident">to_string</span>());
-            <span class="kw">if</span> <span class="op">!</span><span class="ident">wait</span> {
-                <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;successfully applied {} (without waiting)&quot;</span>, <span class="ident">ui</span>.<span class="ident">name</span>);
-            }
-            <span class="kw">else</span> {
-                <span class="kw">match</span> <span class="ident">kubectl</span>::<span class="ident">await_rollout_status</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>) <span class="op">=&gt;</span> {
-                        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;successfully rolled out {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>.<span class="ident">name</span>);
-                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Completed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-                        <span class="ident">s</span>.<span class="ident">update_rollout_true</span>()<span class="question-mark">?</span>;
-                    },
-                    <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>) <span class="op">=&gt;</span> {
-                        <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">mf</span>.<span class="ident">estimate_wait_time</span>();
-                        <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;timed out waiting {}s for rollout&quot;</span>, <span class="ident">time</span>);
-                        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">debug_rollout_status</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>);
-                        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">debug</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>);
-                        <span class="comment">// TODO: collect these for .status call ^?</span>
-                        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;failed to roll out {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>.<span class="ident">name</span>);
-                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-                        <span class="ident">s</span>.<span class="ident">update_rollout_false</span>(<span class="string">&quot;Timeout&quot;</span>, <span class="ident">reason</span>)<span class="question-mark">?</span>; <span class="comment">// TODO: chain</span>
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">UpgradeTimeout</span>(<span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>(), <span class="ident">time</span>).<span class="ident">into</span>());
-                    },
-                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>);
-                        <span class="ident">s</span>.<span class="ident">update_rollout_false</span>(<span class="string">&quot;RolloutTrackFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())<span class="question-mark">?</span>; <span class="comment">// TODO: chain</span>
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>)
-                    }
-                }
-            }
-        }
-    };
-    <span class="comment">// cleanups in non-error cases</span>
-    <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">fs</span>::<span class="ident">remove_file</span>(<span class="kw-2">&amp;</span><span class="ident">hfile</span>); <span class="comment">// try to remove temporary file</span>
-    <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">ui</span>))
 }
 
 
@@ -941,81 +757,527 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ToString</span> <span class="kw">for</span> <span class="ident">UpgradeReason</span> {
-    <span class="kw">fn</span> <span class="ident">to_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+    <span class="kw">fn</span> <span class="ident">to_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="self">self</span>)
     }
 }
 
-
-<span class="doccomment">/// Shell out to helm upgrade</span>
-<span class="kw">fn</span> <span class="ident">upgrade_helm</span>(<span class="ident">mf</span>: <span class="kw-2">&amp;</span><span class="ident">Manifest</span>, <span class="ident">hfile</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="comment">// upgrade it using the same command</span>
-    <span class="kw">let</span> <span class="ident">upgradevec</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
-        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;--tiller-namespace={}&quot;</span>, <span class="ident">mf</span>.<span class="ident">namespace</span>),
-        <span class="string">&quot;upgrade&quot;</span>.<span class="ident">into</span>(),
-        <span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>(),
-        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;charts/{}&quot;</span>, <span class="ident">mf</span>.<span class="ident">chart</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>()), <span class="comment">// ensured in manifest</span>
-        <span class="string">&quot;-f&quot;</span>.<span class="ident">into</span>(),
-        <span class="ident">hfile</span>.<span class="ident">into</span>(),
-        <span class="string">&quot;--set&quot;</span>.<span class="ident">into</span>(),
-        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;version={}&quot;</span>, <span class="ident">mf</span>.<span class="ident">version</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>()), <span class="comment">// ensured in apply</span>
-        <span class="string">&quot;--install&quot;</span>.<span class="ident">into</span>(),
-    ];
-    <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;helm {}&quot;</span>, <span class="ident">upgradevec</span>.<span class="ident">join</span>(<span class="string">&quot; &quot;</span>));
-    <span class="ident">helm</span>::<span class="ident">hexec</span>(<span class="ident">upgradevec</span>).<span class="ident">chain_err</span>(<span class="op">||</span>
-        <span class="ident">ErrorKind</span>::<span class="ident">HelmUpgradeFailure</span>(<span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>()))<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(())
-}
-
-<span class="doccomment">/// Minified helm diff shell out</span>
+<span class="doccomment">/// First version of apply that does not use tiller</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// To be gradually replaced by kubectl diff</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">diff_helm</span>(<span class="ident">mf</span>: <span class="kw-2">&amp;</span><span class="ident">Manifest</span>, <span class="ident">hfile</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span> {
-    <span class="kw">let</span> <span class="ident">namespace</span> <span class="op">=</span> <span class="ident">mf</span>.<span class="ident">namespace</span>.<span class="ident">clone</span>();
-    <span class="kw">let</span> <span class="ident">diffvec</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
-        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;--tiller-namespace={}&quot;</span>, <span class="ident">namespace</span>),
-        <span class="string">&quot;diff&quot;</span>.<span class="ident">into</span>(),
-        <span class="string">&quot;upgrade&quot;</span>.<span class="ident">into</span>(),
-        <span class="string">&quot;--no-color&quot;</span>.<span class="ident">into</span>(),
-        <span class="string">&quot;-q&quot;</span>.<span class="ident">into</span>(),
-        <span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>(),
-        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;charts/{}&quot;</span>, <span class="ident">mf</span>.<span class="ident">chart</span>.<span class="ident">clone</span>().<span class="ident">unwrap</span>()),
-        <span class="string">&quot;-f&quot;</span>.<span class="ident">into</span>(),
-        <span class="ident">hfile</span>.<span class="ident">into</span>(),
-    ];
-    <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;helm {}&quot;</span>, <span class="ident">diffvec</span>.<span class="ident">join</span>(<span class="string">&quot; &quot;</span>));
-    <span class="kw">let</span> (<span class="ident">hdiffunobfusc</span>, <span class="ident">hdifferr</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">helm</span>::<span class="ident">hout</span>(<span class="ident">diffvec</span>.<span class="ident">clone</span>())<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">helmdiff</span> <span class="op">=</span> <span class="ident">diff</span>::<span class="ident">obfuscate_secrets</span>(
-        <span class="ident">hdiffunobfusc</span>, <span class="comment">// move this away quickly..</span>
-        <span class="ident">mf</span>.<span class="ident">get_secrets</span>()
-    );
-    <span class="kw">if</span> <span class="op">!</span><span class="ident">hdifferr</span>.<span class="ident">is_empty</span>() {
-        <span class="kw">if</span> <span class="ident">hdifferr</span>.<span class="ident">starts_with</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Error: \&quot;{}\&quot; has no deployed releases&quot;</span>, <span class="ident">mf</span>.<span class="ident">name</span>)) {
-            <span class="kw">let</span> <span class="ident">cmd</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;helm --tiller-namespace={} del --purge {}&quot;</span>, <span class="ident">namespace</span>, <span class="ident">mf</span>.<span class="ident">name</span>);
-            <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="string">&quot;to let you be able to retry the install/reconcile&quot;</span>;
-            <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Previous installs of {} failed, you need to run: \n\t{}\n{}&quot;</span>,
-                <span class="ident">mf</span>.<span class="ident">name</span>, <span class="ident">cmd</span>, <span class="ident">reason</span>
-            );
-            <span class="comment">// NB: this is coerced into a fake diff rather than an error</span>
-            <span class="comment">// just because it was super frequent, this part goes away with tiller..</span>
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;no deployed releases of {} - needs purge&quot;</span>, <span class="ident">mf</span>.<span class="ident">name</span>)));
+<span class="doccomment">/// This writes events to uses the shipcatmanifest crd</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cognitive_complexity</span>)]</span> <span class="comment">// TODO: refactor this!</span>
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">apply_kubectl</span>(
+    <span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    <span class="ident">force</span>: <span class="ident">bool</span>,
+    <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>,
+    <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>,
+    <span class="ident">wait</span>: <span class="ident">bool</span>,
+    <span class="ident">passed_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UpgradeInfo</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">webhooks</span>::<span class="ident">ensure_requirements</span>(<span class="kw-2">&amp;</span><span class="ident">region</span>) {
+        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Could not ensure webhook requirements: {}&quot;</span>, <span class="ident">e</span>);
+    }
+    <span class="kw">let</span> <span class="ident">mfbase</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="comment">// A version is set EITHER via `-t SOMEVER` on CLI, or pinned in manifest</span>
+    <span class="kw">if</span> <span class="ident">passed_version</span>.<span class="ident">is_some</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">mfbase</span>.<span class="ident">version</span>.<span class="ident">is_some</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">mfbase</span>.<span class="ident">version</span> <span class="op">!</span><span class="op">=</span> <span class="ident">passed_version</span> {
+        <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Overriding a pinned version will be undone at next reconcile&quot;</span>);
+        <span class="macro">bail</span><span class="macro">!</span>(
+            <span class="string">&quot;Cannot override version for &#39;{}&#39; because it is pinned in manifests&quot;</span>,
+            <span class="ident">svc</span>
+        );
+    }
+    <span class="kw">let</span> <span class="ident">explicit_version</span> <span class="op">=</span> <span class="ident">mfbase</span>.<span class="ident">version</span>.<span class="ident">clone</span>().<span class="ident">or</span>(<span class="ident">passed_version</span>);
+
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">mfbase</span>.<span class="ident">regions</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">region</span>.<span class="ident">name</span>) {
+        <span class="macro">bail</span><span class="macro">!</span>(
+            <span class="string">&quot;Cannot deploy &#39;{}&#39; to a region it&#39;s not configured for in its manifest&quot;</span>,
+            <span class="ident">svc</span>
+        );
+    }
+
+    <span class="comment">// Interact with the kube api to get the shipcatmanifest crd and its .status</span>
+    <span class="comment">// This lets us work out:</span>
+    <span class="comment">// - if the service has been installed before (negates the need for a diff)</span>
+    <span class="comment">// - if we need to apply a new crd (so we have an atomic change)</span>
+    <span class="comment">// - if we need to interact with secret-manager TODO: do</span>
+    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">ShipKube</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">mfbase</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="comment">// Next large batch is working out the reason for the upgrade (if any)</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reason</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+
+    <span class="comment">// Fetch the minimial shipcatmanifest crd to read version + metadata</span>
+    <span class="comment">// Safe to bail, pre CRD apply. Next run can retry if kube api getter fails.</span>
+    <span class="kw">let</span> (<span class="ident">actual_version</span>, <span class="ident">crd</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">s</span>.<span class="ident">get_minimal</span>().<span class="kw">await</span> {
+        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="comment">// This usually fails because it&#39;s not yet installed</span>
+            <span class="comment">// serde errors should not happen as using minimal variant!</span>
+            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Caught: {}&quot;</span>, <span class="ident">e</span>); <span class="comment">// log it anyway</span>
+            <span class="kw">match</span> <span class="ident">explicit_version</span> {
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;&#39;{}&#39; cannot be installed (no version inferable)&quot;</span>, <span class="ident">svc</span>);
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">MissingRollingVersion</span>(<span class="ident">svc</span>.<span class="ident">into</span>()).<span class="ident">into</span>());
+                }
+                <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="ident">reason</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">NewService</span>);
+                    (<span class="ident">v</span>, <span class="prelude-val">None</span>)
+                }
+            }
         }
-        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;diff {} stderr: \n{}&quot;</span>, <span class="ident">mf</span>.<span class="ident">name</span>, <span class="ident">hdifferr</span>);
-        <span class="kw">if</span> <span class="op">!</span> <span class="ident">hdifferr</span>.<span class="ident">contains</span>(<span class="string">&quot;error copying from local connection to remote stream&quot;</span>) <span class="op">&amp;&amp;</span>
-           <span class="op">!</span> <span class="ident">hdifferr</span>.<span class="ident">contains</span>(<span class="string">&quot;error copying from remote stream to local connection&quot;</span>) {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;diff plugin for {} returned: {}&quot;</span>, <span class="ident">mf</span>.<span class="ident">name</span>, <span class="ident">hdifferr</span>.<span class="ident">lines</span>().<span class="ident">next</span>().<span class="ident">unwrap</span>());
+        <span class="prelude-val">Ok</span>(<span class="ident">o</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;existing manifest crd: {}={:?}&quot;</span>, <span class="ident">o</span>.<span class="ident">spec</span>.<span class="ident">name</span>, <span class="ident">o</span>.<span class="ident">status</span>);
+            <span class="kw">let</span> <span class="ident">fallback</span> <span class="op">=</span> <span class="ident">o</span>.<span class="ident">spec</span>.<span class="ident">version</span>.<span class="ident">clone</span>();
+            <span class="kw">match</span> <span class="ident">explicit_version</span> {
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">fallback</span>, <span class="prelude-val">Some</span>(<span class="ident">o</span>)),
+                <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="kw">if</span> <span class="ident">v</span> <span class="op">!</span><span class="op">=</span> <span class="ident">fallback</span> {
+                        <span class="comment">// A version was supplied, and it differs from active CRD</span>
+                        <span class="ident">reason</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">VersionChange</span>);
+                    }
+                    (<span class="ident">v</span>, <span class="prelude-val">Some</span>(<span class="ident">o</span>))
+                }
+            }
+        }
+    };
+    <span class="kw">let</span> <span class="ident">can_diff</span> <span class="op">=</span> <span class="ident">crd</span>.<span class="ident">is_some</span>();
+    <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;using {}={}&quot;</span>, <span class="ident">svc</span>, <span class="ident">actual_version</span>);
+    <span class="comment">// no shoehorning in illegal versions in the crd!</span>
+    <span class="ident">region</span>.<span class="ident">versioningScheme</span>.<span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="ident">actual_version</span>)<span class="question-mark">?</span>;
+
+    <span class="comment">// Complete and apply the CRD</span>
+    <span class="kw">let</span> <span class="ident">mfcrd</span> <span class="op">=</span> <span class="ident">mfbase</span>.<span class="ident">version</span>(<span class="ident">actual_version</span>.<span class="ident">clone</span>());
+    <span class="kw">let</span> <span class="ident">crd_changed</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">apply</span>(<span class="ident">mfcrd</span>.<span class="ident">clone</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="comment">// Cheap reconcile ends here if !changed &amp;&amp; !force</span>
+    <span class="kw">if</span> <span class="ident">crd_changed</span> {
+        <span class="ident">reason</span> <span class="op">=</span> <span class="ident">reason</span>.<span class="ident">or</span>(<span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">ManifestChange</span>));
+    }
+    <span class="kw">if</span> <span class="ident">reason</span>.<span class="ident">is_none</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">force</span> {
+        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;{} up to date (crd check)&quot;</span>, <span class="ident">svc</span>);
+        <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
+    }
+
+    <span class="comment">// Prepare for an actual upgrade now..</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ui</span> <span class="op">=</span> <span class="ident">UpgradeInfo</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">mfcrd</span>);
+    <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Pending</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+
+    <span class="comment">// Fetch all the secrets so we can create a completed manifest</span>
+    <span class="comment">// TODO: check scp.status.secretChecksum against secret-manager instead</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mf</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">mfcrd</span>.<span class="ident">complete</span>(<span class="kw-2">&amp;</span><span class="ident">region</span>).<span class="kw">await</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">m</span>,
+        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="comment">// Fire failed events if secrets fail to resolve</span>
+            <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+            <span class="ident">s</span>.<span class="ident">update_generate_false</span>(<span class="string">&quot;SecretFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())
+                .<span class="kw">await</span><span class="question-mark">?</span>;
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>.<span class="ident">into</span>());
+        }
+    };
+    <span class="comment">// Should have a UID for ownerReferences now</span>
+    <span class="ident">mf</span>.<span class="ident">uid</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">o</span>) <span class="op">=</span> <span class="ident">crd</span> {
+        <span class="ident">o</span>.<span class="ident">metadata</span>.<span class="ident">uid</span>
+    } <span class="kw">else</span> {
+        <span class="kw">match</span> <span class="ident">s</span>.<span class="ident">get</span>().<span class="kw">await</span> {
+            <span class="comment">// fallback to the one we just created</span>
+            <span class="prelude-val">Ok</span>(<span class="ident">o</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">o</span>.<span class="ident">metadata</span>.<span class="ident">uid</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">e</span>);
+                <span class="comment">// Fire failed events if crd could not be fetched after its creation</span>
+                <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+                <span class="ident">s</span>.<span class="ident">update_generate_false</span>(<span class="string">&quot;CrdFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())
+                    .<span class="kw">await</span><span class="question-mark">?</span>;
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
+            }
+        }
+    };
+
+    <span class="comment">// Create completed kubernetes yaml (via shipcat values | helm template)</span>
+    <span class="kw">let</span> <span class="ident">tfile</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.kube.gen.yml&quot;</span>, <span class="ident">svc</span>);
+    <span class="kw">let</span> <span class="ident">tpth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="ident">tfile</span>.<span class="ident">clone</span>());
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">helm</span>::<span class="ident">template</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="prelude-val">Some</span>(<span class="ident">tpth</span>)).<span class="kw">await</span> {
+        <span class="comment">// Errors here are obscure, and should not happen, but pass them up anyway</span>
+        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+        <span class="ident">s</span>.<span class="ident">update_generate_false</span>(<span class="string">&quot;ResolveFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())
+            .<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
+    }
+
+    <span class="comment">// Attach diff to UpgradeInfo if diffing is possible</span>
+    <span class="kw">if</span> <span class="ident">can_diff</span> {
+        <span class="comment">// helm diff only supports diffing if already installed..</span>
+        <span class="kw">match</span> <span class="ident">diff_kubectl</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">tfile</span>).<span class="kw">await</span> {
+            <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">kdiff</span>)) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">ui</span>.<span class="ident">diff</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">kdiff</span>);
+                <span class="ident">reason</span> <span class="op">=</span> <span class="ident">reason</span>.<span class="ident">or</span>(<span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">TemplateDiff</span>));
+            }
+            <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="comment">// If we explicitly received no diff, don&#39;t try to upgrade</span>
+                <span class="comment">// This is a stronger diff than CRD-only if this succeeds; STOP.</span>
+                <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;{} up to date (full diff check)&quot;</span>, <span class="ident">svc</span>);
+                <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Cancelled</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+                <span class="ident">s</span>.<span class="ident">update_generate_true</span>().<span class="kw">await</span><span class="question-mark">?</span>; <span class="comment">// every force reconcile makes one generate cond</span>
+                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
+            }
+            <span class="comment">// If diffing failed, only run the upgrade if we have to:</span>
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Unable to diff against {}: {}&quot;</span>, <span class="ident">svc</span>, <span class="ident">e</span>);
+                <span class="kw">if</span> <span class="op">!</span><span class="ident">force</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">reason</span>.<span class="ident">is_none</span>() {
+                    <span class="comment">// pass on a diff failure</span>
+                    <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Cancelled</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+                    <span class="ident">s</span>.<span class="ident">update_generate_false</span>(<span class="string">&quot;DiffFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())
+                        .<span class="kw">await</span><span class="question-mark">?</span>;
+                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>); <span class="comment">// but ultimately ignore this in fast reconciles</span>
+                }
+                <span class="ident">reason</span> <span class="op">=</span> <span class="ident">reason</span>.<span class="ident">or</span>(<span class="prelude-val">Some</span>(<span class="ident">UpgradeReason</span>::<span class="ident">Forced</span>))
+            }
         }
     }
 
-    <span class="kw">let</span> <span class="ident">smalldiff</span> <span class="op">=</span> <span class="ident">diff</span>::<span class="ident">minify</span>(<span class="ident">helmdiff</span>.<span class="ident">clone</span>());
+    <span class="comment">// We cannot be here without a reason now, although you have to convince yourself.</span>
+    <span class="kw">let</span> <span class="ident">ureason</span> <span class="op">=</span> <span class="ident">reason</span>.<span class="ident">expect</span>(<span class="string">&quot;cannot apply without a reason&quot;</span>);
+    <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Started</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+    <span class="ident">s</span>.<span class="ident">update_generate_true</span>().<span class="kw">await</span><span class="question-mark">?</span>; <span class="comment">// if this fails, stop, want .status to be correct</span>
 
+    <span class="kw">match</span> <span class="ident">upgrade_kubectl</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">tfile</span>).<span class="kw">await</span> {
+        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;{} from {}&quot;</span>, <span class="ident">e</span>, <span class="ident">ui</span>.<span class="ident">name</span>);
+            <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+            <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>();
+            <span class="ident">s</span>.<span class="ident">update_apply_false</span>(<span class="ident">ureason</span>.<span class="ident">to_string</span>(), <span class="string">&quot;ApplyFailure&quot;</span>, <span class="ident">reason</span>)
+                .<span class="kw">await</span><span class="question-mark">?</span>; <span class="comment">// TODO: chain</span>
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
+        }
+        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">update_apply_true</span>(<span class="ident">ureason</span>.<span class="ident">to_string</span>()).<span class="kw">await</span>;
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">wait</span> {
+                <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;successfully applied {} (without waiting)&quot;</span>, <span class="ident">ui</span>.<span class="ident">name</span>);
+            } <span class="kw">else</span> {
+                <span class="kw">match</span> <span class="ident">track</span>::<span class="ident">workload_rollout</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">s</span>).<span class="kw">await</span> {
+                    <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;successfully rolled out {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>.<span class="ident">name</span>);
+                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Completed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+                        <span class="ident">s</span>.<span class="ident">update_rollout_true</span>(<span class="kw-2">&amp;</span><span class="ident">actual_version</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+                    }
+                    <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">mf</span>.<span class="ident">estimate_wait_time</span>();
+                        <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;timed out waiting {}s for rollout&quot;</span>, <span class="ident">time</span>);
+                        <span class="comment">//let _ = kubectl::debug_rollout_status(&amp;mf).await;</span>
+                        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">track</span>::<span class="ident">debug</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">s</span>).<span class="kw">await</span>;
+                        <span class="comment">// TODO: collect these for .status call ^?</span>
+                        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;failed to roll out {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>.<span class="ident">name</span>);
+                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+                        <span class="ident">s</span>.<span class="ident">update_rollout_false</span>(<span class="string">&quot;Timeout&quot;</span>, <span class="ident">reason</span>).<span class="kw">await</span><span class="question-mark">?</span>; <span class="comment">// TODO: chain</span>
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">UpgradeTimeout</span>(<span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>(), <span class="ident">time</span>).<span class="ident">into</span>());
+                    }
+                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="ident">webhooks</span>::<span class="ident">apply_event</span>(<span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">ui</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+                        <span class="ident">s</span>.<span class="ident">update_rollout_false</span>(<span class="string">&quot;RolloutTrackFailure&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>().<span class="ident">to_string</span>())
+                            .<span class="kw">await</span><span class="question-mark">?</span>; <span class="comment">// TODO: chain</span>
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
+                    }
+                }
+            }
+        }
+    };
+    <span class="comment">// cleanups in non-error cases</span>
+    <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">fs</span>::<span class="ident">remove_file</span>(<span class="kw-2">&amp;</span><span class="ident">tfile</span>).<span class="kw">await</span>;
+    <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">ui</span>))
+}
+
+<span class="doccomment">/// Shell out to kubectl apply</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Assumes you have written your template file from `helm template`</span>
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">upgrade_kubectl</span>(<span class="ident">mf</span>: <span class="kw-2">&amp;</span><span class="ident">Manifest</span>, <span class="ident">tfile</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="comment">// upgrade it using the same command</span>
+    <span class="kw">let</span> <span class="ident">applyvec</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
+        <span class="string">&quot;apply&quot;</span>.<span class="ident">into</span>(),
+        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;-n={}&quot;</span>, <span class="ident">mf</span>.<span class="ident">namespace</span>),
+        <span class="string">&quot;-f&quot;</span>.<span class="ident">into</span>(),
+        <span class="ident">tfile</span>.<span class="ident">into</span>(),
+        <span class="string">&quot;--prune&quot;</span>.<span class="ident">into</span>(),
+        <span class="comment">// NB: assumes one deploy per namespace</span>
+        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;-l=app.kubernetes.io/name={}&quot;</span>, <span class="ident">mf</span>.<span class="ident">name</span>),
+    ];
+    <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;kubectl {}&quot;</span>, <span class="ident">applyvec</span>.<span class="ident">join</span>(<span class="string">&quot; &quot;</span>));
+    <span class="ident">kubectl</span>::<span class="ident">kexec</span>(<span class="ident">applyvec</span>)
+        .<span class="kw">await</span>
+        .<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">KubectlApplyFailure</span>(<span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>()))<span class="question-mark">?</span>;
+    <span class="prelude-val">Ok</span>(())
+}
+
+<span class="doccomment">/// Minified kubectl diff shell out</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Requires kubernetes 1.13</span>
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">diff_kubectl</span>(<span class="ident">mf</span>: <span class="kw-2">&amp;</span><span class="ident">Manifest</span>, <span class="ident">tfile</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">namespace</span> <span class="op">=</span> <span class="ident">mf</span>.<span class="ident">namespace</span>.<span class="ident">clone</span>();
+    <span class="kw">let</span> <span class="ident">pth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="ident">tfile</span>);
+    <span class="kw">let</span> (<span class="ident">kdiffunobfusc</span>, <span class="ident">kdifferr</span>, <span class="ident">success</span>) <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">diff</span>(<span class="ident">pth</span>.<span class="ident">to_path_buf</span>(), <span class="kw-2">&amp;</span><span class="ident">namespace</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="kw">let</span> <span class="ident">kubediff</span> <span class="op">=</span> <span class="ident">diff</span>::<span class="ident">obfuscate_secrets</span>(
+        <span class="ident">kdiffunobfusc</span>, <span class="comment">// move this away quickly..</span>
+        <span class="ident">mf</span>.<span class="ident">get_secrets</span>(),
+    );
+    <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Full diff (obfuscated): \n{}&quot;</span>, <span class="ident">kubediff</span>);
+
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">success</span> {
+        <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">kdifferr</span>.<span class="ident">trim</span>();
+        <span class="kw">if</span> <span class="ident">err</span> <span class="op">!</span><span class="op">=</span> <span class="string">&quot;exit status 1&quot;</span> {
+            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;diff {} stderr: {}&quot;</span>, <span class="ident">mf</span>.<span class="ident">name</span>, <span class="ident">kdifferr</span>.<span class="ident">trim</span>());
+            <span class="macro">bail</span><span class="macro">!</span>(
+                <span class="string">&quot;kubectl diff {} returned: {}&quot;</span>,
+                <span class="ident">mf</span>.<span class="ident">name</span>,
+                <span class="ident">kdifferr</span>.<span class="ident">lines</span>().<span class="ident">next</span>().<span class="ident">unwrap</span>()
+            );
+        }
+    }
+
+    <span class="kw">let</span> <span class="ident">smalldiff</span> <span class="op">=</span> <span class="ident">diff</span>::<span class="ident">minify</span>(<span class="kw-2">&amp;</span><span class="ident">kubediff</span>);
     <span class="prelude-val">Ok</span>(<span class="kw">if</span> <span class="op">!</span><span class="ident">smalldiff</span>.<span class="ident">is_empty</span>() {
-        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">helmdiff</span>); <span class="comment">// full diff for logs</span>
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">kubediff</span>); <span class="comment">// full diff for logs</span>
         <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">smalldiff</span>);
         <span class="prelude-val">Some</span>(<span class="ident">smalldiff</span>)
     } <span class="kw">else</span> {
         <span class="prelude-val">None</span>
     })
 }
+
+<span class="doccomment">/// Restart the workloads associated with a shipcatmanifest</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Optionally wait for the main resource</span>
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">restart</span>(<span class="ident">mf</span>: <span class="kw-2">&amp;</span><span class="ident">Manifest</span>, <span class="ident">wait</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">for</span> <span class="ident">w</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">mf</span>.<span class="ident">workers</span> {
+        <span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">Restartable</span> {
+            <span class="ident">name</span>: <span class="ident">w</span>.<span class="ident">container</span>.<span class="ident">name</span>.<span class="ident">clone</span>(),
+            <span class="ident">namespace</span>: <span class="ident">mf</span>.<span class="ident">namespace</span>.<span class="ident">clone</span>(),
+            <span class="ident">workload</span>: <span class="ident">PrimaryWorkload</span>::<span class="ident">Deployment</span>,
+        };
+        <span class="ident">trigger_rollout_restart</span>(<span class="ident">r</span>).<span class="kw">await</span><span class="question-mark">?</span>; <span class="comment">// fire-and-forget for subresources</span>
+    }
+    <span class="kw">let</span> <span class="ident">main</span> <span class="op">=</span> <span class="ident">Restartable</span> {
+        <span class="ident">name</span>: <span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>(),
+        <span class="ident">namespace</span>: <span class="ident">mf</span>.<span class="ident">namespace</span>.<span class="ident">clone</span>(),
+        <span class="ident">workload</span>: <span class="ident">mf</span>.<span class="ident">workload</span>.<span class="ident">clone</span>(),
+    };
+    <span class="ident">trigger_rollout_restart</span>(<span class="ident">main</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">wait</span> {
+        <span class="macro">info</span><span class="macro">!</span>(
+            <span class="string">&quot;successfully triggered a restart of {}/{}&quot;</span>,
+            <span class="ident">mf</span>.<span class="ident">workload</span>.<span class="ident">to_string</span>(),
+            <span class="ident">mf</span>.<span class="ident">name</span>
+        );
+        <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
+    }
+    <span class="kw">let</span> <span class="ident">sk</span> <span class="op">=</span> <span class="ident">ShipKube</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="comment">// wait for primary if we are waiting</span>
+    <span class="kw">if</span> <span class="ident">track</span>::<span class="ident">workload_rollout</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">sk</span>).<span class="kw">await</span><span class="question-mark">?</span> {
+        <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;successfully restarted {}/{}&quot;</span>, <span class="ident">mf</span>.<span class="ident">workload</span>.<span class="ident">to_string</span>(), <span class="kw-2">&amp;</span><span class="ident">mf</span>.<span class="ident">name</span>);
+        <span class="prelude-val">Ok</span>(())
+    } <span class="kw">else</span> {
+        <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">mf</span>.<span class="ident">estimate_wait_time</span>();
+        <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;timed out waiting {}s for rollout to restart&quot;</span>, <span class="ident">time</span>);
+        <span class="comment">//let _ = kubectl::debug_rollout_status(&amp;mf).await;</span>
+        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">track</span>::<span class="ident">debug</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">sk</span>).<span class="kw">await</span>;
+        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;failed to roll out {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">mf</span>.<span class="ident">name</span>);
+        <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">reason</span>);
+        <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">UpgradeTimeout</span>(<span class="ident">mf</span>.<span class="ident">name</span>.<span class="ident">clone</span>(), <span class="ident">time</span>).<span class="ident">into</span>())
+    }
+}
+
+<span class="kw">struct</span> <span class="ident">Restartable</span> {
+    <span class="ident">name</span>: <span class="ident">String</span>,
+    <span class="ident">workload</span>: <span class="ident">PrimaryWorkload</span>,
+    <span class="ident">namespace</span>: <span class="ident">String</span>,
+}
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">trigger_rollout_restart</span>(<span class="ident">r</span>: <span class="ident">Restartable</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">restartvec</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
+        <span class="string">&quot;rollout&quot;</span>.<span class="ident">into</span>(),
+        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;-n={}&quot;</span>, <span class="ident">r</span>.<span class="ident">namespace</span>),
+        <span class="string">&quot;restart&quot;</span>.<span class="ident">into</span>(),
+        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/{}&quot;</span>, <span class="ident">r</span>.<span class="ident">workload</span>.<span class="ident">to_string</span>(), <span class="ident">r</span>.<span class="ident">name</span>),
+    ];
+    <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;kubectl {}&quot;</span>, <span class="ident">restartvec</span>.<span class="ident">join</span>(<span class="string">&quot; &quot;</span>));
+    <span class="ident">kubectl</span>::<span class="ident">kexec</span>(<span class="ident">restartvec</span>)
+        .<span class="kw">await</span>
+        .<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">KubectlApplyFailure</span>(<span class="ident">r</span>.<span class="ident">name</span>))
+}
+
+<span class="doccomment">/// Uninstall a service</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Not meant to be called if the manifest is still installed in the region</span>
+<span class="doccomment">/// shipcat::cluster module is responsible for calling this,</span>
+<span class="doccomment">/// when (and only when) a service disappears from disk.</span>
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">delete</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">reg</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">ShipKube</span>::<span class="ident">new_within</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="kw-2">&amp;</span><span class="ident">reg</span>.<span class="ident">namespace</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="kw">match</span> <span class="ident">s</span>.<span class="ident">get</span>().<span class="kw">await</span> {
+        <span class="comment">// audit all events if it&#39;s possible to deserialize current crd</span>
+        <span class="prelude-val">Ok</span>(<span class="ident">mfk</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident">UpgradeInfo</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">mfk</span>.<span class="ident">spec</span>);
+            <span class="comment">// We notify before we start, because this is potentially a &quot;panic&quot; type notification.</span>
+            <span class="ident">webhooks</span>::<span class="ident">delete_event</span>(<span class="kw-2">&amp;</span><span class="ident">UpgradeState</span>::<span class="ident">Started</span>, <span class="kw-2">&amp;</span><span class="ident">info</span>, <span class="kw-2">&amp;</span><span class="ident">reg</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+            <span class="kw">match</span> <span class="ident">s</span>.<span class="ident">delete</span>().<span class="kw">await</span> {
+                <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="comment">// NB: we say completed when the api is &quot;done&quot;</span>
+                    <span class="comment">// This might still trigger finalizers ATM...</span>
+                    <span class="ident">webhooks</span>::<span class="ident">delete_event</span>(<span class="kw-2">&amp;</span><span class="ident">UpgradeState</span>::<span class="ident">Completed</span>, <span class="kw-2">&amp;</span><span class="ident">info</span>, <span class="kw-2">&amp;</span><span class="ident">reg</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+                    <span class="prelude-val">Ok</span>(())
+                }
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="ident">webhooks</span>::<span class="ident">delete_event</span>(<span class="kw-2">&amp;</span><span class="ident">UpgradeState</span>::<span class="ident">Failed</span>, <span class="kw-2">&amp;</span><span class="ident">info</span>, <span class="kw-2">&amp;</span><span class="ident">reg</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>).<span class="kw">await</span>;
+                    <span class="prelude-val">Err</span>(<span class="ident">e</span>)
+                }
+            }
+        }
+        <span class="comment">// otherwise, just fire and forget...</span>
+        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Unable to notify about service deletion: {}&quot;</span>, <span class="ident">e</span>);
+            <span class="comment">// The following Result is more important</span>
+            <span class="ident">s</span>.<span class="ident">delete</span>()
+                .<span class="kw">await</span>
+                .<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">KubectlApiFailure</span>(<span class="string">&quot;delete&quot;</span>.<span class="ident">into</span>(), <span class="ident">svc</span>.<span class="ident">into</span>()))
+        }
+    }
+}
+
+<span class="doccomment">/// Extend kubeapi::ShipKube with patching logic for the .status object</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This should arguably live inside apply.rs or shipcat_definitions</span>
+<span class="kw">impl</span> <span class="ident">ShipKube</span> {
+    <span class="comment">// ====================================================</span>
+    <span class="comment">// WARNING : PATCH HELL BELOW</span>
+    <span class="comment">// ====================================================</span>
+
+    <span class="comment">// helper to delete accidental flags</span>
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">update_generate_true</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Setting generated true&quot;</span>);
+        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">make_date</span>();
+        <span class="kw">let</span> <span class="ident">cond</span> <span class="op">=</span> <span class="ident">Condition</span>::<span class="ident">ok</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">applier</span>);
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="macro">json</span><span class="macro">!</span>({
+            <span class="string">&quot;status&quot;</span>: {
+                <span class="string">&quot;conditions&quot;</span>: {
+                    <span class="string">&quot;generated&quot;</span>: <span class="ident">cond</span>
+                },
+                <span class="string">&quot;summary&quot;</span>: {
+                    <span class="string">&quot;lastSuccessfulGenerate&quot;</span>: <span class="ident">now</span>,
+                    <span class="string">&quot;lastAction&quot;</span>: <span class="string">&quot;Generate&quot;</span>,
+                }
+            }
+        });
+        <span class="self">self</span>.<span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="kw">await</span>
+    }
+
+    <span class="comment">// Manual helper fn to blat old status data</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">remove_old_props</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="comment">// did you accidentally populate the .status object with garbage?</span>
+        <span class="kw">let</span> <span class="ident">_data</span> <span class="op">=</span> <span class="macro">json</span><span class="macro">!</span>({
+            <span class="string">&quot;status&quot;</span>: {
+                <span class="string">&quot;conditions&quot;</span>: {
+                    <span class="string">&quot;apply&quot;</span>: <span class="ident">null</span>,
+                    <span class="string">&quot;rollout&quot;</span>: <span class="ident">null</span>,
+                },
+                <span class="string">&quot;summary&quot;</span>: <span class="ident">null</span>
+            }
+        });
+        <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;I know what i am doing&quot;</span>);
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_code</span>)]</span>
+        <span class="self">self</span>.<span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="ident">_data</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">update_generate_false</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">err</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">reason</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Setting generated false&quot;</span>);
+        <span class="kw">let</span> <span class="ident">cond</span> <span class="op">=</span> <span class="ident">Condition</span>::<span class="ident">bad</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">applier</span>, <span class="ident">err</span>, <span class="ident">reason</span>.<span class="ident">clone</span>());
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="macro">json</span><span class="macro">!</span>({
+            <span class="string">&quot;status&quot;</span>: {
+                <span class="string">&quot;conditions&quot;</span>: {
+                    <span class="string">&quot;generated&quot;</span>: <span class="ident">cond</span>
+                },
+                <span class="string">&quot;summary&quot;</span>: {
+                    <span class="string">&quot;lastFailureReason&quot;</span>: <span class="ident">reason</span>,
+                    <span class="string">&quot;lastAction&quot;</span>: <span class="string">&quot;Generate&quot;</span>,
+                }
+            }
+        });
+        <span class="self">self</span>.<span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">update_apply_true</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ureason</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Setting applied true&quot;</span>);
+        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">make_date</span>();
+        <span class="kw">let</span> <span class="ident">cond</span> <span class="op">=</span> <span class="ident">Condition</span>::<span class="ident">ok</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">applier</span>);
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="macro">json</span><span class="macro">!</span>({
+            <span class="string">&quot;status&quot;</span>: {
+                <span class="string">&quot;conditions&quot;</span>: {
+                    <span class="string">&quot;applied&quot;</span>: <span class="ident">cond</span>
+                },
+                <span class="string">&quot;summary&quot;</span>: {
+                    <span class="string">&quot;lastApply&quot;</span>: <span class="ident">now</span>,
+                    <span class="string">&quot;lastSuccessfulApply&quot;</span>: <span class="ident">now</span>,
+                    <span class="string">&quot;lastApplyReason&quot;</span>: <span class="ident">ureason</span>,
+                    <span class="string">&quot;lastAction&quot;</span>: <span class="string">&quot;Apply&quot;</span>,
+                }
+            }
+        });
+        <span class="self">self</span>.<span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">update_apply_false</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ureason</span>: <span class="ident">String</span>, <span class="ident">err</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">reason</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Setting applied false&quot;</span>);
+        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">make_date</span>();
+        <span class="kw">let</span> <span class="ident">cond</span> <span class="op">=</span> <span class="ident">Condition</span>::<span class="ident">bad</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">applier</span>, <span class="ident">err</span>, <span class="ident">reason</span>.<span class="ident">clone</span>());
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="macro">json</span><span class="macro">!</span>({
+            <span class="string">&quot;status&quot;</span>: {
+                <span class="string">&quot;conditions&quot;</span>: {
+                    <span class="string">&quot;applied&quot;</span>: <span class="ident">cond</span>
+                },
+                <span class="string">&quot;summary&quot;</span>: {
+                    <span class="string">&quot;lastApply&quot;</span>: <span class="ident">now</span>,
+                    <span class="string">&quot;lastFailureReason&quot;</span>: <span class="ident">reason</span>,
+                    <span class="string">&quot;lastApplyReason&quot;</span>: <span class="ident">ureason</span>,
+                    <span class="string">&quot;lastAction&quot;</span>: <span class="string">&quot;Apply&quot;</span>,
+                }
+            }
+        });
+        <span class="self">self</span>.<span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">update_rollout_false</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">err</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">reason</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Setting rolledout false&quot;</span>);
+        <span class="kw">let</span> <span class="ident">cond</span> <span class="op">=</span> <span class="ident">Condition</span>::<span class="ident">bad</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">applier</span>, <span class="ident">err</span>, <span class="ident">reason</span>.<span class="ident">clone</span>());
+        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">make_date</span>();
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="macro">json</span><span class="macro">!</span>({
+            <span class="string">&quot;status&quot;</span>: {
+                <span class="string">&quot;conditions&quot;</span>: {
+                    <span class="string">&quot;rolledout&quot;</span>: <span class="ident">cond</span>
+                },
+                <span class="string">&quot;summary&quot;</span>: {
+                    <span class="string">&quot;lastRollout&quot;</span>: <span class="ident">now</span>,
+                    <span class="string">&quot;lastFailureReason&quot;</span>: <span class="ident">reason</span>,
+                    <span class="string">&quot;lastAction&quot;</span>: <span class="string">&quot;Rollout&quot;</span>,
+                }
+            }
+        });
+        <span class="self">self</span>.<span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">update_rollout_true</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Setting rolledout true&quot;</span>);
+        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">make_date</span>();
+        <span class="kw">let</span> <span class="ident">cond</span> <span class="op">=</span> <span class="ident">Condition</span>::<span class="ident">ok</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">applier</span>);
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="macro">json</span><span class="macro">!</span>({
+            <span class="string">&quot;status&quot;</span>: {
+                <span class="string">&quot;conditions&quot;</span>: {
+                    <span class="string">&quot;rolledout&quot;</span>: <span class="ident">cond</span>
+                },
+                <span class="string">&quot;summary&quot;</span>: {
+                    <span class="string">&quot;lastRollout&quot;</span>: <span class="ident">now</span>,
+                    <span class="string">&quot;lastSuccessfulRollout&quot;</span>: <span class="ident">now</span>,
+                    <span class="string">&quot;lastFailureReason&quot;</span>: <span class="ident">null</span>,
+                    <span class="string">&quot;lastAction&quot;</span>: <span class="string">&quot;Rollout&quot;</span>,
+                    <span class="string">&quot;lastSuccessfulRolloutVersion&quot;</span>: <span class="ident">version</span>,
+                }
+            }
+        });
+        <span class="self">self</span>.<span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="kw">await</span>
+    }
+}
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "shipcat";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "shipcat";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

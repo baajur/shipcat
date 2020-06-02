@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/kube-0.13.0/src/api/typed.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>typed.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../kube/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/kube-0.30.0/src/api/typed.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>typed.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../kube/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -111,249 +111,119 @@
 <span id="111">111</span>
 <span id="112">112</span>
 <span id="113">113</span>
-<span id="114">114</span>
-<span id="115">115</span>
-<span id="116">116</span>
-<span id="117">117</span>
-<span id="118">118</span>
-<span id="119">119</span>
-<span id="120">120</span>
-<span id="121">121</span>
-<span id="122">122</span>
-<span id="123">123</span>
-<span id="124">124</span>
-<span id="125">125</span>
-<span id="126">126</span>
-<span id="127">127</span>
-<span id="128">128</span>
-<span id="129">129</span>
-<span id="130">130</span>
-<span id="131">131</span>
-<span id="132">132</span>
-<span id="133">133</span>
-<span id="134">134</span>
-<span id="135">135</span>
-<span id="136">136</span>
-<span id="137">137</span>
-<span id="138">138</span>
-<span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
-<span id="143">143</span>
-<span id="144">144</span>
-<span id="145">145</span>
-<span id="146">146</span>
-<span id="147">147</span>
-<span id="148">148</span>
-<span id="149">149</span>
-<span id="150">150</span>
-<span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
-<span id="163">163</span>
-<span id="164">164</span>
-<span id="165">165</span>
-<span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
-
-<span class="kw">use</span> <span class="ident">either</span>::{<span class="ident">Either</span>};
-<span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">de</span>::<span class="ident">DeserializeOwned</span>;
+<span class="kw">use</span> <span class="ident">either</span>::<span class="ident">Either</span>;
+<span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">Stream</span>, <span class="ident">StreamExt</span>};
+<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>::<span class="ident">DeserializeOwned</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">api</span>::{
-    <span class="ident">RawApi</span>,
-    <span class="ident">PostParams</span>,
-    <span class="ident">DeleteParams</span>,
-    <span class="ident">ListParams</span>,
-    <span class="ident">PatchParams</span>,
-    <span class="ident">LogParams</span>
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">api</span>::{<span class="ident">DeleteParams</span>, <span class="ident">ListParams</span>, <span class="ident">Meta</span>, <span class="ident">ObjectList</span>, <span class="ident">PatchParams</span>, <span class="ident">PostParams</span>, <span class="ident">Resource</span>, <span class="ident">WatchEvent</span>},
+    <span class="ident">client</span>::{<span class="ident">APIClient</span>, <span class="ident">Status</span>},
+    <span class="prelude-ty">Result</span>,
 };
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">api</span>::<span class="ident">resource</span>::{
-    <span class="ident">ObjectList</span>, <span class="ident">Object</span>, <span class="ident">WatchEvent</span>, <span class="ident">KubeObject</span>,
-};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">client</span>::{
-    <span class="ident">APIClient</span>,
-    <span class="ident">Status</span>,
-};
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="prelude-ty">Result</span>};
 
-<span class="doccomment">/// A typed Api variant that does not expose request internals</span>
+<span class="doccomment">/// An easy Api interaction helper</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The upsides of working with this rather than `RawApi` direct are:</span>
-<span class="doccomment">/// - easiers interface (no figuring out return types)</span>
-<span class="doccomment">/// - openapi types for free</span>
+<span class="doccomment">/// The upsides of working with this rather than a `Resource` directly are:</span>
+<span class="doccomment">/// - easiers serialization interface (no figuring out return types)</span>
+<span class="doccomment">/// - client hidden within, less arguments</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// But the downsides are:</span>
-<span class="doccomment">/// - k8s-openapi dependency required (behind feature)</span>
-<span class="doccomment">/// - openapi types are unnecessarily heavy on Option use</span>
-<span class="doccomment">/// - memory intensive structs because they contain the full data</span>
+<span class="doccomment">/// - openapi types can take up a large amount of memory</span>
+<span class="doccomment">/// - openapi types can be annoying to wrangle with their heavy Option use</span>
 <span class="doccomment">/// - no control over requests (opinionated)</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Api</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
     <span class="doccomment">/// The request creator object</span>
-    <span class="kw">pub</span>(<span class="kw">in</span> <span class="kw">crate</span>::<span class="ident">api</span>) <span class="ident">api</span>: <span class="ident">RawApi</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">api</span>: <span class="ident">Resource</span>,
     <span class="doccomment">/// The client to use (from this library)</span>
-    <span class="kw">pub</span>(<span class="kw">in</span> <span class="kw">crate</span>::<span class="ident">api</span>) <span class="ident">client</span>: <span class="ident">APIClient</span>,
-    <span class="doccomment">/// sPec and statUs structs</span>
-    <span class="kw">pub</span>(<span class="kw">in</span> <span class="kw">crate</span>::<span class="ident">api</span>) <span class="ident">phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>,
-}
-
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LogOperation</span> {
-    <span class="kw">fn</span> <span class="ident">log_operation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">LogParams</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>;
-}
-
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Log</span>: <span class="ident">LogOperation</span> {
-    <span class="kw">fn</span> <span class="ident">log</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">LogParams</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">log_operation</span>(<span class="ident">name</span>, <span class="ident">lp</span>)<span class="question-mark">?</span>)
-    }
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">client</span>: <span class="ident">APIClient</span>,
+    <span class="doccomment">/// Underlying Object unstored</span>
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Expose same interface as Api for controlling scope/group/versions/ns</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="ident">Api</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">within</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">ns</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">api</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">within</span>(<span class="ident">ns</span>);
-        <span class="self">self</span>
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">group</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">group</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">api</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">group</span>(<span class="ident">group</span>);
-        <span class="self">self</span>
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">api</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">version</span>(<span class="ident">version</span>);
-        <span class="self">self</span>
-    }
-}
-
-<span class="doccomment">/// PUSH/PUT/POST/GET abstractions</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="ident">Api</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="kw">where</span>
-    <span class="ident">K</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">DeserializeOwned</span> <span class="op">+</span> <span class="ident">KubeObject</span>,
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="ident">Api</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">K</span>: <span class="ident">k8s_openapi</span>::<span class="ident">Resource</span>,
 {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">get</span>(<span class="ident">name</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PostParams</span>, <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">create</span>(<span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">data</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">dp</span>: <span class="kw-2">&amp;</span><span class="ident">DeleteParams</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Either</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">Status</span><span class="op">&gt;&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">delete</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">dp</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request_status</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">ListParams</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ObjectList</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">list</span>(<span class="kw-2">&amp;</span><span class="ident">lp</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">ObjectList</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_collection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">ListParams</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Either</span><span class="op">&lt;</span><span class="ident">ObjectList</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>, <span class="ident">Status</span><span class="op">&gt;&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">delete_collection</span>(<span class="kw-2">&amp;</span><span class="ident">lp</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request_status</span>::<span class="op">&lt;</span><span class="ident">ObjectList</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PatchParams</span>, <span class="ident">patch</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">patch</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">patch</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">replace</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PostParams</span>, <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">replace</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">data</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">watch</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">ListParams</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">WatchEvent</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">watch</span>(<span class="kw-2">&amp;</span><span class="ident">lp</span>, <span class="kw-2">&amp;</span><span class="ident">version</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request_events</span>::<span class="op">&lt;</span><span class="ident">WatchEvent</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">get_status</span>(<span class="ident">name</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">patch_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PatchParams</span>, <span class="ident">patch</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">patch_status</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">patch</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">replace_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PostParams</span>, <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">replace_status</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">data</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="ident">LogOperation</span> <span class="kw">for</span> <span class="ident">Api</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="kw">where</span>
-    <span class="ident">K</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">DeserializeOwned</span> <span class="op">+</span> <span class="ident">KubeObject</span>
-{
-    <span class="kw">fn</span> <span class="ident">log_operation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">LogParams</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">log</span>(<span class="ident">name</span>, <span class="ident">lp</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request_text</span>(<span class="ident">req</span>)
-    }
-}
-
-<span class="doccomment">/// Scale spec from api::autoscaling::v1</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScaleSpec</span> {
-    <span class="kw">pub</span> <span class="ident">replicas</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>,
-}
-<span class="doccomment">/// Scale status from api::autoscaling::v1</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScaleStatus</span> {
-    <span class="kw">pub</span> <span class="ident">replicas</span>: <span class="ident">i32</span>,
-    <span class="kw">pub</span> <span class="ident">selector</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-}
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Scale</span> <span class="op">=</span> <span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ScaleSpec</span>, <span class="ident">ScaleStatus</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// Scale subresource</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#scale-subresource</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="ident">Api</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="kw">where</span>
-    <span class="ident">K</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">DeserializeOwned</span>,
-{
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Scale</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">get_scale</span>(<span class="ident">name</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">Scale</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">patch_scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PatchParams</span>, <span class="ident">patch</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Scale</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">patch_scale</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">patch</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">Scale</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">replace_scale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PostParams</span>, <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Scale</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">replace_scale</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">data</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">Scale</span><span class="op">&gt;</span>(<span class="ident">req</span>)
-    }
-}
-
-<span class="doccomment">/// Api Constructor for CRDs</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Because it relies entirely on user definitions, this ctor does not rely on openapi.</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="ident">Api</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="kw">where</span>
-    <span class="ident">K</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">DeserializeOwned</span>,
-{
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">customResource</span>(<span class="ident">client</span>: <span class="ident">APIClient</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="doccomment">/// Cluster level resources, or resources viewed across all namespaces</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">all</span>(<span class="ident">client</span>: <span class="ident">APIClient</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">Resource</span>::<span class="ident">all</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>();
         <span class="self">Self</span> {
-            <span class="ident">api</span>: <span class="ident">RawApi</span>::<span class="ident">customResource</span>(<span class="ident">name</span>),
+            <span class="ident">api</span>,
+            <span class="ident">client</span>,
+            <span class="ident">phantom</span>: <span class="ident">PhantomData</span>,
+        }
+    }
+
+    <span class="doccomment">/// Namespaced resource within a given namespace</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">namespaced</span>(<span class="ident">client</span>: <span class="ident">APIClient</span>, <span class="ident">ns</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">Resource</span>::<span class="ident">namespaced</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">ns</span>);
+        <span class="self">Self</span> {
+            <span class="ident">api</span>,
             <span class="ident">client</span>,
             <span class="ident">phantom</span>: <span class="ident">PhantomData</span>,
         }
     }
 }
 
-<span class="comment">// all other native impls in openapi.rs</span>
+<span class="doccomment">/// PUSH/PUT/POST/GET abstractions</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> <span class="ident">Api</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">K</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">DeserializeOwned</span> <span class="op">+</span> <span class="ident">Meta</span>,
+{
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">get</span>(<span class="ident">name</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">create</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PostParams</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">K</span>: <span class="ident">Serialize</span>,
+    {
+        <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="ident">to_vec</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">create</span>(<span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">bytes</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">delete</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">dp</span>: <span class="kw-2">&amp;</span><span class="ident">DeleteParams</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Either</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">Status</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">delete</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">dp</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request_status</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">ListParams</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ObjectList</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">list</span>(<span class="kw-2">&amp;</span><span class="ident">lp</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">ObjectList</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">req</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">delete_collection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">ListParams</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Either</span><span class="op">&lt;</span><span class="ident">ObjectList</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>, <span class="ident">Status</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">delete_collection</span>(<span class="kw-2">&amp;</span><span class="ident">lp</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request_status</span>::<span class="op">&lt;</span><span class="ident">ObjectList</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">req</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">patch</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PatchParams</span>, <span class="ident">patch</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">patch</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">patch</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">replace</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pp</span>: <span class="kw-2">&amp;</span><span class="ident">PostParams</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">K</span>: <span class="ident">Serialize</span>,
+    {
+        <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="ident">to_vec</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">replace</span>(<span class="ident">name</span>, <span class="kw-2">&amp;</span><span class="ident">pp</span>, <span class="ident">bytes</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>(<span class="ident">req</span>).<span class="kw">await</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">watch</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">lp</span>: <span class="kw-2">&amp;</span><span class="ident">ListParams</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">WatchEvent</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">api</span>.<span class="ident">watch</span>(<span class="kw-2">&amp;</span><span class="ident">lp</span>, <span class="kw-2">&amp;</span><span class="ident">version</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">client</span>
+            .<span class="ident">request_events</span>::<span class="op">&lt;</span><span class="ident">WatchEvent</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">req</span>)
+            .<span class="kw">await</span>
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">stream</span><span class="op">|</span> <span class="ident">stream</span>.<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> { <span class="ident">e</span>.<span class="ident">ok</span>() }))
+    }
+}
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../";window.currentCrate = "kube";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "kube";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

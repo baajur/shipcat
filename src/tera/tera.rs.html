@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/tera-0.11.20/src/tera.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tera.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../tera/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/tera-0.11.20/src/tera.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tera.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../tera/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -1012,7 +1012,7 @@
 <span class="kw">use</span> <span class="ident">utils</span>::<span class="ident">escape_html</span>;
 
 <span class="doccomment">/// The escape function type definition</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">EscapeFn</span> <span class="op">=</span> <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">String</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">EscapeFn</span> <span class="op">=</span> <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span>;
 
 <span class="doccomment">/// The main point of interaction in this library.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Tera</span> {
@@ -1036,7 +1036,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Tera</span> {
-    <span class="kw">fn</span> <span class="ident">create</span>(<span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">parse_only</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tera</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">create</span>(<span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">parse_only</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tera</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">dir</span>.<span class="ident">find</span>(<span class="string">&#39;*&#39;</span>).<span class="ident">is_none</span>() {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tera expects a glob as input, no * were found in `{}`&quot;</span>, <span class="ident">dir</span>);
         }
@@ -1075,7 +1075,7 @@
     <span class="doccomment">///    }</span>
     <span class="doccomment">///}</span>
     <span class="doccomment">///```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tera</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tera</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">create</span>(<span class="ident">dir</span>, <span class="bool-val">false</span>)
     }
 
@@ -1095,12 +1095,12 @@
     <span class="doccomment">///};</span>
     <span class="doccomment">///tera.build_inheritance_chains()?;</span>
     <span class="doccomment">///```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tera</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tera</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">create</span>(<span class="ident">dir</span>, <span class="bool-val">true</span>)
     }
 
     <span class="doccomment">/// Loads all the templates found in the glob that was given to Tera::new</span>
-    <span class="kw">fn</span> <span class="ident">load_from_glob</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">load_from_glob</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">glob</span>.<span class="ident">is_none</span>() {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tera can only load from glob if a glob is provided&quot;</span>);
         }
@@ -1136,9 +1136,9 @@
                     .<span class="ident">replace</span>(<span class="string">&quot;\\&quot;</span>, <span class="string">&quot;/&quot;</span>);
 
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">add_file</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">filepath</span>), <span class="ident">path</span>) {
-                    <span class="ident">errors</span> <span class="op">+=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;\n* {}&quot;</span>, <span class="ident">e</span>);
+                    <span class="ident">errors</span> <span class="op">+</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;\n* {}&quot;</span>, <span class="ident">e</span>);
                     <span class="kw">for</span> <span class="ident">e</span> <span class="kw">in</span> <span class="ident">e</span>.<span class="ident">iter</span>().<span class="ident">skip</span>(<span class="number">1</span>) {
-                        <span class="ident">errors</span> <span class="op">+=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;\n{}&quot;</span>, <span class="ident">e</span>);
+                        <span class="ident">errors</span> <span class="op">+</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;\n{}&quot;</span>, <span class="ident">e</span>);
                     }
                 }
             }
@@ -1154,19 +1154,19 @@
     <span class="comment">// Add a template from a path: reads the file and parses it.</span>
     <span class="comment">// This will return an error if the template is invalid and doesn&#39;t check the validity of</span>
     <span class="comment">// inheritance chains.</span>
-    <span class="kw">fn</span> <span class="ident">add_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">path</span>: <span class="ident">P</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">add_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">path</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">as_ref</span>();
-        <span class="kw">let</span> <span class="ident">tpl_name</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">unwrap_or_else</span>(<span class="op">||</span> <span class="ident">path</span>.<span class="ident">to_str</span>().<span class="ident">unwrap</span>());
+        <span class="kw">let</span> <span class="ident">tpl_name</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">path</span>.<span class="ident">to_str</span>().<span class="ident">unwrap</span>());
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span>
-            <span class="ident">File</span>::<span class="ident">open</span>(<span class="ident">path</span>).<span class="ident">chain_err</span>(<span class="op">||</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Couldn&#39;t open template &#39;{:?}&#39;&quot;</span>, <span class="ident">path</span>))<span class="question-mark">?</span>;
+            <span class="ident">File</span>::<span class="ident">open</span>(<span class="ident">path</span>).<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Couldn&#39;t open template &#39;{:?}&#39;&quot;</span>, <span class="ident">path</span>))<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">new</span>();
         <span class="ident">f</span>.<span class="ident">read_to_string</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">input</span>)
-            .<span class="ident">chain_err</span>(<span class="op">||</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to read template &#39;{:?}&#39;&quot;</span>, <span class="ident">path</span>))<span class="question-mark">?</span>;
+            .<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to read template &#39;{:?}&#39;&quot;</span>, <span class="ident">path</span>))<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">tpl</span> <span class="op">=</span> <span class="ident">Template</span>::<span class="ident">new</span>(<span class="ident">tpl_name</span>, <span class="prelude-val">Some</span>(<span class="ident">path</span>.<span class="ident">to_str</span>().<span class="ident">unwrap</span>().<span class="ident">to_string</span>()), <span class="kw-2">&amp;</span><span class="ident">input</span>)
-            .<span class="ident">chain_err</span>(<span class="op">||</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to parse {:?}&quot;</span>, <span class="ident">path</span>))<span class="question-mark">?</span>;
+            .<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to parse {:?}&quot;</span>, <span class="ident">path</span>))<span class="question-mark">?</span>;
 
         <span class="self">self</span>.<span class="ident">templates</span>.<span class="ident">insert</span>(<span class="ident">tpl_name</span>.<span class="ident">to_string</span>(), <span class="ident">tpl</span>);
         <span class="prelude-val">Ok</span>(())
@@ -1180,7 +1180,7 @@
     <span class="doccomment">/// where it can&#39;t possibly work</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You generally don&#39;t need to call that yourself, unless you used `Tera::parse`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_inheritance_chains</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_inheritance_chains</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="comment">// Recursive fn that finds all the parents and put them in an ordered Vec from closest to first parent</span>
         <span class="comment">// parent template</span>
         <span class="kw">fn</span> <span class="ident">build_chain</span>(
@@ -1188,8 +1188,8 @@
             <span class="ident">start</span>: <span class="kw-2">&amp;</span><span class="ident">Template</span>,
             <span class="ident">template</span>: <span class="kw-2">&amp;</span><span class="ident">Template</span>,
             <span class="kw-2">mut</span> <span class="ident">parents</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span> {
-            <span class="kw">if</span> <span class="op">!</span><span class="ident">parents</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">start</span>.<span class="ident">name</span> <span class="op">==</span> <span class="ident">template</span>.<span class="ident">name</span> {
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">parents</span>.<span class="ident">is_empty</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">start</span>.<span class="ident">name</span> <span class="op">=</span><span class="op">=</span> <span class="ident">template</span>.<span class="ident">name</span> {
                 <span class="macro">bail</span><span class="macro">!</span>(
                     <span class="string">&quot;Circular extend detected for template &#39;{}&#39;. Inheritance chain: `{:?}`&quot;</span>,
                     <span class="ident">start</span>.<span class="ident">name</span>,
@@ -1198,17 +1198,17 @@
             }
 
             <span class="kw">match</span> <span class="ident">template</span>.<span class="ident">parent</span> {
-                <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">p</span>) <span class="op">=&gt;</span> <span class="kw">match</span> <span class="ident">templates</span>.<span class="ident">get</span>(<span class="ident">p</span>) {
-                    <span class="prelude-val">Some</span>(<span class="ident">parent</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">p</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">templates</span>.<span class="ident">get</span>(<span class="ident">p</span>) {
+                    <span class="prelude-val">Some</span>(<span class="ident">parent</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="ident">parents</span>.<span class="ident">push</span>(<span class="ident">parent</span>.<span class="ident">name</span>.<span class="ident">clone</span>());
                         <span class="ident">build_chain</span>(<span class="ident">templates</span>, <span class="ident">start</span>, <span class="ident">parent</span>, <span class="ident">parents</span>)
                     }
-                    <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
+                    <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
                         <span class="string">&quot;Template &#39;{}&#39; is inheriting from &#39;{}&#39;, which doesn&#39;t exist or isn&#39;t loaded.&quot;</span>,
                         <span class="ident">template</span>.<span class="ident">name</span>, <span class="ident">p</span>,
                     ),
                 },
-                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">parents</span>),
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">parents</span>),
             }
         }
 
@@ -1216,7 +1216,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tpl_parents</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tpl_block_definitions</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
         <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">template</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">templates</span> {
-            <span class="kw">if</span> <span class="ident">template</span>.<span class="ident">parent</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="ident">template</span>.<span class="ident">blocks</span>.<span class="ident">is_empty</span>() {
+            <span class="kw">if</span> <span class="ident">template</span>.<span class="ident">parent</span>.<span class="ident">is_none</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">template</span>.<span class="ident">blocks</span>.<span class="ident">is_empty</span>() {
                 <span class="kw">continue</span>;
             }
 
@@ -1229,7 +1229,7 @@
 
                 <span class="comment">// and then see if our parents have it</span>
                 <span class="kw">for</span> <span class="ident">parent</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">parents</span> {
-                    <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_template</span>(<span class="ident">parent</span>).<span class="ident">chain_err</span>(<span class="op">||</span> {
+                    <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_template</span>(<span class="ident">parent</span>).<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> {
                         <span class="macro">format</span><span class="macro">!</span>(
                             <span class="string">&quot;Couldn&#39;t find template {} while building inheritance chains&quot;</span>,
                             <span class="ident">parent</span>,
@@ -1248,17 +1248,17 @@
 
         <span class="kw">for</span> <span class="ident">template</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">templates</span>.<span class="ident">values_mut</span>() {
             <span class="comment">// Simple template: no inheritance or blocks -&gt; nothing to do</span>
-            <span class="kw">if</span> <span class="ident">template</span>.<span class="ident">parent</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="ident">template</span>.<span class="ident">blocks</span>.<span class="ident">is_empty</span>() {
+            <span class="kw">if</span> <span class="ident">template</span>.<span class="ident">parent</span>.<span class="ident">is_none</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">template</span>.<span class="ident">blocks</span>.<span class="ident">is_empty</span>() {
                 <span class="kw">continue</span>;
             }
 
             <span class="ident">template</span>.<span class="ident">parents</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">tpl_parents</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">template</span>.<span class="ident">name</span>) {
-                <span class="prelude-val">Some</span>(<span class="ident">parents</span>) <span class="op">=&gt;</span> <span class="ident">parents</span>,
-                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[],
+                <span class="prelude-val">Some</span>(<span class="ident">parents</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">parents</span>,
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">vec</span><span class="macro">!</span>[],
             };
             <span class="ident">template</span>.<span class="ident">blocks_definitions</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">tpl_block_definitions</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">template</span>.<span class="ident">name</span>) {
-                <span class="prelude-val">Some</span>(<span class="ident">blocks</span>) <span class="op">=&gt;</span> <span class="ident">blocks</span>,
-                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">HashMap</span>::<span class="ident">new</span>(),
+                <span class="prelude-val">Some</span>(<span class="ident">blocks</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">blocks</span>,
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">HashMap</span>::<span class="ident">new</span>(),
             };
         }
 
@@ -1269,7 +1269,7 @@
     <span class="doccomment">/// is missing and error accordingly before the user tries to render a template.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As with `self::build_inheritance_chains`, you don&#39;t usually need to call that yourself.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_macro_files</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_macro_files</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">for</span> <span class="ident">template</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">templates</span>.<span class="ident">values</span>() {
             <span class="kw">for</span> <span class="kw-2">&amp;</span>(<span class="kw-2">ref</span> <span class="ident">tpl_name</span>, <span class="kw">_</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">template</span>.<span class="ident">imported_macro_files</span> {
                 <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">templates</span>.<span class="ident">contains_key</span>(<span class="ident">tpl_name</span>) {
@@ -1301,7 +1301,7 @@
     <span class="doccomment">/// // Rendering a template with an empty context</span>
     <span class="doccomment">/// tera.render(&quot;hello.html&quot;, &amp;Context::new());</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">render</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">template_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">render</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">template_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">to_value</span>(<span class="ident">data</span>)<span class="question-mark">?</span>;
         <span class="kw">if</span> <span class="op">!</span><span class="ident">value</span>.<span class="ident">is_object</span>() {
             <span class="macro">bail</span><span class="macro">!</span>(
@@ -1331,7 +1331,7 @@
     <span class="doccomment">/// // Or with a struct that impl Serialize</span>
     <span class="doccomment">/// Tera::one_off(&quot;{{ greeting }} world&quot;, &amp;user, true);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">one_off</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">autoescape</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">one_off</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">autoescape</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tera</span> <span class="op">=</span> <span class="ident">Tera</span>::<span class="ident">default</span>();
         <span class="ident">tera</span>.<span class="ident">add_raw_template</span>(<span class="string">&quot;one_off&quot;</span>, <span class="ident">input</span>)<span class="question-mark">?</span>;
         <span class="kw">if</span> <span class="ident">autoescape</span> {
@@ -1343,10 +1343,10 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_template</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">template_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Template</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_template</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">template_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Template</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">templates</span>.<span class="ident">get</span>(<span class="ident">template_name</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">tpl</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">tpl</span>),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Template &#39;{}&#39; not found&quot;</span>, <span class="ident">template_name</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">tpl</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">tpl</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Template &#39;{}&#39; not found&quot;</span>, <span class="ident">template_name</span>),
         }
     }
 
@@ -1359,9 +1359,9 @@
     <span class="doccomment">/// ```rust,ignore</span>
     <span class="doccomment">/// tera.add_template(&quot;new.html&quot;, &quot;Blabla&quot;);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_raw_template</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_raw_template</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">tpl</span> <span class="op">=</span> <span class="ident">Template</span>::<span class="ident">new</span>(<span class="ident">name</span>, <span class="prelude-val">None</span>, <span class="ident">content</span>)
-            .<span class="ident">chain_err</span>(<span class="op">||</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to parse &#39;{}&#39;&quot;</span>, <span class="ident">name</span>))<span class="question-mark">?</span>;
+            .<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to parse &#39;{}&#39;&quot;</span>, <span class="ident">name</span>))<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">templates</span>.<span class="ident">insert</span>(<span class="ident">name</span>.<span class="ident">to_string</span>(), <span class="ident">tpl</span>);
         <span class="self">self</span>.<span class="ident">build_inheritance_chains</span>()<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">check_macro_files</span>()<span class="question-mark">?</span>;
@@ -1379,10 +1379,10 @@
     <span class="doccomment">///     (&quot;new2.html&quot;, &quot;hello&quot;),</span>
     <span class="doccomment">/// ]);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_raw_templates</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">templates</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_raw_templates</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">templates</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)<span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">content</span>) <span class="kw">in</span> <span class="ident">templates</span> {
             <span class="kw">let</span> <span class="ident">tpl</span> <span class="op">=</span> <span class="ident">Template</span>::<span class="ident">new</span>(<span class="ident">name</span>, <span class="prelude-val">None</span>, <span class="ident">content</span>)
-                .<span class="ident">chain_err</span>(<span class="op">||</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to parse &#39;{}&#39;&quot;</span>, <span class="ident">name</span>))<span class="question-mark">?</span>;
+                .<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to parse &#39;{}&#39;&quot;</span>, <span class="ident">name</span>))<span class="question-mark">?</span>;
             <span class="self">self</span>.<span class="ident">templates</span>.<span class="ident">insert</span>(<span class="ident">name</span>.<span class="ident">to_string</span>(), <span class="ident">tpl</span>);
         }
         <span class="self">self</span>.<span class="ident">build_inheritance_chains</span>()<span class="question-mark">?</span>;
@@ -1403,7 +1403,7 @@
     <span class="doccomment">/// // Rename</span>
     <span class="doccomment">/// tera.add_template_file(path, Some(&quot;index&quot;);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_template_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">path</span>: <span class="ident">P</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_template_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">path</span>: <span class="ident">P</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">add_file</span>(<span class="ident">name</span>, <span class="ident">path</span>)<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">build_inheritance_chains</span>()<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">check_macro_files</span>()<span class="question-mark">?</span>;
@@ -1422,10 +1422,10 @@
     <span class="doccomment">///     (path2, Some(&quot;hey&quot;)), // this template will have `hey` as name</span>
     <span class="doccomment">/// ]);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_template_files</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_template_files</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">files</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">P</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">for</span> (<span class="ident">path</span>, <span class="ident">name</span>) <span class="kw">in</span> <span class="ident">files</span> {
             <span class="self">self</span>.<span class="ident">add_file</span>(<span class="ident">name</span>, <span class="ident">path</span>)<span class="question-mark">?</span>;
         }
@@ -1436,10 +1436,10 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_filter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">filter_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">FilterFn</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_filter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">filter_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">FilterFn</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">filters</span>.<span class="ident">get</span>(<span class="ident">filter_name</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">fil</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">fil</span>),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Filter &#39;{}&#39; not found&quot;</span>, <span class="ident">filter_name</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">fil</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">fil</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Filter &#39;{}&#39; not found&quot;</span>, <span class="ident">filter_name</span>),
         }
     }
 
@@ -1456,10 +1456,10 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_tester</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tester_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">TesterFn</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_tester</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tester_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">TesterFn</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">testers</span>.<span class="ident">get</span>(<span class="ident">tester_name</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">t</span>),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tester &#39;{}&#39; not found&quot;</span>, <span class="ident">tester_name</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">t</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tester &#39;{}&#39; not found&quot;</span>, <span class="ident">tester_name</span>),
         }
     }
 
@@ -1477,19 +1477,19 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.11.16&quot;</span>, <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Use `get_function` instead&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_global_function</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fn_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">GlobalFn</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_global_function</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fn_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">GlobalFn</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">global_functions</span>.<span class="ident">get</span>(<span class="ident">fn_name</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">t</span>),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Global function &#39;{}&#39; not found&quot;</span>, <span class="ident">fn_name</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">t</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Global function &#39;{}&#39; not found&quot;</span>, <span class="ident">fn_name</span>),
         }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_function</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fn_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">GlobalFn</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_function</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fn_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">GlobalFn</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">global_functions</span>.<span class="ident">get</span>(<span class="ident">fn_name</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">t</span>),
-            <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Global function &#39;{}&#39; not found&quot;</span>, <span class="ident">fn_name</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">t</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Global function &#39;{}&#39; not found&quot;</span>, <span class="ident">fn_name</span>),
         }
     }
     <span class="doccomment">/// Register a global function with Tera.</span>
@@ -1592,7 +1592,7 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_escape_fn</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">EscapeFn</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_escape_fn</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">EscapeFn</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">escape_fn</span>
     }
 
@@ -1625,7 +1625,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you are adding templates without using a glob, we can&#39;t know when a template</span>
     <span class="doccomment">/// is deleted, which would result in an error if we are trying to reload that file</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">full_reload</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">full_reload</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">glob</span>.<span class="ident">is_some</span>() {
             <span class="self">self</span>.<span class="ident">load_from_glob</span>()<span class="question-mark">?</span>;
         } <span class="kw">else</span> {
@@ -1645,7 +1645,7 @@
     <span class="doccomment">/// // except the ones that have an identical name to the ones in `my_tera`</span>
     <span class="doccomment">/// my_tera.extend(&amp;FRAMEWORK_TERA);</span>
     <span class="doccomment">///```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extend</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Tera</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extend</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Tera</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">template</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">other</span>.<span class="ident">templates</span> {
             <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">templates</span>.<span class="ident">contains_key</span>(<span class="ident">name</span>) {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tpl</span> <span class="op">=</span> <span class="ident">template</span>.<span class="ident">clone</span>();
@@ -1672,7 +1672,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">Tera</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">Tera</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Tera</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tera</span> <span class="op">=</span> <span class="ident">Tera</span> {
             <span class="ident">glob</span>: <span class="prelude-val">None</span>,
             <span class="ident">templates</span>: <span class="ident">HashMap</span>::<span class="ident">new</span>(),
@@ -1692,7 +1692,7 @@
 
 <span class="comment">// Needs a manual implementation since borrows in Fn&#39;s don&#39;t implement Debug.</span>
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">Tera</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Tera {{&quot;</span>)<span class="question-mark">?</span>;
         <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;\n\ttemplates: [&quot;</span>)<span class="question-mark">?</span>;
 
@@ -1840,13 +1840,13 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">with_capacity</span>(<span class="ident">input</span>.<span class="ident">len</span>() <span class="op">*</span> <span class="number">2</span>);
             <span class="kw">for</span> <span class="ident">c</span> <span class="kw">in</span> <span class="ident">input</span>.<span class="ident">chars</span>() {
                 <span class="kw">match</span> <span class="ident">c</span> {
-                    <span class="string">&#39;\&#39;&#39;</span> <span class="op">=&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\&#39;&quot;</span>),
-                    <span class="string">&#39;\&quot;&#39;</span> <span class="op">=&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\\&quot;&quot;</span>),
-                    <span class="string">&#39;\\&#39;</span> <span class="op">=&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\\\&quot;</span>),
-                    <span class="string">&#39;\n&#39;</span> <span class="op">=&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\n&quot;</span>),
-                    <span class="string">&#39;\r&#39;</span> <span class="op">=&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\r&quot;</span>),
-                    <span class="string">&#39;\t&#39;</span> <span class="op">=&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\t&quot;</span>),
-                    <span class="kw">_</span> <span class="op">=&gt;</span> <span class="ident">output</span>.<span class="ident">push</span>(<span class="ident">c</span>),
+                    <span class="string">&#39;\&#39;&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\&#39;&quot;</span>),
+                    <span class="string">&#39;\&quot;&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\\&quot;&quot;</span>),
+                    <span class="string">&#39;\\&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\\\&quot;</span>),
+                    <span class="string">&#39;\n&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\n&quot;</span>),
+                    <span class="string">&#39;\r&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\r&quot;</span>),
+                    <span class="string">&#39;\t&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">output</span>.<span class="ident">push_str</span>(<span class="string">&quot;\\t&quot;</span>),
+                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">output</span>.<span class="ident">push</span>(<span class="ident">c</span>),
                 }
             }
             <span class="ident">output</span>
@@ -1988,4 +1988,4 @@
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "tera";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "tera";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

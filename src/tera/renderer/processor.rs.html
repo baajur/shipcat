@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/tera-0.11.20/src/renderer/processor.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>processor.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../tera/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/tera-0.11.20/src/renderer/processor.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>processor.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../tera/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -845,21 +845,21 @@
 
 <span class="doccomment">/// This will convert a Tera variable to a json pointer if it is possible by replacing</span>
 <span class="doccomment">/// the index with their evaluated stringified value</span>
-<span class="kw">fn</span> <span class="ident">evaluate_sub_variables</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">call_stack</span>: <span class="kw-2">&amp;</span><span class="ident">CallStack</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">evaluate_sub_variables</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">call_stack</span>: <span class="kw-2">&amp;</span><span class="ident">CallStack</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">sub_vars_to_calc</span> <span class="op">=</span> <span class="ident">pull_out_square_bracket</span>(<span class="ident">key</span>);
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_key</span> <span class="op">=</span> <span class="ident">key</span>.<span class="ident">to_string</span>();
 
     <span class="kw">for</span> <span class="ident">sub_var</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">sub_vars_to_calc</span> {
         <span class="comment">// Translate from variable name to variable value</span>
         <span class="kw">match</span> <span class="ident">process_path</span>(<span class="ident">sub_var</span>.<span class="ident">as_ref</span>(), <span class="ident">call_stack</span>) {
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">bail</span><span class="macro">!</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Variable {} can not be evaluated because: {}&quot;</span>, <span class="ident">key</span>, <span class="ident">e</span>));
             }
-            <span class="prelude-val">Ok</span>(<span class="ident">post_var</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">post_var</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">post_var_as_str</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">post_var</span> {
-                    <span class="ident">Value</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">s</span>) <span class="op">=&gt;</span> <span class="ident">s</span>.<span class="ident">to_string</span>(),
-                    <span class="ident">Value</span>::<span class="ident">Number</span>(<span class="kw-2">ref</span> <span class="ident">n</span>) <span class="op">=&gt;</span> <span class="ident">n</span>.<span class="ident">to_string</span>(),
-                    <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
+                    <span class="ident">Value</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">s</span>.<span class="ident">to_string</span>(),
+                    <span class="ident">Value</span>::<span class="ident">Number</span>(<span class="kw-2">ref</span> <span class="ident">n</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">n</span>.<span class="ident">to_string</span>(),
+                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
                         <span class="string">&quot;Only variables evaluating to String or Number can be used as \
                          index (`{}` of `{}`)&quot;</span>,
                         <span class="ident">sub_var</span>,
@@ -889,14 +889,14 @@
         .<span class="ident">replace</span>(<span class="string">&quot;]&quot;</span>, <span class="string">&quot;&quot;</span>))
 }
 
-<span class="kw">fn</span> <span class="ident">process_path</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">call_stack</span>: <span class="kw-2">&amp;</span><span class="ident">CallStack</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+<span class="kw">fn</span> <span class="ident">process_path</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">call_stack</span>: <span class="kw-2">&amp;</span><span class="ident">CallStack</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">full_path</span> <span class="op">=</span>
         <span class="kw">if</span> <span class="ident">path</span>.<span class="ident">contains</span>(<span class="string">&#39;[&#39;</span>) { <span class="ident">evaluate_sub_variables</span>(<span class="ident">path</span>, <span class="ident">call_stack</span>)<span class="question-mark">?</span> } <span class="kw">else</span> { <span class="ident">path</span>.<span class="ident">into</span>() };
 
     <span class="kw">match</span> <span class="ident">call_stack</span>.<span class="ident">lookup</span>(<span class="ident">full_path</span>.<span class="ident">as_ref</span>()) {
-        <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">v</span>),
-        <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
-            <span class="kw">if</span> <span class="ident">path</span> <span class="op">==</span> <span class="ident">full_path</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">v</span>),
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="kw">if</span> <span class="ident">path</span> <span class="op">=</span><span class="op">=</span> <span class="ident">full_path</span> {
                 <span class="macro">bail</span><span class="macro">!</span>(
                     <span class="string">&quot;Variable `{}` not found in context while rendering &#39;{}&#39;&quot;</span>,
                     <span class="ident">path</span>,
@@ -944,7 +944,7 @@
         <span class="ident">tera</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Tera</span>,
         <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>,
         <span class="ident">should_escape</span>: <span class="ident">bool</span>,
-    ) <span class="op">-&gt;</span> <span class="self">Self</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="comment">// Gets the root template if we are rendering something with inheritance or just return</span>
         <span class="comment">// the template we&#39;re dealing with otherwise</span>
         <span class="kw">let</span> <span class="ident">template_root</span> <span class="op">=</span> <span class="ident">template</span>
@@ -966,7 +966,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">render_body</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">body</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Node</span>]) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">render_body</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">body</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Node</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">with_capacity</span>(<span class="ident">body</span>.<span class="ident">len</span>() <span class="op">*</span> <span class="number">20</span>);
 
         <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">body</span> {
@@ -980,12 +980,12 @@
         <span class="prelude-val">Ok</span>(<span class="ident">output</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">render_for_loop</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">for_loop</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Forloop</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">render_for_loop</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">for_loop</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Forloop</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">container_name</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">for_loop</span>.<span class="ident">container</span>.<span class="ident">val</span> {
-            <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident</span>) <span class="op">=&gt;</span> <span class="ident">ident</span>,
-            <span class="ident">ExprVal</span>::<span class="ident">FunctionCall</span>(<span class="ident">FunctionCall</span> { <span class="kw-2">ref</span> <span class="ident">name</span>, .. }) <span class="op">=&gt;</span> <span class="ident">name</span>,
-            <span class="ident">ExprVal</span>::<span class="ident">Array</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="string">&quot;an array literal&quot;</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
+            <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ident</span>,
+            <span class="ident">ExprVal</span>::<span class="ident">FunctionCall</span>(<span class="ident">FunctionCall</span> { <span class="kw-2">ref</span> <span class="ident">name</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">name</span>,
+            <span class="ident">ExprVal</span>::<span class="ident">Array</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;an array literal&quot;</span>,
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
                 <span class="string">&quot;Forloop containers have to be an ident or a function call (tried to iterate on &#39;{:?}&#39;)&quot;</span>,
                 <span class="ident">for_loop</span>.<span class="ident">container</span>.<span class="ident">val</span>,
             ),
@@ -997,7 +997,7 @@
         <span class="kw">let</span> <span class="ident">for_loop_body</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">for_loop</span>.<span class="ident">body</span>;
 
         <span class="kw">let</span> <span class="ident">for_loop</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">container_val</span> {
-            <span class="ident">Value</span>::<span class="ident">Array</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Value</span>::<span class="ident">Array</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">for_loop</span>.<span class="ident">key</span>.<span class="ident">is_some</span>() {
                     <span class="macro">bail</span><span class="macro">!</span>(
                         <span class="string">&quot;Tried to iterate using key value on variable `{}`, but it isn&#39;t an object/map&quot;</span>,
@@ -1006,7 +1006,7 @@
                 }
                 <span class="ident">ForLoop</span>::<span class="ident">from_array</span>(<span class="kw-2">&amp;</span><span class="ident">for_loop</span>.<span class="ident">value</span>, <span class="ident">container_val</span>)
             }
-            <span class="ident">Value</span>::<span class="ident">Object</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Value</span>::<span class="ident">Object</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">for_loop</span>.<span class="ident">key</span>.<span class="ident">is_none</span>() {
                     <span class="macro">bail</span><span class="macro">!</span>(
                         <span class="string">&quot;Tried to iterate using key value on variable `{}`, but it is missing a key&quot;</span>,
@@ -1014,17 +1014,17 @@
                     );
                 }
                 <span class="kw">match</span> <span class="ident">container_val</span> {
-                    <span class="ident">Cow</span>::<span class="ident">Borrowed</span>(<span class="ident">c</span>) <span class="op">=&gt;</span> {
+                    <span class="ident">Cow</span>::<span class="ident">Borrowed</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="ident">ForLoop</span>::<span class="ident">from_object</span>(<span class="kw-2">&amp;</span><span class="ident">for_loop</span>.<span class="ident">key</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>(), <span class="kw-2">&amp;</span><span class="ident">for_loop</span>.<span class="ident">value</span>, <span class="ident">c</span>)
                     }
-                    <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">c</span>) <span class="op">=&gt;</span> <span class="ident">ForLoop</span>::<span class="ident">from_object_owned</span>(
+                    <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ForLoop</span>::<span class="ident">from_object_owned</span>(
                         <span class="kw-2">&amp;</span><span class="ident">for_loop</span>.<span class="ident">key</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>(),
                         <span class="kw-2">&amp;</span><span class="ident">for_loop</span>.<span class="ident">value</span>,
                         <span class="ident">c</span>,
                     ),
                 }
             }
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
                 <span class="string">&quot;Tried to iterate on a container (`{}`) that has a unsupported type&quot;</span>,
                 <span class="ident">container_name</span>,
             ),
@@ -1049,7 +1049,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">output</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">render_if_node</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">if_node</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">If</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">render_if_node</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">if_node</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">If</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">for</span> <span class="kw-2">&amp;</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">expr</span>, <span class="kw-2">ref</span> <span class="ident">body</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">if_node</span>.<span class="ident">conditions</span> {
             <span class="kw">if</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">expr</span>)<span class="question-mark">?</span> {
                 <span class="kw">return</span> <span class="self">self</span>.<span class="ident">render_body</span>(<span class="ident">body</span>);
@@ -1066,10 +1066,10 @@
     <span class="doccomment">/// The way inheritance work is that the top parent will be rendered by the renderer so for blocks</span>
     <span class="doccomment">/// we want to look from the bottom (`level = 0`, the template the user is actually rendering)</span>
     <span class="doccomment">/// to the top (the base template).</span>
-    <span class="kw">fn</span> <span class="ident">render_block</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">block</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Block</span>, <span class="ident">level</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">render_block</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">block</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Block</span>, <span class="ident">level</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">level_template</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">level</span> {
-            <span class="number">0</span> <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">active_template</span>(),
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="self">self</span>
+            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">active_template</span>(),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>
                 .<span class="ident">tera</span>
                 .<span class="ident">get_template</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">active_template</span>().<span class="ident">parents</span>[<span class="ident">level</span> <span class="op">-</span> <span class="number">1</span>])
                 .<span class="ident">unwrap</span>(),
@@ -1093,60 +1093,60 @@
         <span class="self">self</span>.<span class="ident">render_body</span>(<span class="kw-2">&amp;</span><span class="ident">block</span>.<span class="ident">body</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">eval_expression</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Expr</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_expression</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Expr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">needs_escape</span> <span class="op">=</span> <span class="bool-val">false</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">expr</span>.<span class="ident">val</span> {
-            <span class="ident">ExprVal</span>::<span class="ident">Array</span>(<span class="kw-2">ref</span> <span class="ident">arr</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">Array</span>(<span class="kw-2">ref</span> <span class="ident">arr</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">values</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
                 <span class="kw">for</span> <span class="ident">v</span> <span class="kw">in</span> <span class="ident">arr</span> {
                     <span class="ident">values</span>.<span class="ident">push</span>(<span class="self">self</span>.<span class="ident">eval_expression</span>(<span class="ident">v</span>)<span class="question-mark">?</span>.<span class="ident">into_owned</span>());
                 }
                 <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Array</span>(<span class="ident">values</span>))
             }
-            <span class="ident">ExprVal</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">val</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">needs_escape</span> <span class="op">=</span> <span class="bool-val">true</span>;
                 <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="ident">val</span>.<span class="ident">to_string</span>()))
             }
-            <span class="ident">ExprVal</span>::<span class="ident">StringConcat</span>(<span class="kw-2">ref</span> <span class="ident">str_concat</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">StringConcat</span>(<span class="kw-2">ref</span> <span class="ident">str_concat</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">new</span>();
                 <span class="kw">for</span> <span class="ident">s</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">str_concat</span>.<span class="ident">values</span> {
                     <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">s</span> {
-                        <span class="ident">ExprVal</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>),
-                        <span class="ident">ExprVal</span>::<span class="ident">Int</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">v</span>)),
-                        <span class="ident">ExprVal</span>::<span class="ident">Float</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">v</span>)),
-                        <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">i</span>) <span class="op">=&gt;</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">lookup_ident</span>(<span class="ident">i</span>)<span class="question-mark">?</span> {
-                            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>),
-                            <span class="ident">Value</span>::<span class="ident">Number</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>.<span class="ident">to_string</span>()),
-                            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
+                        <span class="ident">ExprVal</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>),
+                        <span class="ident">ExprVal</span>::<span class="ident">Int</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">v</span>)),
+                        <span class="ident">ExprVal</span>::<span class="ident">Float</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">v</span>)),
+                        <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">i</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">lookup_ident</span>(<span class="ident">i</span>)<span class="question-mark">?</span> {
+                            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>),
+                            <span class="ident">Value</span>::<span class="ident">Number</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>.<span class="ident">to_string</span>()),
+                            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
                                 <span class="string">&quot;Tried to concat a value that is not a string or a number from ident {}&quot;</span>,
                                 <span class="ident">i</span>
                             ),
                         },
-                        <span class="ident">ExprVal</span>::<span class="ident">FunctionCall</span>(<span class="kw-2">ref</span> <span class="ident">fn_call</span>) <span class="op">=&gt;</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">eval_tera_fn_call</span>(<span class="ident">fn_call</span>)<span class="question-mark">?</span> {
-                            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>),
-                            <span class="ident">Value</span>::<span class="ident">Number</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>.<span class="ident">to_string</span>()),
-                            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
+                        <span class="ident">ExprVal</span>::<span class="ident">FunctionCall</span>(<span class="kw-2">ref</span> <span class="ident">fn_call</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">eval_tera_fn_call</span>(<span class="ident">fn_call</span>)<span class="question-mark">?</span> {
+                            <span class="ident">Value</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>),
+                            <span class="ident">Value</span>::<span class="ident">Number</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>.<span class="ident">to_string</span>()),
+                            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(
                                 <span class="string">&quot;Tried to concat a value that is not a string or a number from function call {}&quot;</span>,
                                 <span class="ident">fn_call</span>.<span class="ident">name</span>
                             ),
                         },
-                        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+                        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
                     };
                 }
 
                 <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="ident">res</span>))
             }
-            <span class="ident">ExprVal</span>::<span class="ident">Int</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Number</span>(<span class="ident">val</span>.<span class="ident">into</span>())),
-            <span class="ident">ExprVal</span>::<span class="ident">Float</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Number</span>(<span class="ident">Number</span>::<span class="ident">from_f64</span>(<span class="ident">val</span>).<span class="ident">unwrap</span>())),
-            <span class="ident">ExprVal</span>::<span class="ident">Bool</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="ident">val</span>)),
-            <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident</span>) <span class="op">=&gt;</span> {
-                <span class="ident">needs_escape</span> <span class="op">=</span> <span class="ident">ident</span> <span class="op">!=</span> <span class="ident">MAGICAL_DUMP_VAR</span>;
+            <span class="ident">ExprVal</span>::<span class="ident">Int</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Number</span>(<span class="ident">val</span>.<span class="ident">into</span>())),
+            <span class="ident">ExprVal</span>::<span class="ident">Float</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Number</span>(<span class="ident">Number</span>::<span class="ident">from_f64</span>(<span class="ident">val</span>).<span class="ident">unwrap</span>())),
+            <span class="ident">ExprVal</span>::<span class="ident">Bool</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="ident">val</span>)),
+            <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">needs_escape</span> <span class="op">=</span> <span class="ident">ident</span> <span class="op">!</span><span class="op">=</span> <span class="ident">MAGICAL_DUMP_VAR</span>;
                 <span class="comment">// Negated idents are special cased as `not undefined_ident` should not</span>
                 <span class="comment">// error but instead be falsy values</span>
                 <span class="kw">match</span> <span class="self">self</span>.<span class="ident">lookup_ident</span>(<span class="ident">ident</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="ident">val</span>,
-                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">val</span>,
+                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">if</span> <span class="ident">expr</span>.<span class="ident">has_default_filter</span>() {
                             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">default_expr</span>) <span class="op">=</span> <span class="ident">expr</span>.<span class="ident">filters</span>[<span class="number">0</span>].<span class="ident">args</span>.<span class="ident">get</span>(<span class="string">&quot;value&quot;</span>) {
                                 <span class="self">self</span>.<span class="ident">eval_expression</span>(<span class="ident">default_expr</span>)<span class="question-mark">?</span>
@@ -1163,33 +1163,33 @@
                     }
                 }
             }
-            <span class="ident">ExprVal</span>::<span class="ident">FunctionCall</span>(<span class="kw-2">ref</span> <span class="ident">fn_call</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">FunctionCall</span>(<span class="kw-2">ref</span> <span class="ident">fn_call</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">needs_escape</span> <span class="op">=</span> <span class="bool-val">true</span>;
                 <span class="self">self</span>.<span class="ident">eval_tera_fn_call</span>(<span class="ident">fn_call</span>)<span class="question-mark">?</span>
             }
-            <span class="ident">ExprVal</span>::<span class="ident">MacroCall</span>(<span class="kw-2">ref</span> <span class="ident">macro_call</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">MacroCall</span>(<span class="kw-2">ref</span> <span class="ident">macro_call</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="self">self</span>.<span class="ident">eval_macro_call</span>(<span class="ident">macro_call</span>)<span class="question-mark">?</span>))
             }
-            <span class="ident">ExprVal</span>::<span class="ident">Test</span>(<span class="kw-2">ref</span> <span class="ident">test</span>) <span class="op">=&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="self">self</span>.<span class="ident">eval_test</span>(<span class="ident">test</span>)<span class="question-mark">?</span>)),
-            <span class="ident">ExprVal</span>::<span class="ident">Logic</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">expr</span>)<span class="question-mark">?</span>)),
-            <span class="ident">ExprVal</span>::<span class="ident">Math</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">eval_as_number</span>(<span class="kw-2">&amp;</span><span class="ident">expr</span>.<span class="ident">val</span>) {
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">n</span>)) <span class="op">=&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Number</span>(<span class="ident">n</span>)),
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;NaN&quot;</span>.<span class="ident">to_owned</span>())),
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="ident">e</span>.<span class="ident">to_string</span>()),
+            <span class="ident">ExprVal</span>::<span class="ident">Test</span>(<span class="kw-2">ref</span> <span class="ident">test</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="self">self</span>.<span class="ident">eval_test</span>(<span class="ident">test</span>)<span class="question-mark">?</span>)),
+            <span class="ident">ExprVal</span>::<span class="ident">Logic</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">expr</span>)<span class="question-mark">?</span>)),
+            <span class="ident">ExprVal</span>::<span class="ident">Math</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">eval_as_number</span>(<span class="kw-2">&amp;</span><span class="ident">expr</span>.<span class="ident">val</span>) {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">n</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">Number</span>(<span class="ident">n</span>)),
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="string">&quot;NaN&quot;</span>.<span class="ident">to_owned</span>())),
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="ident">e</span>.<span class="ident">to_string</span>()),
             },
         };
 
         <span class="comment">// Checks if it&#39;s a string and we need to escape it (if the first filter is `safe` we don&#39;t)</span>
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">should_escape</span>
-            <span class="op">&amp;&amp;</span> <span class="ident">needs_escape</span>
-            <span class="op">&amp;&amp;</span> <span class="ident">res</span>.<span class="ident">is_string</span>()
-            <span class="op">&amp;&amp;</span> <span class="ident">expr</span>.<span class="ident">filters</span>.<span class="ident">first</span>().<span class="ident">map_or</span>(<span class="bool-val">true</span>, <span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">name</span> <span class="op">!=</span> <span class="string">&quot;safe&quot;</span>)
+            <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">needs_escape</span>
+            <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">res</span>.<span class="ident">is_string</span>()
+            <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">expr</span>.<span class="ident">filters</span>.<span class="ident">first</span>().<span class="ident">map_or</span>(<span class="bool-val">true</span>, <span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">name</span> <span class="op">!</span><span class="op">=</span> <span class="string">&quot;safe&quot;</span>)
         {
             <span class="ident">res</span> <span class="op">=</span> <span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">to_value</span>(<span class="self">self</span>.<span class="ident">tera</span>.<span class="ident">get_escape_fn</span>()(<span class="ident">res</span>.<span class="ident">as_str</span>().<span class="ident">unwrap</span>()))<span class="question-mark">?</span>);
         }
 
         <span class="kw">for</span> <span class="ident">filter</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">expr</span>.<span class="ident">filters</span> {
-            <span class="kw">if</span> <span class="ident">filter</span>.<span class="ident">name</span> <span class="op">==</span> <span class="string">&quot;safe&quot;</span> <span class="op">||</span> <span class="ident">filter</span>.<span class="ident">name</span> <span class="op">==</span> <span class="string">&quot;default&quot;</span> {
+            <span class="kw">if</span> <span class="ident">filter</span>.<span class="ident">name</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;safe&quot;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">filter</span>.<span class="ident">name</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;default&quot;</span> {
                 <span class="kw">continue</span>;
             }
             <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">eval_filter</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>, <span class="ident">filter</span>)<span class="question-mark">?</span>;
@@ -1204,7 +1204,7 @@
     }
 
     <span class="doccomment">/// Render an expression and never escape its result</span>
-    <span class="kw">fn</span> <span class="ident">safe_eval_expression</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Expr</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">safe_eval_expression</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Expr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">should_escape</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">should_escape</span>;
         <span class="self">self</span>.<span class="ident">should_escape</span> <span class="op">=</span> <span class="bool-val">false</span>;
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">eval_expression</span>(<span class="ident">expr</span>);
@@ -1213,13 +1213,13 @@
     }
 
     <span class="doccomment">/// Evaluate a set tag and add the value to the right context</span>
-    <span class="kw">fn</span> <span class="ident">eval_set</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">set</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Set</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_set</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">set</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Set</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">assigned_value</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">safe_eval_expression</span>(<span class="kw-2">&amp;</span><span class="ident">set</span>.<span class="ident">value</span>)<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">add_assignment</span>(<span class="kw-2">&amp;</span><span class="ident">set</span>.<span class="ident">key</span>[..], <span class="ident">set</span>.<span class="ident">global</span>, <span class="ident">assigned_value</span>);
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">eval_test</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">test</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Test</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_test</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">test</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Test</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">tester_fn</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tera</span>.<span class="ident">get_tester</span>(<span class="kw-2">&amp;</span><span class="ident">test</span>.<span class="ident">name</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tester_args</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
@@ -1232,7 +1232,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">tester_fn</span>(<span class="ident">found</span>, <span class="ident">tester_args</span>)<span class="question-mark">?</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">eval_tera_fn_call</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">function_call</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">FunctionCall</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_tera_fn_call</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">function_call</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">FunctionCall</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">tera_fn</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tera</span>.<span class="ident">get_function</span>(<span class="kw-2">&amp;</span><span class="ident">function_call</span>.<span class="ident">name</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
@@ -1246,10 +1246,10 @@
         <span class="prelude-val">Ok</span>(<span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">tera_fn</span>(<span class="ident">args</span>)<span class="question-mark">?</span>))
     }
 
-    <span class="kw">fn</span> <span class="ident">eval_macro_call</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">macro_call</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">MacroCall</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_macro_call</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>, <span class="ident">macro_call</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">MacroCall</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">active_template_name</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">block</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">blocks</span>.<span class="ident">last</span>() {
             <span class="ident">block</span>.<span class="number">1</span>
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">name</span> <span class="op">!=</span> <span class="self">self</span>.<span class="ident">template_root</span>.<span class="ident">name</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">name</span> <span class="op">!</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">template_root</span>.<span class="ident">name</span> {
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">template_root</span>.<span class="ident">name</span>
         } <span class="kw">else</span> {
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">active_template</span>().<span class="ident">name</span>
@@ -1266,10 +1266,10 @@
         <span class="comment">// First the default arguments</span>
         <span class="kw">for</span> (<span class="ident">arg_name</span>, <span class="ident">default_value</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">macro_definition</span>.<span class="ident">args</span> {
             <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">macro_call</span>.<span class="ident">args</span>.<span class="ident">get</span>(<span class="ident">arg_name</span>) {
-                <span class="prelude-val">Some</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">safe_eval_expression</span>(<span class="ident">val</span>)<span class="question-mark">?</span>,
-                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">default_value</span> {
-                    <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">val</span>) <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">safe_eval_expression</span>(<span class="ident">val</span>)<span class="question-mark">?</span>,
-                    <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
+                <span class="prelude-val">Some</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">safe_eval_expression</span>(<span class="ident">val</span>)<span class="question-mark">?</span>,
+                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">default_value</span> {
+                    <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">safe_eval_expression</span>(<span class="ident">val</span>)<span class="question-mark">?</span>,
+                    <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Macro `{}` is missing the argument `{}`&quot;</span>, <span class="ident">macro_call</span>.<span class="ident">name</span>, <span class="ident">arg_name</span>,)
                     }
                 },
@@ -1291,7 +1291,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">output</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">eval_filter</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">fn_call</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">FunctionCall</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_filter</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">fn_call</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">FunctionCall</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">filter_fn</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tera</span>.<span class="ident">get_filter</span>(<span class="kw-2">&amp;</span><span class="ident">fn_call</span>.<span class="ident">name</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
@@ -1305,39 +1305,39 @@
         <span class="prelude-val">Ok</span>(<span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">filter_fn</span>(<span class="ident">value</span>.<span class="ident">clone</span>().<span class="ident">into_owned</span>(), <span class="ident">args</span>)<span class="question-mark">?</span>))
     }
 
-    <span class="kw">fn</span> <span class="ident">eval_as_bool</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">bool_expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Expr</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_as_bool</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">bool_expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Expr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">bool_expr</span>.<span class="ident">val</span> {
-            <span class="ident">ExprVal</span>::<span class="ident">Logic</span>(<span class="ident">LogicExpr</span> { <span class="kw-2">ref</span> <span class="ident">lhs</span>, <span class="kw-2">ref</span> <span class="ident">rhs</span>, <span class="kw-2">ref</span> <span class="ident">operator</span> }) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">Logic</span>(<span class="ident">LogicExpr</span> { <span class="kw-2">ref</span> <span class="ident">lhs</span>, <span class="kw-2">ref</span> <span class="ident">rhs</span>, <span class="kw-2">ref</span> <span class="ident">operator</span> }) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">operator</span> {
-                    <span class="ident">LogicOperator</span>::<span class="ident">Or</span> <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">lhs</span>)<span class="question-mark">?</span> <span class="op">||</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">rhs</span>)<span class="question-mark">?</span>,
-                    <span class="ident">LogicOperator</span>::<span class="ident">And</span> <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">lhs</span>)<span class="question-mark">?</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">rhs</span>)<span class="question-mark">?</span>,
+                    <span class="ident">LogicOperator</span>::<span class="ident">Or</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">lhs</span>)<span class="question-mark">?</span> <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">rhs</span>)<span class="question-mark">?</span>,
+                    <span class="ident">LogicOperator</span>::<span class="ident">And</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">lhs</span>)<span class="question-mark">?</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">eval_as_bool</span>(<span class="ident">rhs</span>)<span class="question-mark">?</span>,
                     <span class="ident">LogicOperator</span>::<span class="ident">Gt</span>
                     <span class="op">|</span> <span class="ident">LogicOperator</span>::<span class="ident">Gte</span>
                     <span class="op">|</span> <span class="ident">LogicOperator</span>::<span class="ident">Lt</span>
-                    <span class="op">|</span> <span class="ident">LogicOperator</span>::<span class="ident">Lte</span> <span class="op">=&gt;</span> {
+                    <span class="op">|</span> <span class="ident">LogicOperator</span>::<span class="ident">Lte</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">let</span> <span class="ident">l</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">eval_expr_as_number</span>(<span class="ident">lhs</span>)<span class="question-mark">?</span>;
                         <span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">eval_expr_as_number</span>(<span class="ident">rhs</span>)<span class="question-mark">?</span>;
                         <span class="kw">let</span> (<span class="ident">ll</span>, <span class="ident">rr</span>) <span class="op">=</span> <span class="kw">match</span> (<span class="ident">l</span>, <span class="ident">r</span>) {
-                            (<span class="prelude-val">Some</span>(<span class="ident">nl</span>), <span class="prelude-val">Some</span>(<span class="ident">nr</span>)) <span class="op">=&gt;</span> (<span class="ident">nl</span>, <span class="ident">nr</span>),
-                            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Comparison to NaN&quot;</span>),
+                            (<span class="prelude-val">Some</span>(<span class="ident">nl</span>), <span class="prelude-val">Some</span>(<span class="ident">nr</span>)) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">nl</span>, <span class="ident">nr</span>),
+                            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Comparison to NaN&quot;</span>),
                         };
 
                         <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">operator</span> {
-                            <span class="ident">LogicOperator</span>::<span class="ident">Gte</span> <span class="op">=&gt;</span> <span class="ident">ll</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">&gt;=</span> <span class="ident">rr</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>(),
-                            <span class="ident">LogicOperator</span>::<span class="ident">Gt</span> <span class="op">=&gt;</span> <span class="ident">ll</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">&gt;</span> <span class="ident">rr</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>(),
-                            <span class="ident">LogicOperator</span>::<span class="ident">Lte</span> <span class="op">=&gt;</span> <span class="ident">ll</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">&lt;=</span> <span class="ident">rr</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>(),
-                            <span class="ident">LogicOperator</span>::<span class="ident">Lt</span> <span class="op">=&gt;</span> <span class="ident">ll</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">&lt;</span> <span class="ident">rr</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>(),
-                            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+                            <span class="ident">LogicOperator</span>::<span class="ident">Gte</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ll</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="ident">rr</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>(),
+                            <span class="ident">LogicOperator</span>::<span class="ident">Gt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ll</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">&gt;</span> <span class="ident">rr</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>(),
+                            <span class="ident">LogicOperator</span>::<span class="ident">Lte</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ll</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="ident">rr</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>(),
+                            <span class="ident">LogicOperator</span>::<span class="ident">Lt</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ll</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">&lt;</span> <span class="ident">rr</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>(),
+                            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
                         }
                     }
-                    <span class="ident">LogicOperator</span>::<span class="ident">Eq</span> <span class="op">|</span> <span class="ident">LogicOperator</span>::<span class="ident">NotEq</span> <span class="op">=&gt;</span> {
+                    <span class="ident">LogicOperator</span>::<span class="ident">Eq</span> <span class="op">|</span> <span class="ident">LogicOperator</span>::<span class="ident">NotEq</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lhs_val</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">eval_expression</span>(<span class="ident">lhs</span>)<span class="question-mark">?</span>;
                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rhs_val</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">eval_expression</span>(<span class="ident">rhs</span>)<span class="question-mark">?</span>;
 
                         <span class="comment">// Monomorphize number vals.</span>
-                        <span class="kw">if</span> <span class="ident">lhs_val</span>.<span class="ident">is_number</span>() <span class="op">||</span> <span class="ident">rhs_val</span>.<span class="ident">is_number</span>() {
+                        <span class="kw">if</span> <span class="ident">lhs_val</span>.<span class="ident">is_number</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">rhs_val</span>.<span class="ident">is_number</span>() {
                             <span class="comment">// We&#39;re not implementing JS so can&#39;t compare things of different types</span>
-                            <span class="kw">if</span> <span class="op">!</span><span class="ident">lhs_val</span>.<span class="ident">is_number</span>() <span class="op">||</span> <span class="op">!</span><span class="ident">rhs_val</span>.<span class="ident">is_number</span>() {
+                            <span class="kw">if</span> <span class="op">!</span><span class="ident">lhs_val</span>.<span class="ident">is_number</span>() <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="ident">rhs_val</span>.<span class="ident">is_number</span>() {
                                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
                             }
 
@@ -1350,27 +1350,27 @@
                         }
 
                         <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">operator</span> {
-                            <span class="ident">LogicOperator</span>::<span class="ident">Eq</span> <span class="op">=&gt;</span> <span class="kw-2">*</span><span class="ident">lhs_val</span> <span class="op">==</span> <span class="kw-2">*</span><span class="ident">rhs_val</span>,
-                            <span class="ident">LogicOperator</span>::<span class="ident">NotEq</span> <span class="op">=&gt;</span> <span class="kw-2">*</span><span class="ident">lhs_val</span> <span class="op">!=</span> <span class="kw-2">*</span><span class="ident">rhs_val</span>,
-                            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
+                            <span class="ident">LogicOperator</span>::<span class="ident">Eq</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">lhs_val</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">rhs_val</span>,
+                            <span class="ident">LogicOperator</span>::<span class="ident">NotEq</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">lhs_val</span> <span class="op">!</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">rhs_val</span>,
+                            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
                         }
                     }
                 }
             }
-            <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">lookup_ident</span>(<span class="ident">ident</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">is_truthy</span>()).<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>)
             }
-            <span class="ident">ExprVal</span>::<span class="ident">Math</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">ExprVal</span>::<span class="ident">Int</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">ExprVal</span>::<span class="ident">Float</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">Math</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">ExprVal</span>::<span class="ident">Int</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">ExprVal</span>::<span class="ident">Float</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">match</span> <span class="self">self</span>.<span class="ident">eval_as_number</span>(<span class="kw-2">&amp;</span><span class="ident">bool_expr</span>.<span class="ident">val</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">n</span>)) <span class="op">=&gt;</span> <span class="ident">n</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">!=</span> <span class="number">0.0</span>,
-                    <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=&gt;</span> <span class="bool-val">false</span>,
-                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+                    <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">n</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">n</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>() <span class="op">!</span><span class="op">=</span> <span class="number">0.0</span>,
+                    <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
                 }
             }
-            <span class="ident">ExprVal</span>::<span class="ident">Test</span>(<span class="kw-2">ref</span> <span class="ident">test</span>) <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">eval_test</span>(<span class="ident">test</span>).<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>),
-            <span class="ident">ExprVal</span>::<span class="ident">Bool</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="ident">val</span>,
-            <span class="ident">ExprVal</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">string</span>) <span class="op">=&gt;</span> <span class="op">!</span><span class="ident">string</span>.<span class="ident">is_empty</span>(),
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;unimplemented logic operation for {:?}&quot;</span>, <span class="ident">bool_expr</span>),
+            <span class="ident">ExprVal</span>::<span class="ident">Test</span>(<span class="kw-2">ref</span> <span class="ident">test</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">eval_test</span>(<span class="ident">test</span>).<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>),
+            <span class="ident">ExprVal</span>::<span class="ident">Bool</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">val</span>,
+            <span class="ident">ExprVal</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">string</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="op">!</span><span class="ident">string</span>.<span class="ident">is_empty</span>(),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;unimplemented logic operation for {:?}&quot;</span>, <span class="ident">bool_expr</span>),
         };
 
         <span class="kw">if</span> <span class="ident">bool_expr</span>.<span class="ident">negated</span> {
@@ -1382,11 +1382,11 @@
 
     <span class="doccomment">/// In some cases, we will have filters in lhs/rhs of a math expression</span>
     <span class="doccomment">/// `eval_as_number` only works on ExprVal rather than Expr</span>
-    <span class="kw">fn</span> <span class="ident">eval_expr_as_number</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Expr</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_expr_as_number</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Expr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">expr</span>.<span class="ident">filters</span>.<span class="ident">is_empty</span>() {
             <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">eval_expression</span>(<span class="ident">expr</span>)<span class="question-mark">?</span> {
-                <span class="ident">Value</span>::<span class="ident">Number</span>(<span class="kw-2">ref</span> <span class="ident">s</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">s</span>.<span class="ident">clone</span>())),
-                <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tried to do math with an expression not resulting in a number&quot;</span>),
+                <span class="ident">Value</span>::<span class="ident">Number</span>(<span class="kw-2">ref</span> <span class="ident">s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">s</span>.<span class="ident">clone</span>())),
+                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tried to do math with an expression not resulting in a number&quot;</span>),
             }
         } <span class="kw">else</span> {
             <span class="self">self</span>.<span class="ident">eval_as_number</span>(<span class="kw-2">&amp;</span><span class="ident">expr</span>.<span class="ident">val</span>)
@@ -1394,9 +1394,9 @@
     }
 
     <span class="doccomment">/// Return the value of an expression as a number</span>
-    <span class="kw">fn</span> <span class="ident">eval_as_number</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ExprVal</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">eval_as_number</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ExprVal</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">expr</span> {
-            <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">lookup_ident</span>(<span class="ident">ident</span>)<span class="question-mark">?</span>;
                 <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_i64</span>() {
                     <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">v</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>()))
@@ -1408,22 +1408,22 @@
                     <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Variable `{}` was used in a math operation but is not a number&quot;</span>, <span class="ident">ident</span>,)
                 }
             }
-            <span class="ident">ExprVal</span>::<span class="ident">Int</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">val</span>)),
-            <span class="ident">ExprVal</span>::<span class="ident">Float</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from_f64</span>(<span class="ident">val</span>).<span class="ident">unwrap</span>()),
-            <span class="ident">ExprVal</span>::<span class="ident">Math</span>(<span class="ident">MathExpr</span> { <span class="kw-2">ref</span> <span class="ident">lhs</span>, <span class="kw-2">ref</span> <span class="ident">rhs</span>, <span class="kw-2">ref</span> <span class="ident">operator</span> }) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">Int</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">val</span>)),
+            <span class="ident">ExprVal</span>::<span class="ident">Float</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from_f64</span>(<span class="ident">val</span>).<span class="ident">unwrap</span>()),
+            <span class="ident">ExprVal</span>::<span class="ident">Math</span>(<span class="ident">MathExpr</span> { <span class="kw-2">ref</span> <span class="ident">lhs</span>, <span class="kw-2">ref</span> <span class="ident">rhs</span>, <span class="kw-2">ref</span> <span class="ident">operator</span> }) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> (<span class="ident">l</span>, <span class="ident">r</span>) <span class="op">=</span> <span class="kw">match</span> (<span class="self">self</span>.<span class="ident">eval_expr_as_number</span>(<span class="ident">lhs</span>)<span class="question-mark">?</span>, <span class="self">self</span>.<span class="ident">eval_expr_as_number</span>(<span class="ident">rhs</span>)<span class="question-mark">?</span>)
                 {
-                    (<span class="prelude-val">Some</span>(<span class="ident">l</span>), <span class="prelude-val">Some</span>(<span class="ident">r</span>)) <span class="op">=&gt;</span> (<span class="ident">l</span>, <span class="ident">r</span>),
-                    <span class="kw">_</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
+                    (<span class="prelude-val">Some</span>(<span class="ident">l</span>), <span class="prelude-val">Some</span>(<span class="ident">r</span>)) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">l</span>, <span class="ident">r</span>),
+                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
                 };
 
                 <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">operator</span> {
-                    <span class="ident">MathOperator</span>::<span class="ident">Mul</span> <span class="op">=&gt;</span> {
-                        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_i64</span>() <span class="op">&amp;&amp;</span> <span class="ident">r</span>.<span class="ident">is_i64</span>() {
+                    <span class="ident">MathOperator</span>::<span class="ident">Mul</span> <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_i64</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">r</span>.<span class="ident">is_i64</span>() {
                             <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>();
                             <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>();
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">ll</span> <span class="op">*</span> <span class="ident">rr</span>))
-                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_u64</span>() <span class="op">&amp;&amp;</span> <span class="ident">r</span>.<span class="ident">is_u64</span>() {
+                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_u64</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">r</span>.<span class="ident">is_u64</span>() {
                             <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_u64</span>().<span class="ident">unwrap</span>();
                             <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_u64</span>().<span class="ident">unwrap</span>();
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">ll</span> <span class="op">*</span> <span class="ident">rr</span>))
@@ -1433,7 +1433,7 @@
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from_f64</span>(<span class="ident">ll</span> <span class="op">*</span> <span class="ident">rr</span>).<span class="ident">unwrap</span>())
                         }
                     }
-                    <span class="ident">MathOperator</span>::<span class="ident">Div</span> <span class="op">=&gt;</span> {
+                    <span class="ident">MathOperator</span>::<span class="ident">Div</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>();
                         <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_f64</span>().<span class="ident">unwrap</span>();
                         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">ll</span> <span class="op">/</span> <span class="ident">rr</span>;
@@ -1443,12 +1443,12 @@
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from_f64</span>(<span class="ident">res</span>).<span class="ident">unwrap</span>())
                         }
                     }
-                    <span class="ident">MathOperator</span>::<span class="ident">Add</span> <span class="op">=&gt;</span> {
-                        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_i64</span>() <span class="op">&amp;&amp;</span> <span class="ident">r</span>.<span class="ident">is_i64</span>() {
+                    <span class="ident">MathOperator</span>::<span class="ident">Add</span> <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_i64</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">r</span>.<span class="ident">is_i64</span>() {
                             <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>();
                             <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>();
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">ll</span> <span class="op">+</span> <span class="ident">rr</span>))
-                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_u64</span>() <span class="op">&amp;&amp;</span> <span class="ident">r</span>.<span class="ident">is_u64</span>() {
+                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_u64</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">r</span>.<span class="ident">is_u64</span>() {
                             <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_u64</span>().<span class="ident">unwrap</span>();
                             <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_u64</span>().<span class="ident">unwrap</span>();
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">ll</span> <span class="op">+</span> <span class="ident">rr</span>))
@@ -1458,12 +1458,12 @@
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from_f64</span>(<span class="ident">ll</span> <span class="op">+</span> <span class="ident">rr</span>).<span class="ident">unwrap</span>())
                         }
                     }
-                    <span class="ident">MathOperator</span>::<span class="ident">Sub</span> <span class="op">=&gt;</span> {
-                        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_i64</span>() <span class="op">&amp;&amp;</span> <span class="ident">r</span>.<span class="ident">is_i64</span>() {
+                    <span class="ident">MathOperator</span>::<span class="ident">Sub</span> <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_i64</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">r</span>.<span class="ident">is_i64</span>() {
                             <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>();
                             <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>();
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">ll</span> <span class="op">-</span> <span class="ident">rr</span>))
-                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_u64</span>() <span class="op">&amp;&amp;</span> <span class="ident">r</span>.<span class="ident">is_u64</span>() {
+                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_u64</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">r</span>.<span class="ident">is_u64</span>() {
                             <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_u64</span>().<span class="ident">unwrap</span>();
                             <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_u64</span>().<span class="ident">unwrap</span>();
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">ll</span> <span class="op">-</span> <span class="ident">rr</span>))
@@ -1473,12 +1473,12 @@
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from_f64</span>(<span class="ident">ll</span> <span class="op">-</span> <span class="ident">rr</span>).<span class="ident">unwrap</span>())
                         }
                     }
-                    <span class="ident">MathOperator</span>::<span class="ident">Modulo</span> <span class="op">=&gt;</span> {
-                        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_i64</span>() <span class="op">&amp;&amp;</span> <span class="ident">r</span>.<span class="ident">is_i64</span>() {
+                    <span class="ident">MathOperator</span>::<span class="ident">Modulo</span> <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_i64</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">r</span>.<span class="ident">is_i64</span>() {
                             <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>();
                             <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>();
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">ll</span> <span class="op">%</span> <span class="ident">rr</span>))
-                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_u64</span>() <span class="op">&amp;&amp;</span> <span class="ident">r</span>.<span class="ident">is_u64</span>() {
+                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">is_u64</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">r</span>.<span class="ident">is_u64</span>() {
                             <span class="kw">let</span> <span class="ident">ll</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">as_u64</span>().<span class="ident">unwrap</span>();
                             <span class="kw">let</span> <span class="ident">rr</span> <span class="op">=</span> <span class="ident">r</span>.<span class="ident">as_u64</span>().<span class="ident">unwrap</span>();
                             <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">ll</span> <span class="op">%</span> <span class="ident">rr</span>))
@@ -1490,7 +1490,7 @@
                     }
                 }
             }
-            <span class="ident">ExprVal</span>::<span class="ident">FunctionCall</span>(<span class="kw-2">ref</span> <span class="ident">fn_call</span>) <span class="op">=&gt;</span> {
+            <span class="ident">ExprVal</span>::<span class="ident">FunctionCall</span>(<span class="kw-2">ref</span> <span class="ident">fn_call</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">eval_tera_fn_call</span>(<span class="ident">fn_call</span>)<span class="question-mark">?</span>;
                 <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_i64</span>() {
                     <span class="prelude-val">Some</span>(<span class="ident">Number</span>::<span class="ident">from</span>(<span class="ident">v</span>.<span class="ident">as_i64</span>().<span class="ident">unwrap</span>()))
@@ -1505,9 +1505,9 @@
                     )
                 }
             }
-            <span class="ident">ExprVal</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">val</span>) <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tried to do math with a string: `{}`&quot;</span>, <span class="ident">val</span>),
-            <span class="ident">ExprVal</span>::<span class="ident">Bool</span>(<span class="ident">val</span>) <span class="op">=&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tried to do math with a boolean: `{}`&quot;</span>, <span class="ident">val</span>),
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;unimplemented math expression for {:?}&quot;</span>, <span class="ident">expr</span>),
+            <span class="ident">ExprVal</span>::<span class="ident">String</span>(<span class="kw-2">ref</span> <span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tried to do math with a string: `{}`&quot;</span>, <span class="ident">val</span>),
+            <span class="ident">ExprVal</span>::<span class="ident">Bool</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Tried to do math with a boolean: `{}`&quot;</span>, <span class="ident">val</span>),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;unimplemented math expression for {:?}&quot;</span>, <span class="ident">expr</span>),
         };
 
         <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
@@ -1516,11 +1516,11 @@
     <span class="doccomment">/// Only called while rendering a block.</span>
     <span class="doccomment">/// This will look up the block we are currently rendering and its level and try to render</span>
     <span class="doccomment">/// the block at level + n, where would be the next template in the hierarchy the block is present</span>
-    <span class="kw">fn</span> <span class="ident">do_super</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">do_super</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">&amp;</span>(<span class="ident">block_name</span>, <span class="kw">_</span>, <span class="ident">level</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">blocks</span>.<span class="ident">last</span>().<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">next_level</span> <span class="op">=</span> <span class="ident">level</span> <span class="op">+</span> <span class="number">1</span>;
 
-        <span class="kw">while</span> <span class="ident">next_level</span> <span class="op">&lt;=</span> <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">parents</span>.<span class="ident">len</span>() {
+        <span class="kw">while</span> <span class="ident">next_level</span> <span class="op">&lt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">parents</span>.<span class="ident">len</span>() {
             <span class="kw">let</span> <span class="ident">blocks_definitions</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>
                 .<span class="ident">tera</span>
                 .<span class="ident">get_template</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">template</span>.<span class="ident">parents</span>[<span class="ident">next_level</span> <span class="op">-</span> <span class="number">1</span>])
@@ -1535,13 +1535,13 @@
                 <span class="self">self</span>.<span class="ident">blocks</span>.<span class="ident">pop</span>();
 
                 <span class="comment">// Can&#39;t go any higher for that block anymore?</span>
-                <span class="kw">if</span> <span class="ident">next_level</span> <span class="op">&gt;=</span> <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">parents</span>.<span class="ident">len</span>() {
+                <span class="kw">if</span> <span class="ident">next_level</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">parents</span>.<span class="ident">len</span>() {
                     <span class="comment">// then remove it from the stack, we&#39;re done with it</span>
                     <span class="self">self</span>.<span class="ident">blocks</span>.<span class="ident">pop</span>();
                 }
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">res</span>);
             } <span class="kw">else</span> {
-                <span class="ident">next_level</span> <span class="op">+=</span> <span class="number">1</span>;
+                <span class="ident">next_level</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             }
         }
 
@@ -1549,9 +1549,9 @@
     }
 
     <span class="doccomment">/// Looks up identifier and returns its value</span>
-    <span class="kw">fn</span> <span class="ident">lookup_ident</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">lookup_ident</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Val</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="comment">// Magical variable that just dumps the context</span>
-        <span class="kw">if</span> <span class="ident">key</span> <span class="op">==</span> <span class="ident">MAGICAL_DUMP_VAR</span> {
+        <span class="kw">if</span> <span class="ident">key</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MAGICAL_DUMP_VAR</span> {
             <span class="comment">// Unwraps are safe since we are dealing with things that are already Value</span>
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Cow</span>::<span class="ident">Owned</span>(
                 <span class="ident">to_value</span>(
@@ -1566,30 +1566,30 @@
 
     <span class="doccomment">/// Process the given node, appending the string result to the buffer</span>
     <span class="doccomment">/// if it is possible</span>
-    <span class="kw">fn</span> <span class="ident">render_node</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">node</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Node</span>, <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">render_node</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">node</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Node</span>, <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">node</span> {
-            <span class="ident">Node</span>::<span class="ident">Text</span>(<span class="kw-2">ref</span> <span class="ident">s</span>) <span class="op">|</span> <span class="ident">Node</span>::<span class="ident">Raw</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">s</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="ident">s</span>),
-            <span class="ident">Node</span>::<span class="ident">VariableBlock</span>(<span class="kw-2">ref</span> <span class="ident">expr</span>) <span class="op">=&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">eval_expression</span>(<span class="ident">expr</span>)<span class="question-mark">?</span>.<span class="ident">render</span>()),
-            <span class="ident">Node</span>::<span class="ident">Set</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">set</span>) <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">eval_set</span>(<span class="ident">set</span>)<span class="question-mark">?</span>,
-            <span class="ident">Node</span>::<span class="ident">FilterSection</span>(<span class="kw">_</span>, <span class="ident">FilterSection</span> { <span class="kw-2">ref</span> <span class="ident">filter</span>, <span class="kw-2">ref</span> <span class="ident">body</span> }, <span class="kw">_</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Node</span>::<span class="ident">Text</span>(<span class="kw-2">ref</span> <span class="ident">s</span>) <span class="op">|</span> <span class="ident">Node</span>::<span class="ident">Raw</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">s</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="ident">s</span>),
+            <span class="ident">Node</span>::<span class="ident">VariableBlock</span>(<span class="kw-2">ref</span> <span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">eval_expression</span>(<span class="ident">expr</span>)<span class="question-mark">?</span>.<span class="ident">render</span>()),
+            <span class="ident">Node</span>::<span class="ident">Set</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">set</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">eval_set</span>(<span class="ident">set</span>)<span class="question-mark">?</span>,
+            <span class="ident">Node</span>::<span class="ident">FilterSection</span>(<span class="kw">_</span>, <span class="ident">FilterSection</span> { <span class="kw-2">ref</span> <span class="ident">filter</span>, <span class="kw-2">ref</span> <span class="ident">body</span> }, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">render_body</span>(<span class="ident">body</span>)<span class="question-mark">?</span>;
                 <span class="ident">buffer</span>.<span class="ident">push_str</span>(
                     <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">eval_filter</span>(<span class="kw-2">&amp;</span><span class="ident">Cow</span>::<span class="ident">Owned</span>(<span class="ident">Value</span>::<span class="ident">String</span>(<span class="ident">body</span>)), <span class="ident">filter</span>)<span class="question-mark">?</span>.<span class="ident">render</span>(),
                 );
             }
             <span class="comment">// Macros have been imported at the beginning</span>
-            <span class="ident">Node</span>::<span class="ident">ImportMacro</span>(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> (),
-            <span class="ident">Node</span>::<span class="ident">If</span>(<span class="kw-2">ref</span> <span class="ident">if_node</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">render_if_node</span>(<span class="ident">if_node</span>)<span class="question-mark">?</span>),
-            <span class="ident">Node</span>::<span class="ident">Forloop</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">forloop</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">render_for_loop</span>(<span class="ident">forloop</span>)<span class="question-mark">?</span>),
-            <span class="ident">Node</span>::<span class="ident">Break</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Node</span>::<span class="ident">ImportMacro</span>(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> (),
+            <span class="ident">Node</span>::<span class="ident">If</span>(<span class="kw-2">ref</span> <span class="ident">if_node</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">render_if_node</span>(<span class="ident">if_node</span>)<span class="question-mark">?</span>),
+            <span class="ident">Node</span>::<span class="ident">Forloop</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">forloop</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">render_for_loop</span>(<span class="ident">forloop</span>)<span class="question-mark">?</span>),
+            <span class="ident">Node</span>::<span class="ident">Break</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">break_for_loop</span>()<span class="question-mark">?</span>;
             }
-            <span class="ident">Node</span>::<span class="ident">Continue</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Node</span>::<span class="ident">Continue</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">continue_for_loop</span>()<span class="question-mark">?</span>;
             }
-            <span class="ident">Node</span>::<span class="ident">Block</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">block</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">render_block</span>(<span class="ident">block</span>, <span class="number">0</span>)<span class="question-mark">?</span>),
-            <span class="ident">Node</span>::<span class="ident">Super</span> <span class="op">=&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">do_super</span>()<span class="question-mark">?</span>),
-            <span class="ident">Node</span>::<span class="ident">Include</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">tpl_name</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Node</span>::<span class="ident">Block</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">block</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">render_block</span>(<span class="ident">block</span>, <span class="number">0</span>)<span class="question-mark">?</span>),
+            <span class="ident">Node</span>::<span class="ident">Super</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">do_super</span>()<span class="question-mark">?</span>),
+            <span class="ident">Node</span>::<span class="ident">Include</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">tpl_name</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">template</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tera</span>.<span class="ident">get_template</span>(<span class="ident">tpl_name</span>)<span class="question-mark">?</span>;
                 <span class="self">self</span>.<span class="ident">macros</span>.<span class="ident">add_macros_from_template</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">tera</span>, <span class="ident">template</span>)<span class="question-mark">?</span>;
                 <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">push_include_frame</span>(<span class="ident">tpl_name</span>, <span class="ident">template</span>);
@@ -1597,7 +1597,7 @@
                 <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">pop</span>();
                 <span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">result</span>);
             }
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;render_node -&gt; unexpected node: {:?}&quot;</span>, <span class="ident">node</span>),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;render_node -&gt; unexpected node: {:?}&quot;</span>, <span class="ident">node</span>),
         };
 
         <span class="prelude-val">Ok</span>(())
@@ -1605,13 +1605,13 @@
 
     <span class="doccomment">/// Helper fn that tries to find the current context: are we in a macro? in a parent template?</span>
     <span class="doccomment">/// in order to give the best possible error when getting an error when rendering a tpl</span>
-    <span class="kw">fn</span> <span class="ident">get_error_location</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+    <span class="kw">fn</span> <span class="ident">get_error_location</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error_location</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to render &#39;{}&#39;&quot;</span>, <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">name</span>);
 
         <span class="comment">// in a macro?</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">current_frame</span>().<span class="ident">kind</span> <span class="op">==</span> <span class="ident">FrameType</span>::<span class="ident">Macro</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">current_frame</span>().<span class="ident">kind</span> <span class="op">=</span><span class="op">=</span> <span class="ident">FrameType</span>::<span class="ident">Macro</span> {
             <span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">call_stack</span>.<span class="ident">current_frame</span>();
-            <span class="ident">error_location</span> <span class="op">+=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(
+            <span class="ident">error_location</span> <span class="op">+</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(
                 <span class="string">&quot;: error while rendering macro `{}::{}`&quot;</span>,
                 <span class="ident">frame</span>.<span class="ident">macro_namespace</span>.<span class="ident">expect</span>(<span class="string">&quot;Macro namespace&quot;</span>),
                 <span class="ident">frame</span>.<span class="ident">name</span>,
@@ -1624,30 +1624,30 @@
                 <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">blocks_definitions</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">name</span>.<span class="ident">to_string</span>()).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">get</span>(<span class="kw-2">*</span><span class="ident">level</span>));
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">ref</span> <span class="ident">tpl_name</span>, <span class="kw">_</span>)) <span class="op">=</span> <span class="ident">block_def</span> {
-                <span class="kw">if</span> <span class="ident">tpl_name</span> <span class="op">!=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">template</span>.<span class="ident">name</span> {
-                    <span class="ident">error_location</span> <span class="op">+=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot; (error happened in &#39;{}&#39;).&quot;</span>, <span class="ident">tpl_name</span>);
+                <span class="kw">if</span> <span class="ident">tpl_name</span> <span class="op">!</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">template</span>.<span class="ident">name</span> {
+                    <span class="ident">error_location</span> <span class="op">+</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot; (error happened in &#39;{}&#39;).&quot;</span>, <span class="ident">tpl_name</span>);
                 }
             } <span class="kw">else</span> {
-                <span class="ident">error_location</span> <span class="op">+=</span> <span class="string">&quot; (error happened in a parent template)&quot;</span>;
+                <span class="ident">error_location</span> <span class="op">+</span><span class="op">=</span> <span class="string">&quot; (error happened in a parent template)&quot;</span>;
             }
         } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">parent</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">template</span>.<span class="ident">parents</span>.<span class="ident">last</span>() {
             <span class="comment">// Error happened in the base template, outside of blocks</span>
-            <span class="ident">error_location</span> <span class="op">+=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot; (error happened in &#39;{}&#39;).&quot;</span>, <span class="ident">parent</span>);
+            <span class="ident">error_location</span> <span class="op">+</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot; (error happened in &#39;{}&#39;).&quot;</span>, <span class="ident">parent</span>);
         }
 
         <span class="ident">error_location</span>
     }
 
     <span class="doccomment">/// Entry point for the rendering</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">render</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">render</span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="comment">// 10000 is a random value</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">with_capacity</span>(<span class="number">10000</span>);
         <span class="kw">for</span> <span class="ident">node</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">template_root</span>.<span class="ident">ast</span> {
-            <span class="self">self</span>.<span class="ident">render_node</span>(<span class="ident">node</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">output</span>).<span class="ident">chain_err</span>(<span class="op">||</span> <span class="self">self</span>.<span class="ident">get_error_location</span>())<span class="question-mark">?</span>;
+            <span class="self">self</span>.<span class="ident">render_node</span>(<span class="ident">node</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">output</span>).<span class="ident">chain_err</span>(<span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">get_error_location</span>())<span class="question-mark">?</span>;
         }
 
         <span class="prelude-val">Ok</span>(<span class="ident">output</span>)
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../";window.currentCrate = "tera";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "tera";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

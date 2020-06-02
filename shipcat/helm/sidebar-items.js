@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["find_redundant_services","Find all services in a given namespace"],["hexec",""],["hout",""],["template","Analogue of helm template"],["values","Create helm values file for a service"]]});
+initSidebarItems({"fn":[["hexec",""],["hexists",""],["hout",""],["template","Analogue of helm template"],["template_check","Helper to validate the assumption of the charts"],["values","Create helm values file for a service"]]});

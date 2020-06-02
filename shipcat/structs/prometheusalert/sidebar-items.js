@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PrometheusAlertSeverity","Alert severity enumeration."]],"struct":[["PrometheusAlert","Data describing one Prometheus alert."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["debug","Debug why a workload is in the state it is in"],["workload_rollout","Track the rollout of the main workload"]],"struct":[["DeploySummary","A summary of a Deployment's status"],["PodSummary","A summary of a Pod's status"],["ReplicaSetSummary","A summary of a ReplicaSet's status"],["StatefulSummary","A summary of a Statefulset's status"]]});

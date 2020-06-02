@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["mass_crd","Apply all crds in a region"],["mass_vault","Apply all vault policies in a region"]]});
+initSidebarItems({"fn":[["crd_install","Apply CRDs in all region"],["mass_crd","Apply all services in the region"],["mass_diff","Diffs all services in a region"],["mass_template_verify","Verifies all populated templates for all services in a region"],["mass_vault","Apply all vault policies in a region"]]});

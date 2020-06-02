@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["self_upgrade","Attempt to upgrade shipcat"]],"struct":[["ProgressReader",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Informer","An event informer for a `Resource`"],["Reflector","A reflection of `Resource` state in kubernetes"]]});

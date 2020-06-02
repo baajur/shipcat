@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["RestartPolicy","Restart policy"]],"struct":[["Job",""],["JobVolumeClaim",""]]});

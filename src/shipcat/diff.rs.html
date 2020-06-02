@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_cli/src/diff.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>diff.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_cli/src/diff.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>diff.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -310,24 +310,168 @@
 <span id="310">310</span>
 <span id="311">311</span>
 <span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Config</span>, <span class="ident">Manifest</span>, <span class="ident">Region</span>, <span class="prelude-ty">Result</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">git</span>, <span class="ident">helm</span>, <span class="ident">kubectl</span>};
 <span class="kw">use</span> <span class="ident">regex</span>::<span class="ident">Regex</span>;
-<span class="kw">use</span> <span class="ident">shipcat_definitions</span>::<span class="ident">Crd</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">kubectl</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">helm</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">apply</span>;
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Config</span>, <span class="ident">Region</span>, <span class="prelude-ty">Result</span>};
+<span class="kw">use</span> <span class="ident">shipcat_definitions</span>::<span class="ident">ShipcatManifest</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">process</span>::<span class="ident">Command</span>;
 
 
-<span class="kw">fn</span> <span class="ident">git</span>(<span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;git {}&quot;</span>, <span class="ident">args</span>.<span class="ident">join</span>(<span class="string">&quot; &quot;</span>));
-    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">Command</span>::<span class="ident">new</span>(<span class="string">&quot;git&quot;</span>).<span class="ident">args</span>(<span class="ident">args</span>).<span class="ident">status</span>()<span class="question-mark">?</span>;
-    <span class="kw">if</span> <span class="op">!</span><span class="ident">s</span>.<span class="ident">success</span>() {
-        <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Subprocess failure from git: {}&quot;</span>, <span class="ident">s</span>.<span class="ident">code</span>().<span class="ident">unwrap_or</span>(<span class="number">1001</span>))
+<span class="doccomment">/// YAML serialisation of a manifest.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Return an empty string if the manifest fails region-validation,</span>
+<span class="doccomment">/// otherwise YAML serialise the content. For diff purposes, the content</span>
+<span class="doccomment">/// of a manifest not in a region is a blank, rather than being invalid.</span>
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">as_yaml</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">mf</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">m</span>) <span class="op">=</span> <span class="ident">mf</span>.<span class="ident">verify_region</span>() {
+        <span class="kw">let</span> <span class="ident">yaml</span> <span class="op">=</span> <span class="ident">serde_yaml</span>::<span class="ident">to_string</span>(<span class="kw-2">&amp;</span><span class="ident">m</span>)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="ident">yaml</span>)
+    } <span class="kw">else</span> {
+        <span class="prelude-val">Ok</span>(<span class="string">&quot;&quot;</span>.<span class="ident">to_string</span>())
     }
-    <span class="prelude-val">Ok</span>(())
 }
+
 
 <span class="doccomment">/// Fast local git compare of the crd</span>
 <span class="doccomment">///</span>
@@ -335,56 +479,82 @@
 <span class="doccomment">/// then goes back to previous branch and pops the stash.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Because this does fiddle with git state while running it is not the default implementation.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">values_vs_git</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">aftermf</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">after</span> <span class="op">=</span> <span class="ident">serde_yaml</span>::<span class="ident">to_string</span>(<span class="kw-2">&amp;</span><span class="ident">aftermf</span>)<span class="question-mark">?</span>;
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">values_vs_git</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">after</span> <span class="op">=</span> <span class="ident">as_yaml</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// move git to get before state:</span>
-    <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;checkout&quot;</span>, <span class="string">&quot;master&quot;</span>, <span class="string">&quot;--quiet&quot;</span>])<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">needs_stash</span> <span class="op">=</span> <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;diff&quot;</span>, <span class="string">&quot;--quiet&quot;</span>, <span class="string">&quot;--exit-code&quot;</span>]).<span class="ident">is_err</span>() <span class="op">||</span> <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;diff&quot;</span>, <span class="string">&quot;--cached&quot;</span>, <span class="string">&quot;--quiet&quot;</span>, <span class="string">&quot;--exit-code&quot;</span>]).<span class="ident">is_err</span>();
+    <span class="kw">let</span> <span class="ident">merge_base</span> <span class="op">=</span> <span class="ident">git</span>::<span class="ident">merge_base</span>()<span class="question-mark">?</span>;
+    <span class="ident">git</span>::<span class="ident">checkout</span>(<span class="kw-2">&amp;</span><span class="ident">merge_base</span>)<span class="question-mark">?</span>;
+
+    <span class="kw">let</span> <span class="ident">needs_stash</span> <span class="op">=</span> <span class="ident">git</span>::<span class="ident">needs_stash</span>();
     <span class="kw">if</span> <span class="ident">needs_stash</span> {
-        <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;stash&quot;</span>, <span class="string">&quot;--quiet&quot;</span>])<span class="question-mark">?</span>;
+        <span class="ident">git</span>::<span class="ident">stash_push</span>()<span class="question-mark">?</span>;
     }
 
     <span class="comment">// compute before state</span>
-    <span class="kw">let</span> <span class="ident">beforemf</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">before</span> <span class="op">=</span> <span class="ident">serde_yaml</span>::<span class="ident">to_string</span>(<span class="kw-2">&amp;</span><span class="ident">beforemf</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">before</span> <span class="op">=</span> <span class="ident">as_yaml</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// move git back</span>
     <span class="kw">if</span> <span class="ident">needs_stash</span> {
-        <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;stash&quot;</span>, <span class="string">&quot;pop&quot;</span>, <span class="string">&quot;--quiet&quot;</span>])<span class="question-mark">?</span>;
+        <span class="ident">git</span>::<span class="ident">stash_pop</span>()<span class="question-mark">?</span>;
     }
-    <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;checkout&quot;</span>, <span class="string">&quot;-&quot;</span>, <span class="string">&quot;--quiet&quot;</span>])<span class="question-mark">?</span>;
+    <span class="ident">git</span>::<span class="ident">checkout</span>(<span class="string">&quot;-&quot;</span>)<span class="question-mark">?</span>;
 
     <span class="comment">// display diff</span>
-    <span class="ident">shell_diff</span>(<span class="kw-2">&amp;</span><span class="ident">before</span>, <span class="kw-2">&amp;</span><span class="ident">after</span>)
+    <span class="ident">shell_diff</span>(<span class="kw-2">&amp;</span><span class="ident">before</span>, <span class="kw-2">&amp;</span><span class="ident">after</span>, <span class="string">&quot;before&quot;</span>, <span class="string">&quot;after&quot;</span>)
+}
+
+<span class="doccomment">/// Fast local compare of shipcat template for two regions</span>
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">values_vs_region</span>(
+    <span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>,
+    <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>,
+    <span class="ident">ref_region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">before_region</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.{}&quot;</span>, <span class="ident">svc</span>, <span class="ident">ref_region</span>.<span class="ident">name</span>);
+    <span class="kw">let</span> <span class="ident">before_values</span> <span class="op">=</span> <span class="ident">as_yaml</span>(<span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">ref_region</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="kw">let</span> <span class="ident">after_region</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.{}&quot;</span>, <span class="ident">svc</span>, <span class="ident">region</span>.<span class="ident">name</span>);
+    <span class="kw">let</span> <span class="ident">after_values</span> <span class="op">=</span> <span class="ident">as_yaml</span>(<span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="comment">// display diff</span>
+    <span class="ident">shell_diff</span>(<span class="kw-2">&amp;</span><span class="ident">before_values</span>, <span class="kw-2">&amp;</span><span class="ident">after_values</span>, <span class="kw-2">&amp;</span><span class="ident">before_region</span>, <span class="kw-2">&amp;</span><span class="ident">after_region</span>)
 }
 
 <span class="doccomment">/// Fast local git compare of shipcat template</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Because this uses the template in master against local state,</span>
 <span class="doccomment">/// we don&#39;t resolve secrets for this (would compare equal values anyway).</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">template_vs_git</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">mock</span> <span class="op">=</span> <span class="bool-val">true</span>; <span class="comment">// both would be equivalent vault reads anyway</span>
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">template_vs_git</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">afterpth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="string">&quot;after.shipcat.gen.yml&quot;</span>);
-    <span class="kw">let</span> <span class="ident">_after</span> <span class="op">=</span> <span class="ident">helm</span>::<span class="ident">template</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>, <span class="prelude-val">None</span>, <span class="ident">mock</span>, <span class="prelude-val">Some</span>(<span class="ident">afterpth</span>.<span class="ident">clone</span>()))<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">mf_after</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>)
+        .<span class="kw">await</span><span class="question-mark">?</span>
+        .<span class="ident">stub</span>(<span class="ident">region</span>)
+        .<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">_after</span> <span class="op">=</span> <span class="ident">helm</span>::<span class="ident">template</span>(<span class="kw-2">&amp;</span><span class="ident">mf_after</span>, <span class="prelude-val">Some</span>(<span class="ident">afterpth</span>.<span class="ident">clone</span>())).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// move git to get before state:</span>
-    <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;checkout&quot;</span>, <span class="string">&quot;master&quot;</span>, <span class="string">&quot;--quiet&quot;</span>])<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">needs_stash</span> <span class="op">=</span> <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;diff&quot;</span>, <span class="string">&quot;--quiet&quot;</span>, <span class="string">&quot;--exit-code&quot;</span>]).<span class="ident">is_err</span>() <span class="op">||</span> <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;diff&quot;</span>, <span class="string">&quot;--cached&quot;</span>, <span class="string">&quot;--quiet&quot;</span>, <span class="string">&quot;--exit-code&quot;</span>]).<span class="ident">is_err</span>();
+    <span class="kw">let</span> <span class="ident">merge_base</span> <span class="op">=</span> <span class="ident">git</span>::<span class="ident">merge_base</span>()<span class="question-mark">?</span>;
+    <span class="ident">git</span>::<span class="ident">checkout</span>(<span class="ident">merge_base</span>.<span class="ident">as_str</span>())<span class="question-mark">?</span>;
+
+    <span class="kw">let</span> <span class="ident">needs_stash</span> <span class="op">=</span> <span class="ident">git</span>::<span class="ident">needs_stash</span>();
     <span class="kw">if</span> <span class="ident">needs_stash</span> {
-        <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;stash&quot;</span>, <span class="string">&quot;--quiet&quot;</span>])<span class="question-mark">?</span>;
+        <span class="ident">git</span>::<span class="ident">stash_push</span>()<span class="question-mark">?</span>;
     }
 
     <span class="comment">// compute old state:</span>
     <span class="kw">let</span> <span class="ident">beforepth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="string">&quot;before.shipcat.gen.yml&quot;</span>);
-    <span class="kw">let</span> <span class="ident">_before</span> <span class="op">=</span> <span class="ident">helm</span>::<span class="ident">template</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>, <span class="prelude-val">None</span>, <span class="ident">mock</span>, <span class="prelude-val">Some</span>(<span class="ident">beforepth</span>.<span class="ident">clone</span>()))<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">mf_before</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>)
+        .<span class="kw">await</span><span class="question-mark">?</span>
+        .<span class="ident">stub</span>(<span class="ident">region</span>)
+        .<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">_before</span> <span class="op">=</span> <span class="ident">helm</span>::<span class="ident">template</span>(<span class="kw-2">&amp;</span><span class="ident">mf_before</span>, <span class="prelude-val">Some</span>(<span class="ident">beforepth</span>.<span class="ident">clone</span>())).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// move git back</span>
     <span class="kw">if</span> <span class="ident">needs_stash</span> {
-        <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;stash&quot;</span>, <span class="string">&quot;pop&quot;</span>, <span class="string">&quot;--quiet&quot;</span>])<span class="question-mark">?</span>;
+        <span class="ident">git</span>::<span class="ident">stash_pop</span>()<span class="question-mark">?</span>;
     }
-    <span class="ident">git</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;checkout&quot;</span>, <span class="string">&quot;-&quot;</span>, <span class="string">&quot;--quiet&quot;</span>])<span class="question-mark">?</span>;
+    <span class="ident">git</span>::<span class="ident">checkout</span>(<span class="string">&quot;-&quot;</span>)<span class="question-mark">?</span>;
 
     <span class="comment">// display diff</span>
     <span class="comment">// doesn&#39;t reuse shell_diff because we already have files from direct::template</span>
@@ -397,45 +567,20 @@
     <span class="prelude-val">Ok</span>(<span class="ident">s</span>.<span class="ident">success</span>())
 }
 
-<span class="doccomment">/// Temporary helm diff wrapper for shipcat::diff</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This will be removed once tiller dependency is removed and 1.13 is everywhere.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">helm_diff</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>, <span class="ident">mock</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">mfbase</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">mf</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">mock</span> {
-        <span class="ident">mfbase</span>.<span class="ident">complete</span>(<span class="ident">region</span>)<span class="question-mark">?</span>
-    } <span class="kw">else</span> {
-        <span class="ident">mfbase</span>.<span class="ident">stub</span>(<span class="ident">region</span>)<span class="question-mark">?</span>
-    };
-    <span class="kw">let</span> <span class="ident">hfile</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.helm.gen.yml&quot;</span>, <span class="ident">svc</span>);
-    <span class="ident">helm</span>::<span class="ident">values</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">hfile</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">diff</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">apply</span>::<span class="ident">diff_helm</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="kw-2">&amp;</span><span class="ident">hfile</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">hdiff</span>) <span class="op">=&gt;</span> <span class="ident">hdiff</span>,
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Unable to diff against {}: {}&quot;</span>, <span class="ident">svc</span>, <span class="ident">e</span>);
-            <span class="prelude-val">None</span>
-        },
-    };
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">diff</span> {
-        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">d</span>);
-    }
-    <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">fs</span>::<span class="ident">remove_file</span>(<span class="kw-2">&amp;</span><span class="ident">hfile</span>); <span class="comment">// try to remove temporary file</span>
-    <span class="prelude-val">Ok</span>(<span class="ident">diff</span>.<span class="ident">is_some</span>())
-}
-
-
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">Path</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>::{<span class="self">self</span>, <span class="ident">File</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Write</span>;
+<span class="kw">use</span> <span class="ident">std</span>::{
+    <span class="ident">fs</span>::{<span class="self">self</span>, <span class="ident">File</span>},
+    <span class="ident">io</span>::<span class="ident">Write</span>,
+    <span class="ident">path</span>::<span class="ident">Path</span>,
+};
 
 <span class="doccomment">/// Diff values using kubectl diff</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Generate crd as we write it and pipe it to `kubectl diff -`</span>
 <span class="doccomment">/// Only works on clusters with kubectl 1.13 on the server side, so not available everywhere</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">values_vs_kubectl</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">values_vs_kubectl</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
     <span class="comment">// Generate crd in a temp file:</span>
-    <span class="kw">let</span> <span class="ident">mf</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">crd</span> <span class="op">=</span> <span class="ident">Crd</span>::<span class="ident">from</span>(<span class="ident">mf</span>);
+    <span class="kw">let</span> <span class="ident">mf</span> <span class="op">=</span> <span class="ident">shipcat_filebacked</span>::<span class="ident">load_manifest</span>(<span class="ident">svc</span>, <span class="ident">conf</span>, <span class="ident">region</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">crd</span> <span class="op">=</span> <span class="ident">ShipcatManifest</span>::<span class="ident">from</span>(<span class="ident">mf</span>);
     <span class="kw">let</span> <span class="ident">encoded</span> <span class="op">=</span> <span class="ident">serde_yaml</span>::<span class="ident">to_string</span>(<span class="kw-2">&amp;</span><span class="ident">crd</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">cfile</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.shipcat.crd.gen.yml&quot;</span>, <span class="ident">svc</span>);
     <span class="kw">let</span> <span class="ident">pth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="ident">cfile</span>);
@@ -443,7 +588,7 @@
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">File</span>::<span class="ident">create</span>(<span class="kw-2">&amp;</span><span class="ident">pth</span>)<span class="question-mark">?</span>;
     <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">encoded</span>)<span class="question-mark">?</span>;
     <span class="comment">// shell out to kubectl:</span>
-    <span class="kw">let</span> (<span class="ident">out</span>, <span class="ident">success</span>) <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">diff</span>(<span class="ident">pth</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">region</span>.<span class="ident">namespace</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> (<span class="ident">out</span>, <span class="ident">_err</span>, <span class="ident">success</span>) <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">diff</span>(<span class="ident">pth</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">region</span>.<span class="ident">namespace</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">out</span>);
     <span class="comment">// cleanup:</span>
     <span class="ident">fs</span>::<span class="ident">remove_file</span>(<span class="ident">pth</span>)<span class="question-mark">?</span>;
@@ -454,34 +599,42 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Generate template as we write it and pipe it to `kubectl diff -`</span>
 <span class="doccomment">/// Only works on clusters with kubectl 1.13 on the server side, so not available everywhere</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">template_vs_kubectl</span>(<span class="ident">svc</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">conf</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">Region</span>, <span class="ident">mock</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">template_vs_kubectl</span>(<span class="ident">mf</span>: <span class="kw-2">&amp;</span><span class="ident">Manifest</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="comment">// Generate template in a temp file:</span>
-    <span class="kw">let</span> <span class="ident">tfile</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.shipcat.tpl.gen.yml&quot;</span>, <span class="ident">svc</span>);
+    <span class="kw">let</span> <span class="ident">tfile</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.shipcat.tpl.gen.yml&quot;</span>, <span class="ident">mf</span>.<span class="ident">name</span>);
     <span class="kw">let</span> <span class="ident">pth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="ident">tfile</span>);
-    <span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="prelude-val">None</span>; <span class="comment">// TODO: override in rolling?</span>
-    <span class="ident">helm</span>::<span class="ident">template</span>(<span class="kw-2">&amp;</span><span class="ident">svc</span>, <span class="kw-2">&amp;</span><span class="ident">region</span>, <span class="kw-2">&amp;</span><span class="ident">conf</span>, <span class="ident">version</span>, <span class="ident">mock</span>, <span class="prelude-val">Some</span>(<span class="ident">pth</span>.<span class="ident">clone</span>()))<span class="question-mark">?</span>;
 
-    <span class="kw">let</span> (<span class="ident">out</span>, <span class="ident">success</span>) <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">diff</span>(<span class="ident">pth</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">region</span>.<span class="ident">namespace</span>)<span class="question-mark">?</span>;
-    <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">out</span>);
+    <span class="kw">let</span> <span class="ident">_tpl</span> <span class="op">=</span> <span class="ident">helm</span>::<span class="ident">template</span>(<span class="kw-2">&amp;</span><span class="ident">mf</span>, <span class="prelude-val">Some</span>(<span class="ident">pth</span>.<span class="ident">clone</span>())).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="kw">let</span> (<span class="ident">out</span>, <span class="ident">err</span>, <span class="ident">success</span>) <span class="op">=</span> <span class="ident">kubectl</span>::<span class="ident">diff</span>(<span class="ident">pth</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">mf</span>.<span class="ident">namespace</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="comment">// cleanup:</span>
     <span class="ident">fs</span>::<span class="ident">remove_file</span>(<span class="ident">pth</span>)<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(<span class="ident">success</span>)
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">success</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">err</span>.<span class="ident">is_empty</span>() <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">err</span>.<span class="ident">trim</span>() <span class="op">!</span><span class="op">=</span> <span class="string">&quot;exit status 1&quot;</span> {
+        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;kubectl diff stderr: {}&quot;</span>, <span class="ident">err</span>.<span class="ident">trim</span>());
+    }
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">out</span>.<span class="ident">is_empty</span>() {
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">out</span>))
+    } <span class="kw">else</span> {
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
+    }
 }
 
 <span class="comment">// Compare using diff(1)</span>
 <span class="comment">// difference libraries all seemed to be lacking somewhat</span>
-<span class="kw">fn</span> <span class="ident">shell_diff</span>(<span class="ident">before</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">after</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">beforepth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="string">&quot;before.shipcat.gen.yml&quot;</span>);
+<span class="kw">fn</span> <span class="ident">shell_diff</span>(<span class="ident">before</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">after</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">before_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">after_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">beforefilename</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.shipcat.gen.yml&quot;</span>, <span class="ident">before_name</span>);
+    <span class="kw">let</span> <span class="ident">beforepth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="kw-2">&amp;</span><span class="ident">beforefilename</span>);
     <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Writing before to {}&quot;</span>, <span class="ident">beforepth</span>.<span class="ident">display</span>());
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">File</span>::<span class="ident">create</span>(<span class="kw-2">&amp;</span><span class="ident">beforepth</span>)<span class="question-mark">?</span>;
     <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">before</span>)<span class="question-mark">?</span>;
 
-    <span class="kw">let</span> <span class="ident">afterpth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="string">&quot;after.shipcat.gen.yml&quot;</span>);
+    <span class="kw">let</span> <span class="ident">afterfilename</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}.shipcat.gen.yml&quot;</span>, <span class="ident">after_name</span>);
+    <span class="kw">let</span> <span class="ident">afterpth</span> <span class="op">=</span> <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;.&quot;</span>).<span class="ident">join</span>(<span class="kw-2">&amp;</span><span class="ident">afterfilename</span>);
     <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Writing after to {}&quot;</span>, <span class="ident">afterpth</span>.<span class="ident">display</span>());
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">File</span>::<span class="ident">create</span>(<span class="kw-2">&amp;</span><span class="ident">afterpth</span>)<span class="question-mark">?</span>;
     <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">after</span>)<span class="question-mark">?</span>;
 
-    <span class="kw">let</span> <span class="ident">args</span> <span class="op">=</span> [<span class="string">&quot;-u&quot;</span>, <span class="string">&quot;before.shipcat.gen.yml&quot;</span>, <span class="string">&quot;after.shipcat.gen.yml&quot;</span>];
+    <span class="kw">let</span> <span class="ident">args</span> <span class="op">=</span> [<span class="string">&quot;-u&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">beforefilename</span>, <span class="kw-2">&amp;</span><span class="ident">afterfilename</span>];
     <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;diff {}&quot;</span>, <span class="ident">args</span>.<span class="ident">join</span>(<span class="string">&quot; &quot;</span>));
     <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">Command</span>::<span class="ident">new</span>(<span class="string">&quot;diff&quot;</span>).<span class="ident">args</span>(<span class="kw-2">&amp;</span><span class="ident">args</span>).<span class="ident">status</span>()<span class="question-mark">?</span>;
     <span class="comment">// cleanup</span>
@@ -491,28 +644,43 @@
     <span class="prelude-val">Ok</span>(<span class="ident">s</span>.<span class="ident">success</span>())
 }
 
-<span class="doccomment">/// Minify diff output from kubectl diff or helm diff</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Trims out non-change lines</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">minify</span>(<span class="ident">diff</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
-    <span class="kw">let</span> <span class="ident">diff_re</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;has changed|^\-|^\+&quot;</span>).<span class="ident">unwrap</span>();
-    <span class="comment">// filter out lines that doesn&#39;t contain &quot;has changed&quot; or starting with + or -</span>
-    <span class="ident">diff</span>.<span class="ident">split</span>(<span class="string">&#39;\n&#39;</span>).<span class="ident">filter</span>(<span class="op">|</span><span class="ident">l</span><span class="op">|</span> {
-        <span class="ident">diff_re</span>.<span class="ident">is_match</span>(<span class="ident">l</span>)
-    }).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>().<span class="ident">join</span>(<span class="string">&quot;\n&quot;</span>)
+<span class="doccomment">/// Minify diff output from kubectl diff</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">minify</span>(<span class="ident">diff</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+    <span class="kw">let</span> <span class="ident">minusplus</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;^\- |^\+ &quot;</span>).<span class="ident">unwrap</span>();
+    <span class="kw">let</span> <span class="ident">generation</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;generation[:]{1}&quot;</span>).<span class="ident">unwrap</span>();
+    <span class="kw">let</span> <span class="ident">kind_line</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;--- /tmp/LIVE-[a-zA-Z0-9]+/([\w\.]+)&quot;</span>).<span class="ident">unwrap</span>();
+    <span class="comment">// Find the +++/--- header and extract the type from it.</span>
+    <span class="comment">// Then trim everything that doesn&#39;t start with `- ` or `+ `</span>
+    <span class="comment">// and additionally ignore `generation` integer updates</span>
+
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">in_secret</span> <span class="op">=</span> <span class="bool-val">false</span>;
+    <span class="kw">for</span> <span class="ident">l</span> <span class="kw">in</span> <span class="ident">diff</span>.<span class="ident">lines</span>() {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">cap</span>) <span class="op">=</span> <span class="ident">kind_line</span>.<span class="ident">captures</span>(<span class="ident">l</span>) {
+            <span class="ident">in_secret</span> <span class="op">=</span> <span class="ident">cap</span>[<span class="number">1</span>].<span class="ident">contains</span>(<span class="string">&quot;Secret&quot;</span>);
+            <span class="kw">if</span> <span class="ident">in_secret</span> {
+                <span class="ident">res</span>.<span class="ident">push</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Change to {} elided for security&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">cap</span>[<span class="number">1</span>]));
+            } <span class="kw">else</span> {
+                <span class="ident">res</span>.<span class="ident">push</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{} has changed:&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">cap</span>[<span class="number">1</span>]));
+            }
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">in_secret</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">l</span>.<span class="ident">starts_with</span>(<span class="string">&quot;+++&quot;</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">generation</span>.<span class="ident">is_match</span>(<span class="ident">l</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">minusplus</span>.<span class="ident">is_match</span>(<span class="ident">l</span>) {
+            <span class="ident">res</span>.<span class="ident">push</span>(<span class="ident">l</span>.<span class="ident">to_string</span>());
+        }
+    }
+    <span class="ident">res</span>.<span class="ident">join</span>(<span class="string">&quot;\n&quot;</span>)
 }
 
 <span class="doccomment">/// Check if a diff contains only version related changes</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_version_only</span>(<span class="ident">diff</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">vers</span>: (<span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-    <span class="kw">let</span> <span class="ident">smalldiff</span> <span class="op">=</span> <span class="ident">minify</span>(<span class="ident">diff</span>.<span class="ident">to_string</span>());
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_version_only</span>(<span class="ident">diff</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">vers</span>: (<span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">let</span> <span class="ident">smalldiff</span> <span class="op">=</span> <span class="ident">minify</span>(<span class="ident">diff</span>);
     <span class="macro">trace</span><span class="macro">!</span>(<span class="string">&quot;Checking diff for {:?}&quot;</span>, <span class="ident">vers</span>);
     <span class="kw">for</span> <span class="ident">l</span> <span class="kw">in</span> <span class="ident">smalldiff</span>.<span class="ident">lines</span>() {
         <span class="comment">// ignore headline for resource type (no actual changes)</span>
-        <span class="kw">if</span> <span class="op">!</span><span class="ident">l</span>.<span class="ident">starts_with</span>(<span class="string">&#39;+&#39;</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">l</span>.<span class="ident">starts_with</span>(<span class="string">&#39;-&#39;</span>) <span class="op">&amp;&amp;</span> <span class="ident">l</span>.<span class="ident">contains</span>(<span class="string">&quot;has changed:&quot;</span>) {
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">l</span>.<span class="ident">starts_with</span>(<span class="string">&#39;+&#39;</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">l</span>.<span class="ident">starts_with</span>(<span class="string">&#39;-&#39;</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">l</span>.<span class="ident">contains</span>(<span class="string">&quot;has changed:&quot;</span>) {
             <span class="kw">continue</span>;
         }
         <span class="comment">// ignore all lines that contain one of the versions</span>
-        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">contains</span>(<span class="ident">vers</span>.<span class="number">0</span>) <span class="op">||</span> <span class="ident">l</span>.<span class="ident">contains</span>(<span class="ident">vers</span>.<span class="number">1</span>) {
+        <span class="kw">if</span> <span class="ident">l</span>.<span class="ident">contains</span>(<span class="ident">vers</span>.<span class="number">0</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">l</span>.<span class="ident">contains</span>(<span class="ident">vers</span>.<span class="number">1</span>) {
             <span class="kw">continue</span>;
         }
         <span class="comment">// any other lines found =&gt; not just a version change</span>
@@ -522,25 +690,26 @@
 }
 
 <span class="doccomment">/// Infer a version change diff and extract old version and new version</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">infer_version_change</span>(<span class="ident">diff</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">infer_version_change</span>(<span class="ident">diff</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">img_re</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;[^:]+:(?P&lt;version&gt;[a-z0-9\.\-]+)&quot;</span>).<span class="ident">unwrap</span>();
-    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">img_re</span>.<span class="ident">captures_iter</span>(<span class="ident">diff</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">cap</span><span class="op">|</span> {
-        <span class="ident">cap</span>[<span class="string">&quot;version&quot;</span>].<span class="ident">to_string</span>()
-    }).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;&gt;</span>();
-    <span class="kw">if</span> <span class="ident">res</span>.<span class="ident">len</span>() <span class="op">&gt;=</span> <span class="number">2</span> {
+    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">img_re</span>
+        .<span class="ident">captures_iter</span>(<span class="ident">diff</span>)
+        .<span class="ident">map</span>(<span class="op">|</span><span class="ident">cap</span><span class="op">|</span> <span class="ident">cap</span>[<span class="string">&quot;version&quot;</span>].<span class="ident">to_string</span>())
+        .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+    <span class="kw">if</span> <span class="ident">res</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">2</span> {
         <span class="kw">return</span> <span class="prelude-val">Some</span>((<span class="ident">res</span>[<span class="number">0</span>].<span class="ident">clone</span>(), <span class="ident">res</span>[<span class="number">1</span>].<span class="ident">clone</span>()));
     }
     <span class="prelude-val">None</span>
 }
 
 <span class="doccomment">/// Obfuscate a set of secrets from an input string</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">obfuscate_secrets</span>(<span class="ident">input</span>: <span class="ident">String</span>, <span class="ident">secrets</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">obfuscate_secrets</span>(<span class="ident">input</span>: <span class="ident">String</span>, <span class="ident">secrets</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">input</span>;
     <span class="kw">for</span> <span class="ident">s</span> <span class="kw">in</span> <span class="ident">secrets</span> {
         <span class="comment">// If your secret is less than 8 characters, we won&#39;t obfuscate it</span>
         <span class="comment">// Mostly for fear of clashing with other parts of the output,</span>
         <span class="comment">// but also because it&#39;s an insecure secret anyway</span>
-        <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="op">&gt;=</span> <span class="number">8</span> {
+        <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">8</span> {
             <span class="ident">out</span> <span class="op">=</span> <span class="ident">out</span>.<span class="ident">replace</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>, <span class="string">&quot;************&quot;</span>);
         }
     }
@@ -549,7 +718,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">infer_version_change</span>, <span class="ident">is_version_only</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">infer_version_change</span>, <span class="ident">is_version_only</span>, <span class="ident">minify</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">version_change_test</span>() {
@@ -622,6 +791,115 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">new</span>, <span class="string">&quot;1.0.7&quot;</span>);
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">is_version_only</span>(<span class="ident">input</span>, (<span class="kw-2">&amp;</span><span class="ident">new</span>, <span class="kw-2">&amp;</span><span class="ident">old</span>)));
     }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">kubectl_diff_minify_test</span>() {
+        <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="string">&quot;--- /tmp/LIVE-A9/apps.v1.Deployment.dev.raftcat   2019-09-11 16:12:26.819641578 +0100
++++ /tmp/MERGED-B0/apps.v1.Deployment.dev.raftcat 2019-09-11 16:12:26.852974183 +0100
+@@ -6,7 +6,7 @@
+     kubectl.kubernetes.io/last-applied-configuration: |
+       {\&quot;apiVersion\&quot;:\&quot;apps/v1\&quot;,\&quot;kind\&quot;:\&quot;Deployment\&quot;}
+   creationTimestamp: \&quot;2019-09-11T14:49:14Z\&quot;
+-  generation: 5
++  generation: 6
+   labels:
+     app: raftcat
+     chart: raftcat-0.3.0
+@@ -66,7 +66,7 @@
+       containers:
+       - env:
+         - name: BLAAA
+-          value: eirik4
++          value: eirik5
+         - name: LOG_LEVEL
+           value: DEBUG
+         - name: NAMESPACE&quot;</span>;
+
+        <span class="macro">assert_eq</span><span class="macro">!</span>(
+            <span class="ident">minify</span>(<span class="ident">input</span>),
+            <span class="string">&quot;apps.v1.Deployment.dev.raftcat has changed:
+-          value: eirik4
++          value: eirik5&quot;</span>
+        );
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">kubectl_diff_version_only</span>() {
+        <span class="kw">let</span> <span class="ident">min_input</span> <span class="op">=</span> <span class="string">&quot;extensions.v1beta1.Deployment.dev has changed:
+-    app.kubernetes.io/version: a844d0db93216b25d22a482ab80029d4a552f285
++    app.kubernetes.io/version: 203894776eed17f00b9dd0bc25a09dcef644ea67
+-          value: a844d0db93216b25d22a482ab80029d4a552f285
+-        image: quay.io/babylonhealth/aim-dashboard:a844d0db93216b25d22a482ab80029d4a552f285
++          value: 203894776eed17f00b9dd0bc25a09dcef644ea67
++        image: quay.io/babylonhealth/aim-dashboard:203894776eed17f00b9dd0bc25a09dcef644ea67
+v1.ServiceAccount.dev has changed:
+-    app.kubernetes.io/version: a844d0db93216b25d22a482ab80029d4a552f285
++    app.kubernetes.io/version: 203894776eed17f00b9dd0bc25a09dcef644ea67
+v1.Service.dev has changed:
+-    app.kubernetes.io/version: a844d0db93216b25d22a482ab80029d4a552f285
++    app.kubernetes.io/version: 203894776eed17f00b9dd0bc25a09dcef644ea67&quot;</span>;
+
+        <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">infer_version_change</span>(<span class="ident">min_input</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">res</span>.<span class="ident">is_some</span>());
+        <span class="kw">let</span> (<span class="ident">old</span>, <span class="ident">new</span>) <span class="op">=</span> <span class="ident">res</span>.<span class="ident">unwrap</span>();
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">is_version_only</span>(<span class="ident">min_input</span>, (<span class="kw-2">&amp;</span><span class="ident">old</span>, <span class="kw-2">&amp;</span><span class="ident">new</span>)));
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">kubectl_diff_secret_squash_test</span>() {
+        <span class="comment">// A pretty large diff input that checks that secrets are filtered out</span>
+        <span class="comment">// ..and that it doesn&#39;t filter out objects surrounding the secrets</span>
+        <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="string">r#&quot;diff -u -N /tmp/LIVE-547038353/apps.v1.Deployment.dev.raftcat /tmp/MERGED-191875772/apps.v1.Deployment.dev.raftcat
+--- /tmp/LIVE-547038353/apps.v1.Deployment.dev.raftcat   2020-04-07 12:25:26.255493075 +0100
++++ /tmp/MERGED-191875772/apps.v1.Deployment.dev.raftcat 2020-04-07 12:25:26.312159054 +0100
+@@ -6,7 +6,7 @@
+   creationTimestamp: &quot;2019-11-18T22:47:05Z&quot;
+-  generation: 227
++  generation: 228
+   labels:
+     app: raftcat
+     app.kubernetes.io/managed-by: shipcat
+@@ -45,7 +45,7 @@
+     metadata:
+       annotations:
+         checksum/config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+-        checksum/secrets: 3e6c8c2098228c15554026bef845a1e121c6d32a315ecbba953d92e8b4d26bed
++        checksum/secrets: fd7f339fc814c7067c66213705ff7bfc78a81723e50c1083bd3a29df272d34e7
+         kubectl.kubernetes.io/restartedAt: &quot;2020-03-18T18:40:01Z&quot;
+       creationTimestamp: null
+diff -u -N /tmp/LIVE-422759316/v1.Secret.dev.raftcat-secrets /tmp/MERGED-101659107/v1.Secret.dev.raftcat-secrets
+--- /tmp/LIVE-422759316/v1.Secret.dev.raftcat-secrets   2020-04-07 12:26:32.618020569 +0100
++++ /tmp/MERGED-101659107/v1.Secret.dev.raftcat-secrets 2020-04-07 12:26:32.664686669 +0100
+@@ -1,9 +1,10 @@
+ apiVersion: v1
+ data:
+-  SENTRY_DSN: aGVsbG8gd29ybGQK==
++  SENTRY_DSN: YUdWc2JHOGdkMjl5YkdRPQ==
++  WOOT: aGk=
+ kind: Secret
+ metadata:
+diff -u -N /tmp/LIVE-167159470/autoscaling.v2beta2.HorizontalPodAutoscaler.dev.raftcat /tmp/MERGED-264369205/autoscaling.v2beta2.HorizontalPodAutoscaler.dev.raftcat
+--- /tmp/LIVE-167159470/autoscaling.v2beta2.HorizontalPodAutoscaler.dev.raftcat 2020-04-07 13:02:15.788649534 +0100
++++ /tmp/MERGED-264369205/autoscaling.v2beta2.HorizontalPodAutoscaler.dev.raftcat   2020-04-07 13:02:15.875315149 +0100
+@@ -22,7 +22,7 @@
+ spec:
+-  maxReplicas: 3
++  maxReplicas: 4
+   metrics:
+   - resource:
+       name: cpu&quot;#</span>;
+
+        <span class="macro">assert_eq</span><span class="macro">!</span>(
+            <span class="ident">minify</span>(<span class="ident">input</span>),
+            <span class="string">&quot;apps.v1.Deployment.dev.raftcat has changed:
+-        checksum/secrets: 3e6c8c2098228c15554026bef845a1e121c6d32a315ecbba953d92e8b4d26bed
++        checksum/secrets: fd7f339fc814c7067c66213705ff7bfc78a81723e50c1083bd3a29df272d34e7
+Change to v1.Secret.dev.raftcat elided for security
+autoscaling.v2beta2.HorizontalPodAutoscaler.dev.raftcat has changed:
+-  maxReplicas: 3
++  maxReplicas: 4&quot;</span>
+        );
+    }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "shipcat";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "shipcat";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

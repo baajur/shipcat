@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["CronJob",""]]});
+initSidebarItems({"struct":[["CronJob",""],["JobVolumeClaim",""]]});

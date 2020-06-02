@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/region.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>region.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `shipcat_definitions/src/region.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>region.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shipcat_definitions/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -591,75 +591,20 @@
 <span id="591">591</span>
 <span id="592">592</span>
 <span id="593">593</span>
-<span id="594">594</span>
-<span id="595">595</span>
-<span id="596">596</span>
-<span id="597">597</span>
-<span id="598">598</span>
-<span id="599">599</span>
-<span id="600">600</span>
-<span id="601">601</span>
-<span id="602">602</span>
-<span id="603">603</span>
-<span id="604">604</span>
-<span id="605">605</span>
-<span id="606">606</span>
-<span id="607">607</span>
-<span id="608">608</span>
-<span id="609">609</span>
-<span id="610">610</span>
-<span id="611">611</span>
-<span id="612">612</span>
-<span id="613">613</span>
-<span id="614">614</span>
-<span id="615">615</span>
-<span id="616">616</span>
-<span id="617">617</span>
-<span id="618">618</span>
-<span id="619">619</span>
-<span id="620">620</span>
-<span id="621">621</span>
-<span id="622">622</span>
-<span id="623">623</span>
-<span id="624">624</span>
-<span id="625">625</span>
-<span id="626">626</span>
-<span id="627">627</span>
-<span id="628">628</span>
-<span id="629">629</span>
-<span id="630">630</span>
-<span id="631">631</span>
-<span id="632">632</span>
-<span id="633">633</span>
-<span id="634">634</span>
-<span id="635">635</span>
-<span id="636">636</span>
-<span id="637">637</span>
-<span id="638">638</span>
-<span id="639">639</span>
-<span id="640">640</span>
-<span id="641">641</span>
-<span id="642">642</span>
-<span id="643">643</span>
-<span id="644">644</span>
-<span id="645">645</span>
-<span id="646">646</span>
-<span id="647">647</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">config</span>::<span class="ident">Cluster</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">structs</span>::<span class="ident">kong</span>::<span class="ident">Kong</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">BTreeMap</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections</span>::<span class="ident">BTreeMap</span>, <span class="ident">env</span>};
+
+<span class="kw">use</span> <span class="ident">regex</span>::<span class="ident">Regex</span>;
 
 <span class="kw">use</span> <span class="ident">semver</span>::<span class="ident">Version</span>;
 
 <span class="kw">use</span> <span class="ident">url</span>::<span class="ident">Url</span>;
 <span class="kw">use</span> <span class="ident">uuid</span>::<span class="ident">Uuid</span>;
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Vault</span>, <span class="prelude-ty">Result</span>, <span class="ident">BaseManifest</span>, <span class="ident">ConfigType</span>, <span class="ident">Team</span>};
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span> <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">BaseManifest</span>, <span class="ident">ConfigState</span>, <span class="prelude-ty">Result</span>, <span class="ident">Vault</span>};
 
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">structs</span>::{<span class="ident">Authorization</span>};
+<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">structs</span>::<span class="ident">Authorization</span>;
 
 <span class="doccomment">/// Versioning Scheme used in region</span>
 <span class="doccomment">///</span>
@@ -678,34 +623,36 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">VersionScheme</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">VersionScheme</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VersionScheme</span> {
         <span class="ident">VersionScheme</span>::<span class="ident">Semver</span>
     }
 }
 
 <span class="doccomment">/// Version validator</span>
 <span class="kw">impl</span> <span class="ident">VersionScheme</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ver</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">use</span> <span class="ident">regex</span>::<span class="ident">Regex</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ver</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">gitre</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;^[0-9a-f\-]{40}$&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">VersionScheme</span>::<span class="ident">GitShaOrSemver</span> <span class="op">=&gt;</span> {
-                <span class="kw">if</span> <span class="op">!</span><span class="ident">gitre</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>) <span class="op">&amp;&amp;</span> <span class="ident">Version</span>::<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>).<span class="ident">is_err</span>() {
+            <span class="ident">VersionScheme</span>::<span class="ident">GitShaOrSemver</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">if</span> <span class="op">!</span><span class="ident">gitre</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">Version</span>::<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>).<span class="ident">is_err</span>() {
                     <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Illegal tag {} (floating tags cannot be rolled back please use 40 char git sha or semver)&quot;</span>, <span class="ident">ver</span>);
                 }
-            },
-            <span class="ident">VersionScheme</span>::<span class="ident">Semver</span> <span class="op">=&gt;</span> {
+            }
+            <span class="ident">VersionScheme</span>::<span class="ident">Semver</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">Version</span>::<span class="ident">parse</span>(<span class="kw-2">&amp;</span><span class="ident">ver</span>).<span class="ident">is_err</span>() {
-                    <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Version {} is not a semver version in a region using semver versions&quot;</span>, <span class="ident">ver</span>);
+                    <span class="macro">bail</span><span class="macro">!</span>(
+                        <span class="string">&quot;Version {} is not a semver version in a region using semver versions&quot;</span>,
+                        <span class="ident">ver</span>
+                    );
                 }
-            },
+            }
         };
         <span class="prelude-val">Ok</span>(())
     }
 }
 
 <span class="doccomment">/// Vault configuration for a region</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">derive</span>(<span class="ident">Default</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VaultConfig</span> {
@@ -718,15 +665,19 @@
 }
 
 <span class="kw">impl</span> <span class="ident">VaultConfig</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">url</span> <span class="op">==</span> <span class="string">&quot;&quot;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">url</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;&quot;</span> {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Need to set vault url for {}&quot;</span>, <span class="ident">region</span>);
         }
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">folder</span> <span class="op">==</span> <span class="string">&quot;&quot;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">folder</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;&quot;</span> {
             <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Need to set the vault folder for {}&quot;</span>, <span class="ident">region</span>);
         }
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">folder</span>.<span class="ident">contains</span>(<span class="string">&#39;/&#39;</span>) {
-            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;vault config folder &#39;{}&#39; (under {}) cannot contain slashes&quot;</span>, <span class="self">self</span>.<span class="ident">folder</span>, <span class="self">self</span>.<span class="ident">url</span>);
+            <span class="macro">bail</span><span class="macro">!</span>(
+                <span class="string">&quot;vault config folder &#39;{}&#39; (under {}) cannot contain slashes&quot;</span>,
+                <span class="self">self</span>.<span class="ident">folder</span>,
+                <span class="self">self</span>.<span class="ident">url</span>
+            );
         }
         <span class="prelude-val">Ok</span>(())
     }
@@ -735,21 +686,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns plaintext hcl</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">make_policy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mfs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BaseManifest</span><span class="op">&gt;</span>, <span class="ident">team</span>: <span class="ident">Team</span>, <span class="ident">env</span>: <span class="ident">Environment</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">make_policy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mfs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BaseManifest</span><span class="op">&gt;</span>, <span class="ident">team</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">env</span>: <span class="ident">Environment</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">owned_manifests</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
         <span class="kw">for</span> <span class="ident">mf</span> <span class="kw">in</span> <span class="ident">mfs</span> {
-            <span class="kw">if</span> <span class="ident">mf</span>.<span class="ident">metadata</span>.<span class="ident">team</span> <span class="op">==</span> <span class="ident">team</span>.<span class="ident">name</span> {
+            <span class="kw">if</span> <span class="ident">mf</span>.<span class="ident">metadata</span>.<span class="ident">team</span> <span class="op">=</span><span class="op">=</span> <span class="ident">team</span> {
                 <span class="ident">owned_manifests</span>.<span class="ident">push</span>(<span class="ident">mf</span>.<span class="ident">name</span>);
             }
         }
-        <span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">template</span>(<span class="ident">owned_manifests</span>, <span class="ident">env</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">template</span>(<span class="ident">owned_manifests</span>, <span class="ident">env</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">output</span>)
     }
 }
 
 <span class="comment">//#[derive(Serialize, Deserialize, Clone, Default)]</span>
 <span class="comment">//#[cfg_attr(feature = &quot;filesystem&quot;, serde(deny_unknown_fields))]</span>
-<span class="comment">//pub struct HostPort {</span>
+<span class="comment">// pub struct HostPort {</span>
 <span class="comment">//    /// Hostname || IP || FQDN</span>
 <span class="comment">//    pub host: String,</span>
 <span class="comment">//    /// Port</span>
@@ -757,7 +708,7 @@
 <span class="comment">//}</span>
 
 <span class="doccomment">/// Kafka configuration for a region</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KafkaConfig</span> {
     <span class="doccomment">/// Broker urls in &quot;hostname:port&quot; format.</span>
@@ -777,7 +728,7 @@
 }
 
 <span class="doccomment">/// Webhook types that shipcat might trigger after actions</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;name&quot;</span>, <span class="ident">deny_unknown_fields</span>, <span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Webhook</span> {
     <span class="doccomment">/// Audit webhook details</span>
@@ -785,28 +736,27 @@
 }
 
 <span class="doccomment">/// Where / how to send audited events</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AuditWebhook</span> {
     <span class="doccomment">/// Endpoint</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;url_serde&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Url</span>,
     <span class="doccomment">/// Credential</span>
     <span class="kw">pub</span> <span class="ident">token</span>: <span class="ident">String</span>,
 }
 
 <span class="doccomment">/// Configure how CRs will be deployed on a region</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CRSettings</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;config&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">shipcatConfig</span>: <span class="ident">ConfigType</span>,
+    <span class="kw">pub</span> <span class="ident">shipcatConfig</span>: <span class="ident">ConfigState</span>,
 }
 
 <span class="comment">// ----------------------------------------------------------------------------------</span>
 
 <span class="doccomment">/// Kong configuration for a region</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span> <span class="comment">// TODO: better Default impl</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span> <span class="comment">// TODO: better Default impl</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KongConfig</span> {
     <span class="doccomment">/// Base URL to use (e.g. uk.dev.babylontech.co.uk)</span>
@@ -815,13 +765,8 @@
     <span class="kw">pub</span> <span class="ident">config_url</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Kong token expiration time (in seconds)</span>
     <span class="kw">pub</span> <span class="ident">kong_token_expiration</span>: <span class="ident">u32</span>,
-    <span class="kw">pub</span> <span class="ident">oauth_provision_key</span>: <span class="ident">String</span>,
     <span class="doccomment">/// TCP logging options</span>
     <span class="kw">pub</span> <span class="ident">tcp_log</span>: <span class="ident">KongTcpLogConfig</span>,
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">anonymous_consumers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">KongAnonymousConsumers</span><span class="op">&gt;</span>,
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">consumers</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">KongOauthConsumer</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">jwt_consumers</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">KongJwtConsumer</span><span class="op">&gt;</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
@@ -831,7 +776,7 @@
 }
 
 <span class="doccomment">/// StatusCake configuration for a region</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StatuscakeConfig</span> {
     <span class="doccomment">/// Contact Group that will be used if tests go down</span>
@@ -843,7 +788,7 @@
 }
 
 <span class="doccomment">/// Logz.io configuration for a region</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span> <span class="comment">// TODO: better Default impl</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span> <span class="comment">// TODO: better Default impl</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LogzIoConfig</span> {
     <span class="doccomment">/// Base URL to use (e.g. https://app-eu.logz.io/#/dashboard/kibana/dashboard)</span>
@@ -853,7 +798,7 @@
 }
 
 <span class="doccomment">/// Grafana details for a region</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span> <span class="comment">// TODO: better Default impl</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span> <span class="comment">// TODO: better Default impl</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GrafanaConfig</span> {
     <span class="doccomment">/// Base URL to use (e.g. https://dev-grafana.ops.babylontech.co.uk)</span>
@@ -863,78 +808,35 @@
 }
 
 <span class="doccomment">/// Sentry details for a region</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span> <span class="comment">// TODO: better Default impl</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span> <span class="comment">// TODO: better Default impl</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SentryConfig</span> {
     <span class="doccomment">/// Base URL to use (e.g. https://dev-uk-sentry.ops.babylontech.co.uk)</span>
     <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">String</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KongAnonymousConsumers</span> {
     <span class="kw">pub</span> <span class="ident">anonymous</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KongOauthConsumer</span> {
     <span class="kw">pub</span> <span class="ident">oauth_client_id</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">oauth_client_secret</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span> <span class="ident">username</span>: <span class="ident">String</span>
+    <span class="kw">pub</span> <span class="ident">username</span>: <span class="ident">String</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KongJwtConsumer</span> {
     <span class="kw">pub</span> <span class="ident">kid</span>: <span class="ident">String</span>,
     <span class="kw">pub</span> <span class="ident">public_key</span>: <span class="ident">String</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">KongConfig</span> {
-    <span class="kw">fn</span> <span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vault</span>: <span class="kw-2">&amp;</span><span class="ident">Vault</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">for</span> (<span class="ident">svc</span>, <span class="ident">data</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">consumers</span> {
-            <span class="kw">if</span> <span class="ident">data</span>.<span class="ident">oauth_client_id</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span> {
-                <span class="kw">let</span> <span class="ident">vkey</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/kong/consumers/{}_oauth_client_id&quot;</span>, <span class="ident">region</span>, <span class="ident">svc</span>);
-                <span class="ident">data</span>.<span class="ident">oauth_client_id</span> <span class="op">=</span> <span class="ident">vault</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>)<span class="question-mark">?</span>;
-            }
-            <span class="kw">if</span> <span class="ident">data</span>.<span class="ident">oauth_client_secret</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span> {
-                <span class="kw">let</span> <span class="ident">vkey</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/kong/consumers/{}_oauth_client_secret&quot;</span>, <span class="ident">region</span>, <span class="ident">svc</span>);
-                <span class="ident">data</span>.<span class="ident">oauth_client_secret</span> <span class="op">=</span> <span class="ident">vault</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>)<span class="question-mark">?</span>;
-            }
-        }
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">oauth_provision_key</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span> {
-            <span class="kw">let</span> <span class="ident">vkey</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/kong/oauth_provision_key&quot;</span>, <span class="ident">region</span>);
-            <span class="self">self</span>.<span class="ident">oauth_provision_key</span> <span class="op">=</span> <span class="ident">vault</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>)<span class="question-mark">?</span>;
-        }
-        <span class="prelude-val">Ok</span>(())
-    }
-    <span class="kw">fn</span> <span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vault</span>: <span class="kw-2">&amp;</span><span class="ident">Vault</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">expected</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
-        <span class="kw">for</span> (<span class="ident">svc</span>, <span class="ident">data</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">consumers</span> {
-            <span class="kw">if</span> <span class="ident">data</span>.<span class="ident">oauth_client_id</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span> {
-                <span class="ident">expected</span>.<span class="ident">push</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}_oauth_client_id&quot;</span>, <span class="ident">svc</span>));
-            }
-            <span class="kw">if</span> <span class="ident">data</span>.<span class="ident">oauth_client_secret</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span> {
-                <span class="ident">expected</span>.<span class="ident">push</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}_oauth_client_secret&quot;</span>, <span class="ident">svc</span>));
-            }
-        }
-        <span class="kw">if</span> <span class="ident">expected</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(()); <span class="comment">// no point trying to cross reference</span>
-        }
-        <span class="kw">let</span> <span class="ident">secpth</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/kong/consumers&quot;</span>, <span class="ident">region</span>);
-        <span class="kw">let</span> <span class="ident">found</span> <span class="op">=</span> <span class="ident">vault</span>.<span class="ident">list</span>(<span class="kw-2">&amp;</span><span class="ident">secpth</span>)<span class="question-mark">?</span>;
-        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Found kong secrets {:?} for {}&quot;</span>, <span class="ident">found</span>, <span class="ident">region</span>);
-        <span class="kw">for</span> <span class="ident">v</span> <span class="kw">in</span> <span class="ident">expected</span> {
-            <span class="kw">if</span> <span class="op">!</span><span class="ident">found</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>) {
-                <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Kong secret {} not found in {} vault&quot;</span>, <span class="ident">v</span>, <span class="ident">region</span>);
-            }
-        }
-        <span class="prelude-val">Ok</span>(())
-    }
-}
-
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KongTcpLogConfig</span> {
     <span class="kw">pub</span> <span class="ident">enabled</span>: <span class="ident">bool</span>,
@@ -943,21 +845,21 @@
 }
 
 <span class="kw">impl</span> <span class="ident">KongConfig</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(())
     }
 }
 
 <span class="doccomment">/// Defaults for services in this region</span>
 <span class="comment">// TODO: This should be ManifestDefaults from shipcat_filebacked</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DefaultConfig</span> {
     <span class="kw">pub</span> <span class="ident">kong</span>: <span class="ident">DefaultKongConfig</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DefaultKongConfig</span> {
@@ -967,41 +869,44 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Webhook</span> {
-    <span class="kw">fn</span> <span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vault</span>: <span class="kw-2">&amp;</span><span class="ident">Vault</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vault</span>: <span class="kw-2">&amp;</span><span class="ident">Vault</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">Webhook</span>::<span class="ident">Audit</span>(<span class="ident">h</span>) <span class="op">=&gt;</span> {
-                <span class="kw">if</span> <span class="ident">h</span>.<span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;IN_VAULT&quot;</span> {
+            <span class="ident">Webhook</span>::<span class="ident">Audit</span>(<span class="ident">h</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">if</span> <span class="ident">h</span>.<span class="ident">token</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;IN_VAULT&quot;</span> {
                     <span class="kw">let</span> <span class="ident">vkey</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/shipcat/WEBHOOK_AUDIT_TOKEN&quot;</span>, <span class="ident">region</span>);
-                    <span class="ident">h</span>.<span class="ident">token</span> <span class="op">=</span> <span class="ident">vault</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>)<span class="question-mark">?</span>;
+                    <span class="ident">h</span>.<span class="ident">token</span> <span class="op">=</span> <span class="ident">vault</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>).<span class="kw">await</span><span class="question-mark">?</span>;
                 }
             }
         }
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vault</span>: <span class="kw-2">&amp;</span><span class="ident">Vault</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vault</span>: <span class="kw-2">&amp;</span><span class="ident">Vault</span>, <span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">Webhook</span>::<span class="ident">Audit</span>(<span class="ident">_h</span>) <span class="op">=&gt;</span> {
+            <span class="ident">Webhook</span>::<span class="ident">Audit</span>(<span class="ident">_h</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">vkey</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}/shipcat/WEBHOOK_AUDIT_TOKEN&quot;</span>, <span class="ident">region</span>);
-                <span class="ident">vault</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>)<span class="question-mark">?</span>;
+                <span class="ident">vault</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="ident">vkey</span>).<span class="kw">await</span><span class="question-mark">?</span>;
             }
         }
         <span class="comment">// TODO: when more secrets, build up a list and do a LIST on shipcat folder</span>
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_configuration</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_configuration</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">whc</span> <span class="op">=</span> <span class="ident">BTreeMap</span>::<span class="ident">default</span>();
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">Webhook</span>::<span class="ident">Audit</span>(<span class="ident">_h</span>) <span class="op">=&gt;</span> {
-                <span class="ident">whc</span>.<span class="ident">insert</span>(<span class="string">&quot;SHIPCAT_AUDIT_CONTEXT_ID&quot;</span>.<span class="ident">into</span>(),
-                                <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;SHIPCAT_AUDIT_CONTEXT_ID&quot;</span>)
-                                .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">Uuid</span>::<span class="ident">new_v4</span>().<span class="ident">to_string</span>()));
+            <span class="ident">Webhook</span>::<span class="ident">Audit</span>(<span class="ident">_h</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">whc</span>.<span class="ident">insert</span>(
+                    <span class="string">&quot;SHIPCAT_AUDIT_CONTEXT_ID&quot;</span>.<span class="ident">into</span>(),
+                    <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;SHIPCAT_AUDIT_CONTEXT_ID&quot;</span>).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">Uuid</span>::<span class="ident">new_v4</span>().<span class="ident">to_string</span>()),
+                );
 
                 <span class="comment">// if we are on jenkins</span>
-                <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Ok</span>(<span class="ident">url</span>), <span class="prelude-val">Ok</span>(<span class="ident">revision</span>), <span class="prelude-val">Ok</span>(<span class="kw">_</span>)) <span class="op">=</span> (<span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;BUILD_URL&quot;</span>),
-                                                         <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;GIT_COMMIT&quot;</span>),
-                                                         <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;BUILD_NUMBER&quot;</span>)) {
+                <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Ok</span>(<span class="ident">url</span>), <span class="prelude-val">Ok</span>(<span class="ident">revision</span>), <span class="prelude-val">Ok</span>(<span class="kw">_</span>)) <span class="op">=</span> (
+                    <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;BUILD_URL&quot;</span>),
+                    <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;GIT_COMMIT&quot;</span>),
+                    <span class="ident">env</span>::<span class="ident">var</span>(<span class="string">&quot;BUILD_NUMBER&quot;</span>),
+                ) {
                     <span class="ident">whc</span>.<span class="ident">insert</span>(<span class="string">&quot;SHIPCAT_AUDIT_REVISION&quot;</span>.<span class="ident">into</span>(), <span class="ident">revision</span>);
                     <span class="ident">whc</span>.<span class="ident">insert</span>(<span class="string">&quot;SHIPCAT_AUDIT_CONTEXT_LINK&quot;</span>.<span class="ident">into</span>(), <span class="ident">url</span>);
                 }
@@ -1016,7 +921,7 @@
 
                 <span class="comment">// strict requirements</span>
                 <span class="kw">if</span> <span class="op">!</span><span class="ident">whc</span>.<span class="ident">contains_key</span>(<span class="string">&quot;SHIPCAT_AUDIT_REVISION&quot;</span>) {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;SHIPCAT_AUDIT_REVISION not specified&quot;</span>.<span class="ident">into</span>())
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;SHIPCAT_AUDIT_REVISION not specified&quot;</span>.<span class="ident">into</span>());
                 }
 
                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Audit webhook config {:?}&quot;</span>, <span class="ident">whc</span>);
@@ -1032,15 +937,14 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test_webhooks</span> {
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Webhook</span>;
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">AuditWebhook</span>;
-    <span class="kw">use</span> <span class="ident">url</span>::<span class="ident">Url</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">AuditWebhook</span>, <span class="ident">Webhook</span>};
     <span class="kw">use</span> <span class="ident">regex</span>::<span class="ident">Regex</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
+    <span class="kw">use</span> <span class="ident">url</span>::<span class="ident">Url</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">region_webhook_audit_config_jenkins_defaults</span>() {
-        <span class="kw">let</span> <span class="ident">wha</span> <span class="op">=</span> <span class="ident">Webhook</span>::<span class="ident">Audit</span>(<span class="ident">AuditWebhook</span>{
+        <span class="kw">let</span> <span class="ident">wha</span> <span class="op">=</span> <span class="ident">Webhook</span>::<span class="ident">Audit</span>(<span class="ident">AuditWebhook</span> {
             <span class="ident">url</span>: <span class="ident">Url</span>::<span class="ident">parse</span>(<span class="string">&quot;http://testnoop&quot;</span>).<span class="ident">unwrap</span>(),
             <span class="ident">token</span>: <span class="string">&quot;noop&quot;</span>.<span class="ident">into</span>(),
         });
@@ -1101,13 +1005,13 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">Environment</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">Environment</span>::<span class="ident">Test</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">ToString</span> <span class="kw">for</span> <span class="ident">Environment</span> {
-    <span class="kw">fn</span> <span class="ident">to_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+    <span class="kw">fn</span> <span class="ident">to_string</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="comment">// NB: this corresponds to serde serialization atm - used in a few places</span>
         <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="self">self</span>).<span class="ident">to_lowercase</span>()
     }
@@ -1116,27 +1020,18 @@
 <span class="comment">// ----------------------------------------------------------------------------------</span>
 
 <span class="doccomment">/// Environments are well defined strings</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ReconciliationMode</span> {
-    <span class="doccomment">/// Tiller owned, CRD based decision, versioned, forceable</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// A stop gap between CrdOwned</span>
-    <span class="ident">CrdVersioned</span>,
-
-    <span class="doccomment">/// Tiller owned, CRD based decision, versioned, forceable, with .status</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Another stop gap before CrdOwned</span>
-    <span class="ident">CrdStatus</span>,
-
     <span class="doccomment">/// Shipcat owned, CRD based decision</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// Requires kubernetes 1.13 and above (default).</span>
     <span class="doccomment">/// If CRD was configured, kube apply chart with owner references</span>
     <span class="ident">CrdOwned</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">ReconciliationMode</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
-        <span class="ident">ReconciliationMode</span>::<span class="ident">CrdVersioned</span>
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">ReconciliationMode</span>::<span class="ident">CrdOwned</span>
     }
 }
 
@@ -1146,7 +1041,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Either it&#39;s a pure kubernetes context with a namespace and a cluster,</span>
 <span class="doccomment">/// or it&#39;s an abstract concept with many associated real kubernetes contexts.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">derive</span>(<span class="ident">Default</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;filesystem&quot;</span>, <span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Region</span> {
@@ -1184,7 +1079,7 @@
     <span class="kw">pub</span> <span class="ident">env</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Kong configuration for the region</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">kong</span>: <span class="ident">KongConfig</span>,
+    <span class="kw">pub</span> <span class="ident">kong</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">KongConfig</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Statuscake configuration for the region</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">statuscake</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">StatuscakeConfig</span><span class="op">&gt;</span>,
@@ -1213,52 +1108,44 @@
     <span class="doccomment">/// Default values for services</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing</span>, <span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">defaults</span>: <span class="ident">DefaultConfig</span>,
+    <span class="doccomment">/// The regular expression used to verify destination rules&#39; regions</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_regex&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">destinationRuleHostRegex</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Regex</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Region</span> {
-    <span class="doccomment">/// Find the Cluster struct that owns this Region</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find_owning_cluster</span>(<span class="ident">region</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">clusters</span>: <span class="kw-2">&amp;</span><span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Cluster</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Cluster</span><span class="op">&gt;</span> {
-        <span class="kw">for</span> <span class="ident">c</span> <span class="kw">in</span> <span class="ident">clusters</span>.<span class="ident">values</span>() {
-            <span class="kw">if</span> <span class="ident">c</span>.<span class="ident">regions</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span> <span class="op">==</span> <span class="ident">region</span>) {
-                <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">c</span>.<span class="ident">clone</span>());
-            }
-        }
-        <span class="prelude-val">None</span>
-    }
-
     <span class="comment">// Internal secret populator for Config::new</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Vault</span>::<span class="ident">regional</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">vault</span>)<span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">kong</span>.<span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>)<span class="question-mark">?</span>;
         <span class="kw">for</span> <span class="ident">wh</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">webhooks</span>.<span class="ident">iter_mut</span>() {
-            <span class="ident">wh</span>.<span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>)<span class="question-mark">?</span>;
+            <span class="ident">wh</span>.<span class="ident">secrets</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="comment">// Entry point for region verifier</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Vault</span>::<span class="ident">regional</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">vault</span>)<span class="question-mark">?</span>;
-        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Validating kong secrets for {}&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>);
-        <span class="self">self</span>.<span class="ident">kong</span>.<span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>)<span class="question-mark">?</span>;
         <span class="kw">for</span> <span class="ident">wh</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">webhooks</span> {
-            <span class="ident">wh</span>.<span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>)<span class="question-mark">?</span>;
+            <span class="ident">wh</span>.<span class="ident">verify_secrets_exist</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         }
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="comment">// Get the Vault URL for a given service in this region</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vault_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">app</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">String</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vault_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">app</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="kw">let</span> <span class="ident">vault_url</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">vault</span>.<span class="ident">url</span>.<span class="ident">clone</span>();
         <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="string">&quot;/ui/vault/secrets/secret/list/&quot;</span>;
-        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{vault_url}/{path}/{env}/{app}/&quot;</span>,
+        <span class="macro">format</span><span class="macro">!</span>(
+            <span class="string">&quot;{vault_url}/{path}/{env}/{app}/&quot;</span>,
             <span class="ident">vault_url</span> <span class="op">=</span> <span class="ident">vault_url</span>.<span class="ident">trim_matches</span>(<span class="string">&#39;/&#39;</span>),
             <span class="ident">path</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">trim_matches</span>(<span class="string">&#39;/&#39;</span>),
             <span class="ident">env</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>,
-            <span class="ident">app</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">app</span>)
+            <span class="ident">app</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">app</span>
+        )
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">grafana_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">app</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">grafana_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">app</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">grafana</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">gf</span><span class="op">|</span> {
             <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{grafana_url}/d/{dashboard_id}/kubernetes-services?var-cluster={cluster}&amp;var-namespace={namespace}&amp;var-deployment={app}&quot;</span>,
               <span class="ident">grafana_url</span> <span class="op">=</span> <span class="ident">gf</span>.<span class="ident">url</span>.<span class="ident">trim_matches</span>(<span class="string">&#39;/&#39;</span>),
@@ -1270,28 +1157,33 @@
     }
 
     <span class="comment">// Get the Sentry URL for a given service slug in a cluster in this region</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sentry_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slug</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sentry_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slug</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">sentry</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> {
-            <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{sentry_base_url}/sentry/{slug}&quot;</span>,
-                    <span class="ident">sentry_base_url</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">url</span>, <span class="ident">slug</span> <span class="op">=</span> <span class="ident">slug</span>)
+            <span class="macro">format</span><span class="macro">!</span>(
+                <span class="string">&quot;{sentry_base_url}/sentry/{slug}&quot;</span>,
+                <span class="ident">sentry_base_url</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">url</span>,
+                <span class="ident">slug</span> <span class="op">=</span> <span class="ident">slug</span>
+            )
         })
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">logzio_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">app</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">logzio_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">app</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">logzio</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">lio</span><span class="op">|</span> {
-            <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{logzio_url}/{app}-{env}?&amp;switchToAccountId={account_id}&quot;</span>,
-              <span class="ident">logzio_url</span> <span class="op">=</span> <span class="ident">lio</span>.<span class="ident">url</span>.<span class="ident">trim_matches</span>(<span class="string">&#39;/&#39;</span>),
-              <span class="ident">app</span> <span class="op">=</span> <span class="ident">app</span>,
-              <span class="ident">env</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">name</span>,
-              <span class="ident">account_id</span> <span class="op">=</span> <span class="ident">lio</span>.<span class="ident">account_id</span>)
+            <span class="macro">format</span><span class="macro">!</span>(
+                <span class="string">&quot;{logzio_url}/{app}-{env}?&amp;switchToAccountId={account_id}&quot;</span>,
+                <span class="ident">logzio_url</span> <span class="op">=</span> <span class="ident">lio</span>.<span class="ident">url</span>.<span class="ident">trim_matches</span>(<span class="string">&#39;/&#39;</span>),
+                <span class="ident">app</span> <span class="op">=</span> <span class="ident">app</span>,
+                <span class="ident">env</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">name</span>,
+                <span class="ident">account_id</span> <span class="op">=</span> <span class="ident">lio</span>.<span class="ident">account_id</span>
+            )
         })
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raftcat_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">base_urls</span>.<span class="ident">get</span>(<span class="string">&quot;external_services&quot;</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">base</span><span class="op">|</span> {
-            <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{base}/raftcat/&quot;</span>, <span class="ident">base</span> <span class="op">=</span> <span class="ident">base</span>)
-        })
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raftcat_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">base_urls</span>
+            .<span class="ident">get</span>(<span class="string">&quot;external_services&quot;</span>)
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">base</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{base}/raftcat/&quot;</span>, <span class="ident">base</span> <span class="op">=</span> <span class="ident">base</span>))
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "shipcat_definitions";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "shipcat_definitions";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["locations","Print the supported locations"],["regions","Print the supported regions"],["regions_with_teleport","Print the supported regions with teleport login"],["services","Print supported products in a location Print supported services in a region TODO: this one needs to do the guess outside in main!"]]});
+initSidebarItems({"fn":[["locations","Print the supported locations"],["regions","Print the supported regions"],["services","Print supported services in a region TODO: this one needs to do the guess outside in main!"]]});
