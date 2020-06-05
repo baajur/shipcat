@@ -11,34 +11,34 @@ pub struct PrometheusAlert {
     /// Name of the alert
     ///
     /// Must be in PascalCase.
-    name: String,
+    pub name: String,
 
     /// Summary of the alert.
     ///
     /// A one-line summary of the problem this alert captures.
-    summary: String,
+    pub summary: String,
 
     /// Description of the alert.
     ///
     /// A more verbose description of the problem should go here, together with any suggested actions
     /// or links to further resources useful to an on-call engineer responding to this issue.
-    description: String,
+    pub description: String,
 
     /// PromQL expression defining this alert.
     ///
     /// Whenever a new timeseries is returned by this expression, a new alert enters pending state.
-    expr: String,
+    pub expr: String,
 
     /// Minimum duration of a problem before an alert fires.
     ///
     /// This is the minimum duration a pending alert must remain active for in order to actually fire.
     /// Examples: '15m', '1h'.
-    min_duration: String,
+    pub min_duration: String,
 
     /// Severity of the alert.
     ///
     /// Corresponds to how urgently it should be actioned if it were in production.
-    severity: PrometheusAlertSeverity,
+    pub severity: PrometheusAlertSeverity,
 }
 
 /// Alert severity enumeration.
