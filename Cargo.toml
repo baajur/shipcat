@@ -6,6 +6,7 @@ members = [
   "merge",
   "merge_derive",
   "shipcat_filebacked",
+  "shipcat_finalizers",
   "shipcat_definitions",
 ]
 

@@ -33,7 +33,6 @@ use super::structs::{
     namespaced,
     shortname = "sm",
     status = "ManifestStatus",
-    finalizer = "statuscake.shipcatmanifests.babylontech.co.uk",
     printcolumn = r#"{"name":"Kong", "jsonPath": ".spec.kong_apis[*].uris", "type": "string", "description": "The URI where the service is available through kong"}"#,
     printcolumn = r#"{"name":"Version", "jsonPath": ".spec.version", "type": "string", "description": "The version of the service that is deployed"}"#,
     printcolumn = r#"{"name":"Team", "jsonPath": ".spec.metadata.team", "type": "string", "description": "The team that owns the service"}"#
