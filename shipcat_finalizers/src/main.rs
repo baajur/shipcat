@@ -30,15 +30,20 @@ async fn main() -> anyhow::Result<()> {
 
         while let Some(ev) = mfevs.try_next().await? {
             if let Some(o) = check_events(ev) {
-                reconcile(o).await?;
+                reconcile(o, &cake).await?;
             }
         }
     }
 }
 
-async fn reconcile(sm: ShipcatManifest) -> anyhow::Result<()> {
+async fn reconcile(sm: ShipcatManifest, cake: &Cake) -> anyhow::Result<()> {
     if let Some(dt) = &sm.metadata.deletion_timestamp {
+        // TODO: check if finalizer is there
+        // TODO: figure out how to let shipcatmanifest deletion background
+        // i.e. exist but not block kubectl
         info!("need to gc: {} (deleted at {})", sm.spec.name, dt.0);
+        cake.cleanup(&sm.spec.name).await?;
+        // TODO: remove finalizer
     }
     Ok(())
 }
