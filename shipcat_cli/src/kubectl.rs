@@ -1,8 +1,7 @@
 use super::{ErrorKind, Manifest, Result};
 use kube::{
     api::{Api, PostParams},
-    client::APIClient,
-    config::load_kube_config,
+    client::Client,
 };
 use serde::Serialize;
 use tokio::process::Command;
@@ -42,8 +41,7 @@ async fn kout(args: Vec<String>) -> Result<(String, bool)> {
     Ok((out, s.status.success()))
 }
 // fn get_kube_permissions(namespace: String) -> Result<Vec<ResourceRule>> {
-// let config = load_kube_config().expect("config failed to load");
-// let client = APIClient::new(config);
+// let client = Client::try_default().await?;
 //
 // let ssrr = RawApi::customResource("selfsubjectrulesreviews").group("authorization.k8s.io").version("v1");
 //
@@ -69,8 +67,7 @@ async fn kout(args: Vec<String>) -> Result<(String, bool)> {
 // Ok(o.status.expect("expected rules").resource_rules)
 // }
 async fn kani(rr: AccessReviewRequest) -> Result<bool> {
-    let config = load_kube_config().await.expect("config failed to load");
-    let client = APIClient::new(config);
+    let client = Client::try_default().await.map_err(ErrorKind::KubeError)?;
 
     let ssrr: Api<SelfSubjectAccessReview> = Api::all(client);
     let pp = PostParams::default();

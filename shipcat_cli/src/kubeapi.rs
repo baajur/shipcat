@@ -5,7 +5,7 @@ use k8s_openapi::api::{
 };
 use kube::{
     api::{Api, DeleteParams, ListParams, LogParams, Object, ObjectList, PatchParams, Resource},
-    client::APIClient,
+    client::Client,
 };
 use shipcat_definitions::{
     manifest::ShipcatManifest,
@@ -15,15 +15,8 @@ use shipcat_definitions::{
 /// Client creator
 ///
 /// TODO: embed inside shipcat::apply when needed for other things
-async fn make_client() -> Result<APIClient> {
-    let config = if let Ok(cfg) = kube::config::incluster_config() {
-        cfg
-    } else {
-        kube::config::load_kube_config()
-            .await
-            .map_err(ErrorKind::KubeError)?
-    };
-    Ok(kube::client::APIClient::new(config))
+async fn make_client() -> Result<Client> {
+    Ok(Client::try_default().await.map_err(ErrorKind::KubeError)?)
 }
 #[derive(Clone, Serialize, Deserialize)]
 pub struct MinimalManifest {
@@ -35,7 +28,7 @@ type MinimalMfCrd = Object<MinimalManifest, ManifestStatus>;
 /// Interface for dealing with kubernetes shipcatmanifests
 pub struct ShipKube {
     mfs: Resource,
-    client: APIClient,
+    client: Client,
     pub(crate) applier: Applier,
     api: Api<ShipcatManifest>,
     name: String,

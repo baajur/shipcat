@@ -1980,6 +1980,7 @@ dependencies = [
  "chrono",
  "env_logger",
  "failure",
+ "futures",
  "http 0.1.21",
  "kube",
  "log",

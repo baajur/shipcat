@@ -1,8 +1,7 @@
 use failure::err_msg;
 use kube::{
-    api::{ListParams, Meta, Resource},
-    client::APIClient,
-    config::Configuration,
+    api::{ListParams, Meta, Api},
+    client::Client,
     runtime::Reflector,
 };
 use shipcat_definitions::{ShipcatConfig, ShipcatManifest};
@@ -50,21 +49,19 @@ pub struct State {
 ///
 /// This is fine; a bad unwrap here or in a handler results in a 500 + a sentry event.
 impl State {
-    pub async fn new(client: APIClient) -> Result<Self> {
+    pub async fn new(client: Client) -> Result<Self> {
         info!("Loading state from CRDs");
         let region = env::var("REGION_NAME").expect("Need REGION_NAME evar");
         let ns = env::var("NAMESPACE").expect("Need NAMESPACE evar");
         let t = compile_templates!(concat!("raftcat", "/templates/*"));
         debug!("Initializing cache for {} in {}", region, ns);
 
-        let mfresource = Resource::namespaced::<ShipcatManifest>(&ns);
-        let cfgresource = Resource::namespaced::<ShipcatConfig>(&ns);
+        let mfapi: Api<ShipcatManifest> = Api::namespaced(client.clone(), &ns);
+        let cfgapi: Api<ShipcatConfig> = Api::namespaced(client, &ns);
 
         let lp = ListParams::default();
-        let manifests = Reflector::new(client.clone(), lp.clone(), mfresource)
-            .init()
-            .await?;
-        let configs = Reflector::new(client, lp, cfgresource).init().await?;
+        let manifests = Reflector::new(mfapi).params(lp.clone());
+        let configs = Reflector::new(cfgapi).params(lp);
         // Use federated config if available:
         let is_federated = configs
             .state()
@@ -178,28 +175,27 @@ impl State {
     }
 
     // Interface for internal thread
-    async fn poller(&self) -> Result<()> {
-        let c = self.clone();
-        // Make sure we always keep polling the reflectors.
-        // If any of them fail, boot to let kubernete's backoff to hopefully fix it
-        tokio::spawn(async move {
-            loop {
-                if let Err(e) = c.manifests.poll().await {
-                    error!("Kube state failed to recover: {}", e);
-                    std::process::exit(1);
+    async fn run(&self) -> Result<()> {
+        use futures::{pin_mut, select, future::FutureExt};
+        let mf_fut = self.manifests.run().fuse();
+        let cfg_fut = self.configs.run().fuse();
+
+        // Then pin then futures to the stack, and wait for any of them
+        pin_mut!(mf_fut, cfg_fut);
+        select! {
+            mfs = mf_fut => {
+                if let Err(e) = mfs {
+                    bail!("Manifest reflector exited: {}: {:?}", e, e);
                 }
-            }
-        });
-        let c2 = self.clone();
-        tokio::spawn(async move {
-            loop {
-                if let Err(e) = c2.configs.poll().await {
-                    error!("Kube state failed to recover: {}", e);
-                    std::process::exit(1);
+                return Ok(());
+            },
+            cfgs = cfg_fut => {
+                if let Err(e) = cfgs {
+                    bail!("Configs reflector exited: {}: {:?}", e, e);
                 }
+                return Ok(());
             }
-        });
-        Ok(())
+        }
     }
 
     async fn update_slow_cache(&mut self) -> Result<()> {
@@ -229,9 +225,10 @@ impl State {
 /// Initiailize state machine for an actix app
 ///
 /// Returns a Sync
-pub async fn init(cfg: Configuration) -> Result<State> {
-    let client = APIClient::new(cfg);
+pub async fn init(cfg: kube::config::Config) -> Result<State> {
+    let client = Client::from(cfg);
     let state = State::new(client).await?;
+    rf.run().await?;
     state.poller().await?; // starts inifinite polling tasks
     Ok(state)
 }
