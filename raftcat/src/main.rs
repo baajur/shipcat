@@ -245,14 +245,7 @@ async fn main() -> std::io::Result<()> {
     env::set_var("VAULT_TOKEN", "INVALID"); // needed because it happens super early..
 
     // Set up kube access + fetch initial state. Crashing on failure here.
-    let cfg = if let Ok(c) = kube::config::incluster_config() {
-        c
-    } else {
-        kube::config::load_kube_config()
-            .await
-            .expect("Failed to load kube config")
-    };
-    let shared_state = state::init(cfg).await.unwrap();
+    let shared_state = state::init().await.unwrap();
 
     info!("Starting listening on 0.0.0.0:8080");
     HttpServer::new(move || {

@@ -175,7 +175,7 @@ impl State {
     }
 
     // Interface for internal thread
-    async fn run(&self) -> Result<()> {
+    async fn run(self) -> Result<()> {
         use futures::{pin_mut, select, future::FutureExt};
         let mf_fut = self.manifests.run().fuse();
         let cfg_fut = self.configs.run().fuse();
@@ -225,10 +225,8 @@ impl State {
 /// Initiailize state machine for an actix app
 ///
 /// Returns a Sync
-pub async fn init(cfg: kube::config::Config) -> Result<State> {
-    let client = Client::from(cfg);
+pub async fn init() -> Result<State> {
+    let client = Client::try_default().await?;
     let state = State::new(client).await?;
-    rf.run().await?;
-    state.poller().await?; // starts inifinite polling tasks
     Ok(state)
 }
