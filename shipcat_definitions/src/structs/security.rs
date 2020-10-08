@@ -26,6 +26,7 @@ impl DataHandling {
 
 /// Possible levels of information classification of the data stored in the data store.
 #[derive(Serialize, Deserialize, Clone, Debug)]
+#[serde(rename_all = "camelCase")]
 pub enum InformationClassification {
     StrictlyConfidential,
     ConfidentialPatientData,
